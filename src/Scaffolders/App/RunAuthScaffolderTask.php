@@ -27,7 +27,7 @@ class RunAuthScaffolderTask extends Task
         $this->info('Running Auth scaffolder...');
 
         $authScaffolder = new AuthScaffolder($this->filesystem);
-        
+
         // Set the command if available so the auth scaffolder can output messages
         if ($this->command) {
             $authScaffolder->setCommand($this->command);
@@ -35,16 +35,19 @@ class RunAuthScaffolderTask extends Task
 
         try {
             $exitCode = $authScaffolder->scaffold();
-            
+
             if ($exitCode === 0) {
                 $this->info('Auth scaffolder completed successfully.');
+
                 return true;
             } else {
-                $this->error('Auth scaffolder failed with exit code: ' . $exitCode);
+                $this->error('Auth scaffolder failed with exit code: '.$exitCode);
+
                 return false;
             }
         } catch (\Exception $e) {
-            $this->error('Auth scaffolder failed: ' . $e->getMessage());
+            $this->error('Auth scaffolder failed: '.$e->getMessage());
+
             return false;
         }
     }

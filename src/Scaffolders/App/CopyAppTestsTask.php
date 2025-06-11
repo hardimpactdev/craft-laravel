@@ -23,7 +23,7 @@ class CopyAppTestsTask extends Task
      */
     public function run(): bool
     {
-        $from = __DIR__ . '/../../../resources/stubs/app/tests';
+        $from = __DIR__.'/../../../resources/stubs/app/tests';
         $to = base_path('tests');
 
         $replacements = [

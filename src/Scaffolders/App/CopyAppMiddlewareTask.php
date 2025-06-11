@@ -23,7 +23,7 @@ class CopyAppMiddlewareTask extends Task
      */
     public function run(): bool
     {
-        $from = __DIR__ . '/../../../resources/stubs/app/app/Http/Middleware/HandleInertiaRequests.php';
+        $from = __DIR__.'/../../../resources/stubs/app/app/Http/Middleware/HandleInertiaRequests.php';
         $to = app_path('Http/Middleware/HandleInertiaRequests.php');
 
         $replacements = [
@@ -38,10 +38,12 @@ class CopyAppMiddlewareTask extends Task
         // Copy the file (this will overwrite if it exists)
         if ($this->copyFile($from, $to, $replacements)) {
             $this->info('Copied HandleInertiaRequests middleware.');
+
             return true;
         }
 
         $this->error('Failed to copy HandleInertiaRequests middleware.');
+
         return false;
     }
 

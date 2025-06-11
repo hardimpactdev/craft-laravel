@@ -23,7 +23,7 @@ class CopyAppControllersTask extends Task
      */
     public function run(): bool
     {
-        $from = __DIR__ . '/../../../resources/stubs/app/app/Http/Controllers';
+        $from = __DIR__.'/../../../resources/stubs/app/app/Http/Controllers';
         $to = app_path('Http/Controllers');
 
         $replacements = [

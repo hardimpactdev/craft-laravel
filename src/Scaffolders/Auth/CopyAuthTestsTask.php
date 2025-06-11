@@ -23,7 +23,7 @@ class CopyAuthTestsTask extends Task
      */
     public function run(): bool
     {
-        $from = __DIR__ . '/../../../resources/stubs/auth/tests';
+        $from = __DIR__.'/../../../resources/stubs/auth/tests';
         $to = base_path('tests');
 
         $replacements = [

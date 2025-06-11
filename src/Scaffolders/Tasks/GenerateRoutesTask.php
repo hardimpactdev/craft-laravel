@@ -28,16 +28,19 @@ class GenerateRoutesTask extends Task
         try {
             // Run the route-maker:make command
             $exitCode = Artisan::call('route-maker:make', [], $this->command ? $this->command->getOutput() : null);
-            
+
             if ($exitCode === 0) {
                 $this->info('Routes generated successfully.');
+
                 return true;
             } else {
-                $this->error('Failed to generate routes. Exit code: ' . $exitCode);
+                $this->error('Failed to generate routes. Exit code: '.$exitCode);
+
                 return false;
             }
         } catch (\Exception $e) {
-            $this->error('Failed to generate routes: ' . $e->getMessage());
+            $this->error('Failed to generate routes: '.$e->getMessage());
+
             return false;
         }
     }

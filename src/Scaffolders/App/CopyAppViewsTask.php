@@ -30,25 +30,26 @@ class CopyAppViewsTask extends Task
         $success = true;
 
         // Copy pages directory
-        $pagesFrom = __DIR__ . '/../../../resources/stubs/app/resources/js/pages';
+        $pagesFrom = __DIR__.'/../../../resources/stubs/app/resources/js/pages';
         $pagesTo = resource_path('js/pages');
-        
-        if (!$this->copyDirectory($pagesFrom, $pagesTo, $replacements)) {
+
+        if (! $this->copyDirectory($pagesFrom, $pagesTo, $replacements)) {
             $this->error('Failed to copy app pages.');
             $success = false;
         }
 
         // Copy types directory
-        $typesFrom = __DIR__ . '/../../../resources/stubs/app/resources/js/types';
+        $typesFrom = __DIR__.'/../../../resources/stubs/app/resources/js/types';
         $typesTo = resource_path('js/types');
-        
-        if (!$this->copyDirectory($typesFrom, $typesTo, $replacements)) {
+
+        if (! $this->copyDirectory($typesFrom, $typesTo, $replacements)) {
             $this->error('Failed to copy app types.');
             $success = false;
         }
 
         if ($success) {
             $this->info('Copied app views and types.');
+
             return true;
         }
 

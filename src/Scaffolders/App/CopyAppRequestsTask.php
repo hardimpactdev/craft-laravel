@@ -23,7 +23,7 @@ class CopyAppRequestsTask extends Task
      */
     public function run(): bool
     {
-        $from = __DIR__ . '/../../../resources/stubs/app/app/Http/Requests';
+        $from = __DIR__.'/../../../resources/stubs/app/app/Http/Requests';
         $to = app_path('Http/Requests');
 
         $replacements = [
