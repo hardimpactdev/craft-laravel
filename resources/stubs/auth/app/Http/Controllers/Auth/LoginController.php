@@ -19,7 +19,7 @@ class LoginController extends Controller
     /**
      * Show the login page.
      */
-    #[Get(uri: '/login', name: 'login', middleware: 'guest')]
+    #[Get(uri: '/login', middleware: 'guest')]
     public function show(Request $request): Response
     {
         return Inertia::render('auth/Login', [
@@ -44,7 +44,7 @@ class LoginController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    #[Post(uri: '/logout', name: 'logout', middleware: 'auth')]
+    #[Post(uri: '/logout', middleware: 'auth')]
     public function logout(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();

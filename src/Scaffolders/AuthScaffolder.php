@@ -3,10 +3,9 @@
 namespace Livtoff\Laravel\Scaffolders;
 
 use Illuminate\Filesystem\Filesystem;
-use Livtoff\Laravel\Scaffolders\Auth\AddAuthRoutesTask;
-use Livtoff\Laravel\Scaffolders\Auth\CopyAppClassTask;
 use Livtoff\Laravel\Scaffolders\Auth\CopyAuthControllersTask;
 use Livtoff\Laravel\Scaffolders\Auth\CopyAuthRequestsTask;
+use Livtoff\Laravel\Scaffolders\Auth\CopyAuthTestsTask;
 use Livtoff\Laravel\Scaffolders\Auth\CopyAuthViewsTask;
 use Livtoff\Laravel\Scaffolders\Auth\PublishMigrationsTask;
 
@@ -18,11 +17,10 @@ class AuthScaffolder extends Scaffolder
      * @var array
      */
     protected $tasks = [
-        CopyAppClassTask::class,
         CopyAuthControllersTask::class,
         CopyAuthRequestsTask::class,
         CopyAuthViewsTask::class,
-        AddAuthRoutesTask::class,
+        CopyAuthTestsTask::class,
         PublishMigrationsTask::class,
     ];
 

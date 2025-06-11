@@ -21,7 +21,7 @@ class NewPasswordController extends Controller
     /**
      * Show the password reset page.
      */
-    #[Get(uri: '/reset-password/{token}', name: 'password.reset', middleware: 'guest')]
+    #[Get(uri: '/reset-password/{token}', middleware: 'guest')]
     public function show(Request $request): Response
     {
         return Inertia::render('auth/ResetPassword', [
@@ -35,7 +35,7 @@ class NewPasswordController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    #[Post(uri: '/reset-password', name: 'password.store', middleware: 'guest')]
+    #[Post(uri: '/reset-password', middleware: 'guest')]
     public function resetPassword(Request $request): RedirectResponse
     {
         $validated = $request->validate([

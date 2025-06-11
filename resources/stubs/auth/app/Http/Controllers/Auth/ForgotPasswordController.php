@@ -16,7 +16,7 @@ class ForgotPasswordController extends Controller
     /**
      * Show the password reset link request page.
      */
-    #[Get(uri: '/forgot-password', name: 'password.request', middleware: 'guest')]
+    #[Get(uri: '/forgot-password', middleware: 'guest')]
     public function show(Request $request): Response
     {
         return Inertia::render('auth/ForgotPassword', [
@@ -29,7 +29,7 @@ class ForgotPasswordController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    #[Post(uri: '/forgot-password', name: 'password.email', middleware: 'guest')]
+    #[Post(uri: '/forgot-password', middleware: 'guest')]
     public function sendResetLink(Request $request): RedirectResponse
     {
         $request->validate([

@@ -9,12 +9,15 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Inertia\Response;
+use NckRtl\RouteMaker\Get;
+use NckRtl\RouteMaker\Put;
 
 class PasswordController extends Controller
 {
     /**
      * Show the user's password settings page.
      */
+    #[Get(uri: '/settings/password', name: 'password.edit', middleware: 'auth')]
     public function edit(): Response
     {
         return Inertia::render('settings/Password');
@@ -23,6 +26,7 @@ class PasswordController extends Controller
     /**
      * Update the user's password.
      */
+    #[Put(uri: '/settings/password', name: 'password.update', middleware: 'auth')]
     public function update(Request $request): RedirectResponse
     {
         $validated = $request->validate([
@@ -30,7 +34,7 @@ class PasswordController extends Controller
             'password' => ['required', Password::defaults(), 'confirmed'],
         ]);
 
-        $request->user()->update([
+        $request->user()?->update([
             'password' => Hash::make($validated['password']),
         ]);
 

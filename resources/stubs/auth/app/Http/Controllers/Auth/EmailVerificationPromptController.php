@@ -15,7 +15,7 @@ class EmailVerificationPromptController extends Controller
     /**
      * Show the email verification prompt page.
      */
-    #[Get(uri: '/verify-email', name: 'verification.notice', middleware: 'auth')]
+    #[Get(uri: '/verify-email', middleware: 'auth')]
     public function __invoke(Request $request): RedirectResponse|Response
     {
         if (! $request->user()) {

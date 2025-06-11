@@ -21,7 +21,7 @@ class RegisterController extends Controller
     /**
      * Show the registration page.
      */
-    #[Get(uri: '/register', name: 'register', middleware: 'guest')]
+    #[Get(uri: '/register', middleware: 'guest')]
     public function show(): Response
     {
         return Inertia::render('auth/Register');

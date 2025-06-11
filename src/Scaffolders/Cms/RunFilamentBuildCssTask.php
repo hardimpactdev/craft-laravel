@@ -27,7 +27,7 @@ class RunFilamentBuildCssTask extends Task
         $this->info('Building Filament CSS...');
 
         // Use bun to run the npm script
-        $process = new Process(['bun', 'run', 'filament-build-css'], base_path());
+        $process = new Process(['npx', '-y', 'tailwindcss@3', '--input', './resources/css/filament/admin/theme.css', '--output', './public/css/filament/admin/theme.css', '--config', './resources/css/filament/admin/tailwind.config.js', '--minify'], base_path());
         $process->setTimeout(120); // 2 minutes timeout
 
         if ($this->command) {

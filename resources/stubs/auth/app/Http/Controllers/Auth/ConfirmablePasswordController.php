@@ -18,7 +18,7 @@ class ConfirmablePasswordController extends Controller
     /**
      * Show the confirm password page.
      */
-    #[Get(uri: '/confirm-password', name: 'password.confirm', middleware: 'auth')]
+    #[Get(uri: '/confirm-password', middleware: 'auth')]
     public function show(): Response
     {
         return Inertia::render('auth/ConfirmPassword');

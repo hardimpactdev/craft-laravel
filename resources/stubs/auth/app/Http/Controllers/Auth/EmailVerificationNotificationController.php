@@ -13,7 +13,7 @@ class EmailVerificationNotificationController extends Controller
     /**
      * Send a new email verification notification.
      */
-    #[Post(uri: '/email/verification-notification', name: 'verification.send', middleware: ['auth', 'throttle:6,1'])]
+    #[Post(uri: '/email/verification-notification', middleware: ['auth', 'throttle:6,1'])]
     public function sendNotification(Request $request): RedirectResponse
     {
         if (! $request->user()) {

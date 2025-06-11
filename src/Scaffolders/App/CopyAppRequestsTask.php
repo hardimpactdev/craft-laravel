@@ -1,12 +1,12 @@
 <?php
 
-namespace Livtoff\Laravel\Scaffolders\Auth;
+namespace Livtoff\Laravel\Scaffolders\App;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Livtoff\Laravel\Scaffolders\Tasks\Task;
 
-class CopyAppClassTask extends Task
+class CopyAppRequestsTask extends Task
 {
     /**
      * Create a new task instance.
@@ -23,20 +23,20 @@ class CopyAppClassTask extends Task
      */
     public function run(): bool
     {
-        $from = __DIR__ . '/../../../resources/stubs/app/app/App.php';
-        $to = app_path('App.php');
+        $from = __DIR__ . '/../../../resources/stubs/app/app/Http/Requests';
+        $to = app_path('Http/Requests');
 
         $replacements = [
             '{{namespace}}' => app()->getNamespace(),
         ];
 
-        if ($this->copyFile($from, $to, $replacements)) {
-            $this->info('Copied App class.');
+        if ($this->copyDirectory($from, $to, $replacements)) {
+            $this->info('Copied app requests.');
 
             return true;
         }
 
-        $this->error('Failed to copy App class.');
+        $this->error('Failed to copy app requests.');
 
         return false;
     }
@@ -46,6 +46,6 @@ class CopyAppClassTask extends Task
      */
     public function description(): string
     {
-        return 'Copying App class...';
+        return 'Copying app requests...';
     }
 }
