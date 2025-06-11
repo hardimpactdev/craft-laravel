@@ -2,16 +2,16 @@
 
 This package provides scaffolding commands and utilities for Livtoff applications.
 
-## Creating Scaffolders
+## Creating Setups
 
-Scaffolders are used to automate the setup of various features in a Laravel application. Here's a comprehensive guide on how to create new scaffolders.
+Setups are used to automate the setup of various features in a Laravel application. Here's a comprehensive guide on how to create new Setups.
 
-### Scaffolder Architecture
+### Setup Architecture
 
-The scaffolder system consists of:
-1. **Scaffolder Class** - Orchestrates the execution of tasks
+The setup system consists of:
+1. **Setup Class** - Orchestrates the execution of tasks
 2. **Task Classes** - Individual units of work that perform specific operations
-3. **SetupCommand** - Entry point that resolves and runs scaffolders
+3. **SetupCommand** - Entry point that resolves and runs Setups
 
 ### Directory Structure
 
@@ -19,10 +19,10 @@ The scaffolder system consists of:
 src/
 ├── Commands/
 │   └── SetupCommand.php
-└── Scaffolders/
+└── Setups/
     ├── ScaffolderInterface.php
-    ├── Scaffolder.php (abstract base class)
-    ├── AuthScaffolder.php
+    ├── Setup.php (abstract base class)
+    ├── SetupAuth.php
     ├── CmsScaffolder.php
     ├── Tasks/
     │   ├── TaskInterface.php
@@ -37,22 +37,22 @@ src/
         └── ... (other cms tasks)
 ```
 
-### Creating a New Scaffolder
+### Creating a New Setup
 
-#### Step 1: Create the Scaffolder Class
+#### Step 1: Create the Setup Class
 
-Create a new file `src/Scaffolders/YourFeatureScaffolder.php`:
+Create a new file `src/Setup/YourFeatureScaffolder.php`:
 
 ```php
 <?php
 
-namespace Livtoff\Laravel\Scaffolders;
+namespace Livtoff\Laravel\Setups;
 
 use Illuminate\Filesystem\Filesystem;
-use Livtoff\Laravel\Scaffolders\YourFeature\Task1;
-use Livtoff\Laravel\Scaffolders\YourFeature\Task2;
+use Livtoff\Laravel\Setup\YourFeature\Task1;
+use Livtoff\Laravel\Setup\YourFeature\Task2;
 
-class YourFeatureScaffolder extends Scaffolder
+class YourFeatureScaffolder extends Setup
 {
     /**
      * The tasks to run in order.
@@ -66,7 +66,7 @@ class YourFeatureScaffolder extends Scaffolder
     ];
 
     /**
-     * Create a new scaffolder instance.
+     * Create a new setup instance.
      *
      * @return void
      */
@@ -81,7 +81,7 @@ class YourFeatureScaffolder extends Scaffolder
 
 Create a directory for your tasks:
 ```bash
-mkdir src/Scaffolders/YourFeature
+mkdir src/Setup/YourFeature
 ```
 
 #### Step 3: Create Task Classes
@@ -93,11 +93,11 @@ Each task should extend the base Task class. Here are common task patterns:
 ```php
 <?php
 
-namespace Livtoff\Laravel\Scaffolders\YourFeature;
+namespace Livtoff\Laravel\Setup\YourFeature;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Livtoff\Laravel\Scaffolders\Tasks\Task;
+use Livtoff\Laravel\Setup\Tasks\Task;
 
 class YourTask extends Task
 {
@@ -118,7 +118,7 @@ class YourTask extends Task
     {
         // Your task logic here
         $this->info('Running task...');
-        
+
         // Return true on success, false on failure
         return true;
     }
@@ -194,14 +194,14 @@ public function run(): bool
 public function run(): bool
 {
     $filePath = base_path('some/file.php');
-    
+
     if (!$this->filesystem->exists($filePath)) {
         $this->error('File not found: ' . $filePath);
         return false;
     }
 
     $content = $this->filesystem->get($filePath);
-    
+
     // Check if modification already exists
     if (str_contains($content, 'your_marker')) {
         $this->info('File already modified.');
@@ -210,7 +210,7 @@ public function run(): bool
 
     // Modify content
     $newContent = str_replace('search', 'replace', $content);
-    
+
     if ($this->filesystem->put($filePath, $newContent) === false) {
         $this->error('Failed to update file.');
         return false;
@@ -258,14 +258,14 @@ public function run(): bool
 public function run(): bool
 {
     $jsonPath = base_path('package.json');
-    
+
     if (!$this->filesystem->exists($jsonPath)) {
         $this->error('package.json not found');
         return false;
     }
 
     $json = json_decode($this->filesystem->get($jsonPath), true);
-    
+
     if (!is_array($json)) {
         $this->error('Failed to parse package.json');
         return false;
@@ -275,7 +275,7 @@ public function run(): bool
     if (!isset($json['scripts'])) {
         $json['scripts'] = [];
     }
-    
+
     $json['scripts']['your-command'] = 'your command here';
 
     $newContent = json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
@@ -308,17 +308,17 @@ resources/stubs/yourfeature/
             └── index.blade.php
 ```
 
-### Using the Scaffolder
+### Using the Setup
 
-Once created, your scaffolder will automatically be available through the setup command:
+Once created, your setup will automatically be available through the setup command:
 
 ```bash
 php artisan livtoff:setup yourfeature
 ```
 
-The SetupCommand uses a naming convention to resolve scaffolders:
+The SetupCommand uses a naming convention to resolve Setups:
 - Command argument: `yourfeature`
-- Resolved class: `Livtoff\Laravel\Scaffolders\YourfeatureScaffolder`
+- Resolved class: `Livtoff\Laravel\Setup\YourfeatureScaffolder`
 
 ### Best Practices
 
@@ -339,11 +339,11 @@ The SetupCommand uses a naming convention to resolve scaffolders:
 - `$this->filesystem` - Access to Laravel's Filesystem instance
 - `$this->command` - Access to the Command instance (if available)
 
-### Testing Scaffolders
+### Testing Setups
 
-When developing scaffolders:
+When developing Setups:
 1. Test on a fresh Laravel installation
-2. Run the scaffolder multiple times to ensure idempotency
+2. Run the setup multiple times to ensure idempotency
 3. Verify all files are created in the correct locations
 4. Check that all replacements work correctly
 5. Ensure error cases are handled gracefully

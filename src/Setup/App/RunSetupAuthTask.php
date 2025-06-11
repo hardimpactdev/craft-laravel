@@ -4,10 +4,10 @@ namespace Livtoff\Laravel\Setup\App;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Livtoff\Laravel\Setup\AuthScaffolder;
+use Livtoff\Laravel\Setup\SetupAuth;
 use Livtoff\Laravel\Setup\Tasks\Task;
 
-class RunAuthScaffolderTask extends Task
+class RunSetupAuthTask extends Task
 {
     /**
      * Create a new task instance.
@@ -26,15 +26,15 @@ class RunAuthScaffolderTask extends Task
     {
         $this->info('Running Auth scaffolder...');
 
-        $authScaffolder = new AuthScaffolder($this->filesystem);
+        $SetupAuth = new SetupAuth($this->filesystem);
 
         // Set the command if available so the auth scaffolder can output messages
         if ($this->command) {
-            $authScaffolder->setCommand($this->command);
+            $SetupAuth->setCommand($this->command);
         }
 
         try {
-            $exitCode = $authScaffolder->scaffold();
+            $exitCode = $SetupAuth->setup();
 
             if ($exitCode === 0) {
                 $this->info('Auth scaffolder completed successfully.');

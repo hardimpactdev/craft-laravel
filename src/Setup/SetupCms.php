@@ -8,8 +8,8 @@ use Livtoff\Laravel\Setup\Cms\CopyCmsFilesTask;
 use Livtoff\Laravel\Setup\Cms\InstallFilamentComposerPackageTask;
 use Livtoff\Laravel\Setup\Cms\InstallNpmPackagesTask;
 use Livtoff\Laravel\Setup\Cms\RegisterFilamentServiceProviderTask;
-use Livtoff\Laravel\Setup\Cms\RunAuthScaffolderTask;
 use Livtoff\Laravel\Setup\Cms\RunFilamentBuildCssTask;
+use Livtoff\Laravel\Setup\Cms\RunSetupAuthTask;
 use Livtoff\Laravel\Setup\Tasks\GenerateRoutesTask;
 
 class SetupCms extends Setup
@@ -21,7 +21,7 @@ class SetupCms extends Setup
      */
     protected $tasks = [
         CopyAppClassTask::class,
-        RunAuthScaffolderTask::class,
+        RunSetupAuthTask::class,
         InstallFilamentComposerPackageTask::class,
         CopyCmsFilesTask::class,
         RegisterFilamentServiceProviderTask::class,

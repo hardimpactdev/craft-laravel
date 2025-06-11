@@ -9,8 +9,8 @@ use Livtoff\Laravel\Setup\App\CopyAppMiddlewareTask;
 use Livtoff\Laravel\Setup\App\CopyAppRequestsTask;
 use Livtoff\Laravel\Setup\App\CopyAppTestsTask;
 use Livtoff\Laravel\Setup\App\CopyAppViewsTask;
-use Livtoff\Laravel\Setup\App\RunAuthScaffolderTask;
-use Livtoff\Laravel\Setup\App\RunCmsScaffolderTask;
+use Livtoff\Laravel\Setup\App\RunCmsSetupTask;
+use Livtoff\Laravel\Setup\App\RunSetupAuthTask;
 use Livtoff\Laravel\Setup\Tasks\GenerateRoutesTask;
 
 class SetupApp extends Setup
@@ -27,8 +27,8 @@ class SetupApp extends Setup
         CopyAppRequestsTask::class,
         CopyAppViewsTask::class,
         CopyAppTestsTask::class,
-        RunAuthScaffolderTask::class,
-        RunCmsScaffolderTask::class,
+        RunSetupAuthTask::class,
+        RunCmsSetupTask::class,
         GenerateRoutesTask::class,
     ];
 

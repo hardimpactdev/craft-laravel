@@ -11,7 +11,7 @@ use Livtoff\Laravel\Setup\Cms\RegisterFilamentServiceProviderTask;
 use Livtoff\Laravel\Setup\Cms\RunFilamentBuildCssTask;
 use Livtoff\Laravel\Setup\Tasks\Task;
 
-class RunCmsScaffolderTask extends Task
+class RunCmsSetupTask extends Task
 {
     /**
      * The CMS-specific tasks to run (excluding App class and Auth scaffolder).
