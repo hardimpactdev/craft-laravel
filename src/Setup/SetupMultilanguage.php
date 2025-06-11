@@ -3,14 +3,14 @@
 namespace Livtoff\Laravel\Setup;
 
 use Illuminate\Filesystem\Filesystem;
+use Livtoff\Laravel\Setup\MultiLanguage\CopyExamplePageTask;
 use Livtoff\Laravel\Setup\MultiLanguage\CopyLangDirectoryTask;
 use Livtoff\Laravel\Setup\MultiLanguage\InstallI18nPackageTask;
 use Livtoff\Laravel\Setup\MultiLanguage\UpdateAppTsImportTask;
 use Livtoff\Laravel\Setup\MultiLanguage\UpdateAppTsUseI18nTask;
+use Livtoff\Laravel\Setup\MultiLanguage\UpdateViteConfigAutoImportTask;
 use Livtoff\Laravel\Setup\MultiLanguage\UpdateViteConfigImportTask;
 use Livtoff\Laravel\Setup\MultiLanguage\UpdateViteConfigPluginTask;
-use Livtoff\Laravel\Setup\MultiLanguage\UpdateViteConfigAutoImportTask;
-use Livtoff\Laravel\Setup\MultiLanguage\CopyExamplePageTask;
 
 class SetupMultilanguage extends Setup
 {
