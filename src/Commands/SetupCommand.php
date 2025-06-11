@@ -7,7 +7,7 @@ use Illuminate\Filesystem\Filesystem;
 
 class SetupCommand extends Command
 {
-    protected $signature = 'livtoff:setup {type : The type of setup to run (auth, cms, api)}';
+    protected $signature = 'livtoff:setup {type : The type of setup to run (auth, cms, api, multilanguage)}';
 
     protected $description = 'Scaffold Livtoff features';
 

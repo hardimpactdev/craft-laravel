@@ -1,0 +1,48 @@
+<?php
+
+namespace Livtoff\Laravel\Scaffolders\MultiLanguage;
+
+use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
+use Livtoff\Laravel\Scaffolders\Tasks\Task;
+
+class CopyExamplePageTask extends Task
+{
+    /**
+     * Create a new task instance.
+     *
+     * @return void
+     */
+    public function __construct(Filesystem $filesystem, ?Command $command = null)
+    {
+        parent::__construct($filesystem, $command);
+    }
+
+    /**
+     * Run the task.
+     */
+    public function run(): bool
+    {
+        $stubPath = __DIR__ . '/../../../resources/stubs/multi-language/resources/js/pages/TranslationExample.vue';
+        $destinationPath = resource_path('js/pages/TranslationExample.vue');
+
+        // Ensure the pages directory exists
+        $this->filesystem->ensureDirectoryExists(resource_path('js/pages'));
+
+        if ($this->copyFile($stubPath, $destinationPath)) {
+            $this->info('Translation example page copied successfully.');
+            return true;
+        }
+
+        $this->error('Failed to copy translation example page.');
+        return false;
+    }
+
+    /**
+     * Get the task description.
+     */
+    public function description(): string
+    {
+        return 'Copying translation example page';
+    }
+}
