@@ -23,7 +23,7 @@ class CopyLangDirectoryTask extends Task
      */
     public function run(): bool
     {
-        $stubPath = __DIR__ . '/../../../resources/stubs/multi-language/lang';
+        $stubPath = __DIR__.'/../../../resources/stubs/multi-language/lang';
         $destinationPath = base_path('lang');
 
         // Check if lang directory already exists
@@ -33,10 +33,12 @@ class CopyLangDirectoryTask extends Task
 
         if ($this->copyDirectory($stubPath, $destinationPath)) {
             $this->info('Language files copied successfully.');
+
             return true;
         }
 
         $this->error('Failed to copy language files.');
+
         return false;
     }
 

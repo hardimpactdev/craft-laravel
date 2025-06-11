@@ -23,7 +23,7 @@ class CopyExamplePageTask extends Task
      */
     public function run(): bool
     {
-        $stubPath = __DIR__ . '/../../../resources/stubs/multi-language/resources/js/pages/TranslationExample.vue';
+        $stubPath = __DIR__.'/../../../resources/stubs/multi-language/resources/js/pages/TranslationExample.vue';
         $destinationPath = resource_path('js/pages/TranslationExample.vue');
 
         // Ensure the pages directory exists
@@ -31,10 +31,12 @@ class CopyExamplePageTask extends Task
 
         if ($this->copyFile($stubPath, $destinationPath)) {
             $this->info('Translation example page copied successfully.');
+
             return true;
         }
 
         $this->error('Failed to copy translation example page.');
+
         return false;
     }
 

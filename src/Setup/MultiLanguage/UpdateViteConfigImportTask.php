@@ -25,8 +25,9 @@ class UpdateViteConfigImportTask extends Task
     {
         $filePath = base_path('vite.config.ts');
 
-        if (!$this->filesystem->exists($filePath)) {
-            $this->error('vite.config.ts file not found at: ' . $filePath);
+        if (! $this->filesystem->exists($filePath)) {
+            $this->error('vite.config.ts file not found at: '.$filePath);
+
             return false;
         }
 
@@ -36,6 +37,7 @@ class UpdateViteConfigImportTask extends Task
         // Check if import already exists
         if (str_contains($content, $importStatement)) {
             $this->info('i18n import already exists in vite.config.ts');
+
             return true;
         }
 
@@ -65,13 +67,16 @@ class UpdateViteConfigImportTask extends Task
             $newContent = implode("\n", $lines);
             if ($this->filesystem->put($filePath, $newContent) === false) {
                 $this->error('Failed to update vite.config.ts file.');
+
                 return false;
             }
             $this->info('Added i18n import to vite.config.ts');
+
             return true;
         }
 
         $this->error('Failed to add i18n import to vite.config.ts');
+
         return false;
     }
 

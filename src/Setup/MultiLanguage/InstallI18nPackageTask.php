@@ -37,12 +37,14 @@ class InstallI18nPackageTask extends Task
             $process->run();
         }
 
-        if (!$process->isSuccessful()) {
-            $this->error('Failed to install laravel-vue-i18n package: ' . $process->getErrorOutput());
+        if (! $process->isSuccessful()) {
+            $this->error('Failed to install laravel-vue-i18n package: '.$process->getErrorOutput());
+
             return false;
         }
 
         $this->info('laravel-vue-i18n package installed successfully.');
+
         return true;
     }
 

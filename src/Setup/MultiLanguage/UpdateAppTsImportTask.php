@@ -25,8 +25,9 @@ class UpdateAppTsImportTask extends Task
     {
         $filePath = resource_path('js/app.ts');
 
-        if (!$this->filesystem->exists($filePath)) {
-            $this->error('app.ts file not found at: ' . $filePath);
+        if (! $this->filesystem->exists($filePath)) {
+            $this->error('app.ts file not found at: '.$filePath);
+
             return false;
         }
 
@@ -36,6 +37,7 @@ class UpdateAppTsImportTask extends Task
         // Check if import already exists
         if (str_contains($content, $importStatement)) {
             $this->info('i18n import already exists in app.ts');
+
             return true;
         }
 
@@ -65,13 +67,16 @@ class UpdateAppTsImportTask extends Task
             $newContent = implode("\n", $lines);
             if ($this->filesystem->put($filePath, $newContent) === false) {
                 $this->error('Failed to update app.ts file.');
+
                 return false;
             }
             $this->info('Added i18n import to app.ts');
+
             return true;
         }
 
         $this->error('Failed to add i18n import to app.ts');
+
         return false;
     }
 

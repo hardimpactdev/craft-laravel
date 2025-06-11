@@ -25,8 +25,9 @@ class UpdateAppTsUseI18nTask extends Task
     {
         $filePath = resource_path('js/app.ts');
 
-        if (!$this->filesystem->exists($filePath)) {
-            $this->error('app.ts file not found at: ' . $filePath);
+        if (! $this->filesystem->exists($filePath)) {
+            $this->error('app.ts file not found at: '.$filePath);
+
             return false;
         }
 
@@ -35,18 +36,19 @@ class UpdateAppTsUseI18nTask extends Task
         // Check if i18n is already configured
         if (str_contains($content, '.use(i18n,')) {
             $this->info('i18n is already configured in app.ts');
+
             return true;
         }
 
         // Look for the createApp chain within the setup function
         // This pattern matches createApp({ render: () => h(App, props) }) followed by .use() calls and .mount()
         $pattern = '/(createApp\s*\(\s*\{[^}]+\}\s*\))((?:\s*\.use\s*\([^)]+\))*)(\s*\.mount\s*\([^)]+\))/s';
-        
+
         if (preg_match($pattern, $content, $matches)) {
             $createAppPart = $matches[1];
             $existingUses = $matches[2];
             $mountPart = $matches[3];
-            
+
             // Add the i18n configuration
             $i18nConfig = '
             .use(i18n, {
@@ -54,23 +56,26 @@ class UpdateAppTsUseI18nTask extends Task
                     eager: true,
                 }),
             })';
-            
+
             // Build the new createApp chain
-            $newChain = $createAppPart . $existingUses . $i18nConfig . $mountPart;
-            
+            $newChain = $createAppPart.$existingUses.$i18nConfig.$mountPart;
+
             // Replace in content
             $newContent = str_replace($matches[0], $newChain, $content);
 
             if ($this->filesystem->put($filePath, $newContent) === false) {
                 $this->error('Failed to update app.ts file.');
+
                 return false;
             }
 
             $this->info('Added i18n configuration to app.ts');
+
             return true;
         }
 
         $this->error('Could not find createApp section in app.ts');
+
         return false;
     }
 
