@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
+use HardImpact\Waymaker\Delete;
+use HardImpact\Waymaker\Get;
+use HardImpact\Waymaker\Patch;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
-use HardImpact\Waymaker\Delete;
-use HardImpact\Waymaker\Get;
-use HardImpact\Waymaker\Patch;
 
 class ProfileController extends Controller
 {

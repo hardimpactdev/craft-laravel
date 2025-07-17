@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\App;
 use App\Http\Controllers\Controller;
+use HardImpact\Waymaker\Get;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
-use HardImpact\Waymaker\Get;
 
 class VerifyEmailController extends Controller
 {

@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\App;
 use App\Http\Controllers\Controller;
+use HardImpact\Waymaker\Get;
+use HardImpact\Waymaker\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
-use HardImpact\Waymaker\Get;
-use HardImpact\Waymaker\Post;
 
 class ConfirmablePasswordController extends Controller
 {

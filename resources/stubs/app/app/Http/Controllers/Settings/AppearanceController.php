@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
+use HardImpact\Waymaker\Get;
 use Inertia\Inertia;
 use Inertia\Response;
-use HardImpact\Waymaker\Get;
 
 class AppearanceController extends Controller
 {

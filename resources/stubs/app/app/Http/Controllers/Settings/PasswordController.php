@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
+use HardImpact\Waymaker\Get;
+use HardImpact\Waymaker\Put;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Inertia\Response;
-use HardImpact\Waymaker\Get;
-use HardImpact\Waymaker\Put;
 
 class PasswordController extends Controller
 {

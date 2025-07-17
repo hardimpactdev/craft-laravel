@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\App;
 use App\Http\Controllers\Controller;
+use HardImpact\Waymaker\Get;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use HardImpact\Waymaker\Get;
 
 class EmailVerificationPromptController extends Controller
 {

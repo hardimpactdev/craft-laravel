@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use HardImpact\Waymaker\Get;
+use HardImpact\Waymaker\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Inertia\Inertia;
 use Inertia\Response;
-use HardImpact\Waymaker\Get;
-use HardImpact\Waymaker\Post;
 
 class ForgotPasswordController extends Controller
 {

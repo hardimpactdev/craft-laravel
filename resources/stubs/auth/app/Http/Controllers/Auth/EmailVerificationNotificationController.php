@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\App;
 use App\Http\Controllers\Controller;
+use HardImpact\Waymaker\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use HardImpact\Waymaker\Post;
 
 class EmailVerificationNotificationController extends Controller
 {
