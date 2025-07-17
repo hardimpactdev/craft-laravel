@@ -2,7 +2,6 @@
 
 namespace HardImpact\Liftoff\Setup;
 
-use Illuminate\Filesystem\Filesystem;
 use HardImpact\Liftoff\Setup\Cms\CopyAppClassTask;
 use HardImpact\Liftoff\Setup\Cms\CopyCmsFilesTask;
 use HardImpact\Liftoff\Setup\Cms\InstallFilamentComposerPackageTask;
@@ -11,6 +10,7 @@ use HardImpact\Liftoff\Setup\Cms\RegisterFilamentServiceProviderTask;
 use HardImpact\Liftoff\Setup\Cms\RunFilamentBuildCssTask;
 use HardImpact\Liftoff\Setup\Cms\RunSetupAuthTask;
 use HardImpact\Liftoff\Setup\Tasks\GenerateRoutesTask;
+use Illuminate\Filesystem\Filesystem;
 
 class SetupCms extends Setup
 {

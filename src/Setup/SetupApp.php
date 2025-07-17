@@ -2,7 +2,6 @@
 
 namespace HardImpact\Liftoff\Setup;
 
-use Illuminate\Filesystem\Filesystem;
 use HardImpact\Liftoff\Setup\App\CopyAppClassTask;
 use HardImpact\Liftoff\Setup\App\CopyAppControllersTask;
 use HardImpact\Liftoff\Setup\App\CopyAppMiddlewareTask;
@@ -12,6 +11,7 @@ use HardImpact\Liftoff\Setup\App\CopyAppViewsTask;
 use HardImpact\Liftoff\Setup\App\RunCmsSetupTask;
 use HardImpact\Liftoff\Setup\App\RunSetupAuthTask;
 use HardImpact\Liftoff\Setup\Tasks\GenerateRoutesTask;
+use Illuminate\Filesystem\Filesystem;
 
 class SetupApp extends Setup
 {

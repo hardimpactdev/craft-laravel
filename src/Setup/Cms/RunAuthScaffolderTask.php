@@ -2,10 +2,10 @@
 
 namespace HardImpact\Liftoff\Setup\Cms;
 
-use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
 use HardImpact\Liftoff\Setup\SetupAuth;
 use HardImpact\Liftoff\Setup\Tasks\Task;
+use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 
 class RunSetupAuthTask extends Task
 {

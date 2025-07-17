@@ -2,10 +2,10 @@
 
 namespace HardImpact\Liftoff\Setup\Auth;
 
+use HardImpact\Liftoff\Setup\Tasks\Task;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
-use HardImpact\Liftoff\Setup\Tasks\Task;
 
 class PublishMigrationsTask extends Task
 {

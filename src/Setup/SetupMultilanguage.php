@@ -2,7 +2,6 @@
 
 namespace HardImpact\Liftoff\Setup;
 
-use Illuminate\Filesystem\Filesystem;
 use HardImpact\Liftoff\Setup\MultiLanguage\CopyExamplePageTask;
 use HardImpact\Liftoff\Setup\MultiLanguage\CopyLangDirectoryTask;
 use HardImpact\Liftoff\Setup\MultiLanguage\InstallI18nPackageTask;
@@ -11,6 +10,7 @@ use HardImpact\Liftoff\Setup\MultiLanguage\UpdateAppTsUseI18nTask;
 use HardImpact\Liftoff\Setup\MultiLanguage\UpdateViteConfigAutoImportTask;
 use HardImpact\Liftoff\Setup\MultiLanguage\UpdateViteConfigImportTask;
 use HardImpact\Liftoff\Setup\MultiLanguage\UpdateViteConfigPluginTask;
+use Illuminate\Filesystem\Filesystem;
 
 class SetupMultilanguage extends Setup
 {

@@ -2,9 +2,9 @@
 
 namespace HardImpact\Liftoff\Setup\Cms;
 
+use HardImpact\Liftoff\Setup\Tasks\Task;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use HardImpact\Liftoff\Setup\Tasks\Task;
 use Symfony\Component\Process\Process;
 
 class InstallFilamentComposerPackageTask extends Task

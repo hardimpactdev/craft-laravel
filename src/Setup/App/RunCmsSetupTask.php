@@ -2,14 +2,14 @@
 
 namespace HardImpact\Liftoff\Setup\App;
 
-use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
 use HardImpact\Liftoff\Setup\Cms\CopyCmsFilesTask;
 use HardImpact\Liftoff\Setup\Cms\InstallFilamentComposerPackageTask;
 use HardImpact\Liftoff\Setup\Cms\InstallNpmPackagesTask;
 use HardImpact\Liftoff\Setup\Cms\RegisterFilamentServiceProviderTask;
 use HardImpact\Liftoff\Setup\Cms\RunFilamentBuildCssTask;
 use HardImpact\Liftoff\Setup\Tasks\Task;
+use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 
 class RunCmsSetupTask extends Task
 {

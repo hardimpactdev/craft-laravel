@@ -2,9 +2,9 @@
 
 namespace HardImpact\Liftoff\Setup\MultiLanguage;
 
+use HardImpact\Liftoff\Setup\Tasks\Task;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use HardImpact\Liftoff\Setup\Tasks\Task;
 
 class UpdateViteConfigPluginTask extends Task
 {

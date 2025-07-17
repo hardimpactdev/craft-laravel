@@ -2,12 +2,12 @@
 
 namespace HardImpact\Liftoff\Setup;
 
-use Illuminate\Filesystem\Filesystem;
 use HardImpact\Liftoff\Setup\Auth\CopyAuthControllersTask;
 use HardImpact\Liftoff\Setup\Auth\CopyAuthRequestsTask;
 use HardImpact\Liftoff\Setup\Auth\CopyAuthTestsTask;
 use HardImpact\Liftoff\Setup\Auth\CopyAuthViewsTask;
 use HardImpact\Liftoff\Setup\Auth\PublishMigrationsTask;
+use Illuminate\Filesystem\Filesystem;
 
 class SetupAuth extends Setup
 {

@@ -2,9 +2,9 @@
 
 namespace HardImpact\Liftoff\Setup\App;
 
+use HardImpact\Liftoff\Setup\Tasks\Task;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use HardImpact\Liftoff\Setup\Tasks\Task;
 
 class CopyAppTestsTask extends Task
 {
