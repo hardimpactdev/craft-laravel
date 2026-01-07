@@ -30,18 +30,21 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: hardimpactdev/liftoff-starterkit
+          token: ${{ secrets.GH_PAT }}
           path: starterkit
 
       - name: Checkout waymaker
         uses: actions/checkout@v4
         with:
           repository: hardimpactdev/waymaker
+          token: ${{ secrets.GH_PAT }}
           path: waymaker
 
       - name: Checkout laravel-toolbar
         uses: actions/checkout@v4
         with:
           repository: nckrtl/laravel-toolbar
+          token: ${{ secrets.GH_PAT }}
           path: laravel-toolbar
 
       - name: Setup PHP
@@ -98,18 +101,21 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: hardimpactdev/liftoff-starterkit
+          token: ${{ secrets.GH_PAT }}
           path: starterkit
 
       - name: Checkout waymaker
         uses: actions/checkout@v4
         with:
           repository: hardimpactdev/waymaker
+          token: ${{ secrets.GH_PAT }}
           path: waymaker
 
       - name: Checkout laravel-toolbar
         uses: actions/checkout@v4
         with:
           repository: nckrtl/laravel-toolbar
+          token: ${{ secrets.GH_PAT }}
           path: laravel-toolbar
 
       - name: Setup PHP
@@ -165,18 +171,21 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: hardimpactdev/liftoff-starterkit
+          token: ${{ secrets.GH_PAT }}
           path: starterkit
 
       - name: Checkout waymaker
         uses: actions/checkout@v4
         with:
           repository: hardimpactdev/waymaker
+          token: ${{ secrets.GH_PAT }}
           path: waymaker
 
       - name: Checkout laravel-toolbar
         uses: actions/checkout@v4
         with:
           repository: nckrtl/laravel-toolbar
+          token: ${{ secrets.GH_PAT }}
           path: laravel-toolbar
 
       - name: Setup PHP
@@ -233,18 +242,21 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: hardimpactdev/liftoff-starterkit
+          token: ${{ secrets.GH_PAT }}
           path: starterkit
 
       - name: Checkout waymaker
         uses: actions/checkout@v4
         with:
           repository: hardimpactdev/waymaker
+          token: ${{ secrets.GH_PAT }}
           path: waymaker
 
       - name: Checkout laravel-toolbar
         uses: actions/checkout@v4
         with:
           repository: nckrtl/laravel-toolbar
+          token: ${{ secrets.GH_PAT }}
           path: laravel-toolbar
 
       - name: Setup PHP
@@ -302,18 +314,21 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: hardimpactdev/liftoff-starterkit
+          token: ${{ secrets.GH_PAT }}
           path: starterkit
 
       - name: Checkout waymaker
         uses: actions/checkout@v4
         with:
           repository: hardimpactdev/waymaker
+          token: ${{ secrets.GH_PAT }}
           path: waymaker
 
       - name: Checkout laravel-toolbar
         uses: actions/checkout@v4
         with:
           repository: nckrtl/laravel-toolbar
+          token: ${{ secrets.GH_PAT }}
           path: laravel-toolbar
 
       - name: Setup PHP
