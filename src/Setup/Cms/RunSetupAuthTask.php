@@ -34,7 +34,7 @@ class RunSetupAuthTask extends Task
         }
 
         try {
-            $exitCode = $SetupAuth->scaffold();
+            $exitCode = $SetupAuth->setup();
 
             if ($exitCode === 0) {
                 $this->info('Auth scaffolder completed successfully.');
