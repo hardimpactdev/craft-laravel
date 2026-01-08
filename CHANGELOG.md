@@ -11,11 +11,21 @@ All notable changes to `Laravel` will be documented in this file.
 
 ## v0.1.1 - 2026-01-08
 
+### New Features
+
+- Added Laravel Boost integration with AI guidelines for scaffolding commands
+
 ### Bug Fixes
 
 - Fixed HandleInertiaRequests middleware stub referencing non-existent HomeController route
 - Changed default navigation route to use DashboardController.show
 - Fixed typo in footer navigation: 'GitHewqub' → 'GitHub'
+
+### Documentation
+
+- Improved README with clearer setup instructions
+- Added documentation for Dashboard and Multilanguage scaffolders
+- Added AI-assisted development section
 
 ## v0.1.0 - Initial Release - 2026-01-07
 

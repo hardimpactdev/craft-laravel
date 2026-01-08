@@ -5,7 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/hardimpactdev/liftoff-laravel/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/hardimpactdev/liftoff-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/hardimpactdev/liftoff-laravel.svg?style=flat-square)](https://packagist.org/packages/hardimpactdev/liftoff-laravel)
 
-The Liftoff Laravel package provides scaffolding commands and utilities for rapidly setting up Laravel applications with Vue.js, Inertia.js, and optional Filament CMS integration. It includes pre-built authentication, dashboard, settings, and CMS functionality.
+Companion scaffolding package for [liftoff-starterkit](https://github.com/hardimpactdev/liftoff-starterkit). Provides commands to rapidly set up authentication, dashboard, settings, CMS (Filament), and multi-language support.
 
 ## Support us
 
@@ -18,8 +18,17 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 ## Requirements
 
 -   PHP 8.1 or higher
--   Laravel 10.x or 11.x
+-   Laravel 10.x, 11.x, or 12.x
 -   Node.js and npm/bun for frontend assets
+
+## AI-Assisted Development
+
+This package includes [Laravel Boost](https://laravel.com/ai/boost) integration. When you have both packages installed, AI assistants will automatically understand the available scaffolding commands.
+
+```bash
+composer require laravel/boost --dev
+php artisan boost:install
+```
 
 ## Installation
 
@@ -37,7 +46,7 @@ The package provides powerful scaffolding commands to quickly set up different a
 
 #### 1. App Scaffolder (Full Application Setup)
 
-The most comprehensive scaffolder that sets up a complete application with authentication and CMS functionality.
+The most comprehensive scaffolder that sets up a complete application with authentication and dashboard.
 
 ```bash
 php artisan liftoff:setup app
@@ -52,8 +61,9 @@ This scaffolder includes:
 -   ✅ TypeScript type definitions
 -   ✅ Feature tests
 -   ✅ Full authentication system (runs Auth scaffolder)
--   ✅ Filament CMS integration (runs CMS scaffolder)
 -   ✅ Automatic route generation
+
+**Note:** For CMS functionality, use `php artisan liftoff:setup cms` instead.
 
 #### 2. Auth Scaffolder
 
@@ -73,7 +83,27 @@ This scaffolder includes:
 
 **Note:** The auth scaffolder requires the App class to be present. If running standalone, ensure you have an App class or run the app scaffolder instead.
 
-#### 3. CMS Scaffolder
+#### 3. Dashboard Scaffolder
+
+Sets up dashboard and settings pages. Requires authentication to be set up first.
+
+```bash
+php artisan liftoff:setup dashboard
+```
+
+This scaffolder includes:
+
+-   ✅ App class with redirect configuration
+-   ✅ Dashboard controller and views
+-   ✅ Settings pages (profile, password, appearance)
+-   ✅ HandleInertiaRequests middleware
+-   ✅ TypeScript type definitions
+-   ✅ Feature tests
+-   ✅ Automatic route generation
+
+**Note:** Run `php artisan liftoff:setup auth` first, or use `php artisan liftoff:setup app` which includes both.
+
+#### 4. CMS Scaffolder
 
 Sets up Filament CMS with user management and authentication.
 
@@ -89,6 +119,20 @@ This scaffolder includes:
 -   ✅ User resource for managing users
 -   ✅ Admin panel configuration
 -   ✅ Filament CSS build process
+-   ✅ Automatic route generation
+
+#### 5. Multilanguage Scaffolder
+
+Sets up multi-language/i18n support with translation files.
+
+```bash
+php artisan liftoff:setup multilanguage
+```
+
+This scaffolder includes:
+
+-   ✅ Language translation files
+-   ✅ Example translation component
 -   ✅ Automatic route generation
 
 ### Route Generation
@@ -199,7 +243,13 @@ php artisan liftoff:setup auth
 # Run the CMS scaffolder (includes auth)
 php artisan liftoff:setup cms
 
-# Create a Filament user
+# Install frontend dependencies
+npm install # or bun install
+
+# Run migrations
+php artisan migrate
+
+# Create a Filament admin user (required to access /admin)
 php artisan make:filament-user
 ```
 

@@ -1,6 +1,30 @@
 # Liftoff Laravel Package
 
-This package provides scaffolding commands and utilities for Liftoff applications.
+Companion scaffolding package for [liftoff-starterkit](https://github.com/hardimpactdev/liftoff-starterkit). Provides commands to set up authentication, dashboard, CMS (Filament), and multi-language support.
+
+## Quick Reference: Scaffolding Commands
+
+| Command | What It Sets Up |
+|---------|-----------------|
+| `php artisan liftoff:setup app` | Auth + Dashboard + Settings (recommended for most apps) |
+| `php artisan liftoff:setup cms` | Auth + Filament CMS admin panel |
+| `php artisan liftoff:setup multilanguage` | Translation files and i18n support |
+
+**After scaffolding:**
+```bash
+bun install && bun run build
+php artisan migrate
+php artisan make:filament-user  # Only for CMS setup
+```
+
+## Laravel Boost Integration
+
+This package provides AI guidelines for [Laravel Boost](https://laravel.com/ai/boost) in `resources/boost/guidelines/core.blade.php`. When users have both this package and Laravel Boost installed, AI assistants will automatically understand the available scaffolding commands.
+
+To use with Laravel Boost:
+1. Install Laravel Boost: `composer require laravel/boost --dev`
+2. Run: `php artisan boost:install`
+3. AI assistants will now recognize Liftoff's scaffolding capabilities
 
 ## Creating Setups
 
