@@ -1,9 +1,7 @@
-name: Weekly Dependency Upgrade
+name: Integration Test
 
 on:
-  schedule:
-    # Run every Sunday at midnight UTC
-    - cron: '0 0 * * 0'
+  # Manual trigger only - scheduled upgrades happen in liftoff-starterkit
   workflow_dispatch:
 
 concurrency:
