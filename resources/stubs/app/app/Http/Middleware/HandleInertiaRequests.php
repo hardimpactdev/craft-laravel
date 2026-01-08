@@ -51,7 +51,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'navigation' => [
                 'app' => [
-                    'default' => route('Controllers.HomeController.show'),
+                    'default' => route('Controllers.DashboardController.show'),
                     'logout' => route('Controllers.Auth.LoginController.logout'),
                     'settings' => route('Controllers.Settings.ProfileController.edit'),
                     'main' => [
@@ -66,7 +66,7 @@ class HandleInertiaRequests extends Middleware
                     'footer' => [
                         'items' => [
                             [
-                                'title' => 'GitHewqub Repo',
+                                'title' => 'GitHub Repo',
                                 'href' => 'https://github.com/laravel/vue-starter-kit',
                                 'icon' => 'GitHub',
                             ],
