@@ -2,6 +2,19 @@
 
 All notable changes to `Laravel` will be documented in this file.
 
+## v0.1.4 - 2026-01-08
+
+### New Features
+
+- Added release skill for standardized GitHub releases via GitHub CLI
+
+### Documentation
+
+- Document versioning workflow and CHANGELOG format
+- Include troubleshooting guide for releases
+
+**Full Changelog**: https://github.com/hardimpactdev/liftoff-laravel/compare/v0.1.3...v0.1.4
+
 ## v0.1.3 - 2026-01-08
 
 ### New Features
