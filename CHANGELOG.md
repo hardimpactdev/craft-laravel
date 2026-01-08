@@ -2,6 +2,13 @@
 
 All notable changes to `Laravel` will be documented in this file.
 
+## v0.1.2 - 2026-01-08
+
+### Bug Fixes
+
+- Fixed HandleInertiaRequests middleware using route() helper which caused 500 errors when routes weren't registered
+- Changed navigation URLs to use direct paths instead of route names for reliability
+
 ## v0.1.1 - 2026-01-08
 
 ### Bug Fixes
