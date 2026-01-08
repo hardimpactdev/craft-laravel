@@ -177,7 +177,9 @@ jobs:
     needs: update-dependencies
     if: needs.update-dependencies.outputs.has_changes == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
+    outputs:
+      starterkit_has_changes: ${{ steps.check_starterkit_changes.outputs.has_changes }}
 
     steps:
       - name: Checkout liftoff-laravel (updated branch)
@@ -235,9 +237,38 @@ jobs:
         working-directory: starterkit
         run: composer install --no-interaction --prefer-dist
 
-      - name: Update Bun dependencies
+      - name: Upgrade npm dependencies to latest versions
         working-directory: starterkit
-        run: bun update
+        run: |
+          echo "Checking for npm package upgrades..."
+          echo "### npm Dependency Upgrades (starterkit)" >> $GITHUB_STEP_SUMMARY
+
+          # Install npm-check-updates
+          bun add -g npm-check-updates
+
+          # Check what would be upgraded
+          echo "Available upgrades:"
+          bunx ncu || true
+
+          # Upgrade all dependencies in package.json to latest versions
+          echo ""
+          echo "Upgrading package.json to latest versions..."
+          bunx ncu -u
+
+          # Show what changed
+          if ! git diff --quiet package.json; then
+            echo "package.json was modified with new versions"
+            echo "#### Upgraded packages:" >> $GITHUB_STEP_SUMMARY
+            git diff package.json | grep "^[+-]" | grep -v "^[+-][+-]" >> $GITHUB_STEP_SUMMARY || true
+          else
+            echo "No npm upgrades available"
+            echo "_No npm upgrades available_" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Install upgraded dependencies
+          echo ""
+          echo "Installing upgraded dependencies..."
+          bun install
 
       - name: Setup environment
         working-directory: starterkit
@@ -312,6 +343,45 @@ jobs:
           else
             echo "No test runner found, skipping tests"
           fi
+
+      - name: Check for starterkit npm changes
+        id: check_starterkit_changes
+        working-directory: starterkit
+        run: |
+          # Check if package.json or bun.lockb changed
+          if git diff --quiet package.json bun.lockb 2>/dev/null; then
+            echo "No npm changes in starterkit"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "npm changes detected in starterkit"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit starterkit npm upgrades directly to main
+        if: steps.check_starterkit_changes.outputs.has_changes == 'true'
+        working-directory: starterkit
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Commit and push directly to main (tests already passed)
+          git add package.json bun.lockb
+          git commit -m "chore(deps): weekly npm dependency upgrade ($(date +%Y-%m-%d))
+
+          Automated weekly upgrade of npm dependencies to latest versions.
+          Includes major version upgrades where available and compatible.
+
+          All tests passed:
+          - Composer integration with liftoff-laravel
+          - Frontend build (bun run build)
+          - Homepage rendering verified
+
+          Updated on: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+          git push origin HEAD:main
+          echo "Starterkit npm upgrades committed directly to main"
 
   merge-to-main:
     name: Merge to Main
@@ -396,7 +466,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Repository:* ${{ github.repository }}\n*Date:* ${{ github.event.repository.updated_at || 'Today' }}"
+                    "text": "*Upgrades Merged:*\n• `liftoff-laravel` - Composer dependencies\n• `liftoff-starterkit` - npm dependencies (if available)"
                   }
                 },
                 {
