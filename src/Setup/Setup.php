@@ -17,7 +17,7 @@ abstract class Setup implements SetupInterface
     /**
      * The command instance.
      *
-     * @var \Illuminate\Console\Command
+     * @var \Illuminate\Console\Command|null
      */
     protected $command;
 

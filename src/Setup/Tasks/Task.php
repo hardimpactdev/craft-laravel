@@ -17,7 +17,7 @@ abstract class Task implements TaskInterface
     /**
      * The command instance.
      *
-     * @var \Illuminate\Console\Command
+     * @var \Illuminate\Console\Command|null
      */
     protected $command;
 
