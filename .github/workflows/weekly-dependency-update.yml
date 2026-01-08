@@ -1,4 +1,4 @@
-name: Weekly Dependency Update
+name: Weekly Dependency Upgrade
 
 on:
   schedule:
@@ -15,7 +15,7 @@ env:
 
 jobs:
   update-dependencies:
-    name: Update Dependencies
+    name: Upgrade Dependencies
     runs-on: ubuntu-latest
     timeout-minutes: 30
     outputs:
@@ -52,11 +52,70 @@ jobs:
       - name: Install current dependencies
         run: composer install --no-interaction --prefer-dist
 
-      - name: Update Composer dependencies
+      - name: Upgrade Composer dependencies to latest versions
+        id: upgrade
         run: |
-          echo "Updating Composer dependencies..."
+          echo "Checking for available upgrades..."
+          echo "### Dependency Upgrades" >> $GITHUB_STEP_SUMMARY
+
+          # Get outdated direct dependencies (require section)
+          OUTDATED_REQUIRE=$(composer outdated --direct --format=json 2>/dev/null | jq -r '.installed[] | select(.latest != null and .version != .latest) | "\(.name):\(.latest)"' || true)
+
+          if [ -n "$OUTDATED_REQUIRE" ]; then
+            echo "Found outdated packages to upgrade:"
+            echo "$OUTDATED_REQUIRE"
+            echo ""
+            echo "#### Production Dependencies" >> $GITHUB_STEP_SUMMARY
+
+            for pkg in $OUTDATED_REQUIRE; do
+              PACKAGE_NAME=$(echo "$pkg" | cut -d: -f1)
+              LATEST_VERSION=$(echo "$pkg" | cut -d: -f2)
+
+              # Check if it's in require (not require-dev)
+              if grep -q "\"$PACKAGE_NAME\"" composer.json && grep -B50 '"require-dev"' composer.json | grep -q "\"$PACKAGE_NAME\""; then
+                continue  # Skip, it's in require-dev
+              fi
+
+              echo "Upgrading $PACKAGE_NAME to ^$LATEST_VERSION..."
+              echo "- \`$PACKAGE_NAME\` → \`^$LATEST_VERSION\`" >> $GITHUB_STEP_SUMMARY
+
+              # Use composer require to update the constraint
+              composer require "$PACKAGE_NAME:^$LATEST_VERSION" --no-interaction --no-update || true
+            done
+          else
+            echo "No production dependency upgrades available."
+            echo "_No upgrades available_" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Get outdated dev dependencies
+          echo ""
+          echo "#### Dev Dependencies" >> $GITHUB_STEP_SUMMARY
+
+          OUTDATED_DEV=$(composer outdated --direct --format=json 2>/dev/null | jq -r '.installed[] | select(.latest != null and .version != .latest) | .name' || true)
+
+          if [ -n "$OUTDATED_DEV" ]; then
+            for PACKAGE_NAME in $OUTDATED_DEV; do
+              # Check if it's in require-dev
+              if grep -A100 '"require-dev"' composer.json | grep -q "\"$PACKAGE_NAME\""; then
+                LATEST_VERSION=$(composer outdated --direct --format=json 2>/dev/null | jq -r ".installed[] | select(.name == \"$PACKAGE_NAME\") | .latest")
+
+                if [ -n "$LATEST_VERSION" ] && [ "$LATEST_VERSION" != "null" ]; then
+                  echo "Upgrading dev dependency $PACKAGE_NAME to ^$LATEST_VERSION..."
+                  echo "- \`$PACKAGE_NAME\` → \`^$LATEST_VERSION\`" >> $GITHUB_STEP_SUMMARY
+                  composer require --dev "$PACKAGE_NAME:^$LATEST_VERSION" --no-interaction --no-update || true
+                fi
+              fi
+            done
+          else
+            echo "_No dev upgrades available_" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Now run the actual update
+          echo ""
+          echo "Running composer update..."
           composer update --no-interaction --prefer-dist --with-all-dependencies
-          echo "Update complete."
+
+          echo "Upgrade complete."
 
       - name: Run unit tests
         run: vendor/bin/pest --ci
@@ -67,21 +126,28 @@ jobs:
       - name: Check for changes
         id: check_changes
         run: |
-          if git diff --quiet composer.lock; then
-            echo "No changes to composer.lock"
+          # Check both composer.json and composer.lock for changes
+          if git diff --quiet composer.json composer.lock; then
+            echo "No changes to composer.json or composer.lock"
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
-            echo "Changes detected in composer.lock"
+            echo "Changes detected"
             echo "has_changes=true" >> $GITHUB_OUTPUT
 
-            # Capture updated packages for notifications
-            UPDATED=$(composer show --latest 2>/dev/null | grep -E '^\S+\s+\S+\s+\S+' | head -10 || echo "See workflow logs")
+            # Show what changed
+            echo "### Changes Summary" >> $GITHUB_STEP_SUMMARY
+            if ! git diff --quiet composer.json; then
+              echo "- composer.json modified (version constraints updated)" >> $GITHUB_STEP_SUMMARY
+            fi
+            if ! git diff --quiet composer.lock; then
+              echo "- composer.lock modified (dependencies updated)" >> $GITHUB_STEP_SUMMARY
+            fi
+
+            # Capture summary for notifications
+            UPDATED=$(git diff --stat composer.json composer.lock || echo "See workflow logs")
             echo "updated_packages<<EOF" >> $GITHUB_OUTPUT
             echo "$UPDATED" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
-
-            echo "### Updated Packages" >> $GITHUB_STEP_SUMMARY
-            echo "$UPDATED" >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Configure git
@@ -94,12 +160,13 @@ jobs:
         id: commit
         if: steps.check_changes.outputs.has_changes == 'true'
         run: |
-          BRANCH_NAME="deps/weekly-update-$(date +%Y-%m-%d)"
+          BRANCH_NAME="deps/weekly-upgrade-$(date +%Y-%m-%d)"
           git checkout -b "$BRANCH_NAME"
-          git add composer.lock
-          git commit -m "chore(deps): weekly dependency update
+          git add composer.json composer.lock
+          git commit -m "chore(deps): weekly dependency upgrade
 
-          Automated weekly update of Composer dependencies.
+          Automated weekly upgrade of Composer dependencies to latest versions.
+          This includes major version upgrades where available.
 
           Updated on: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push origin "$BRANCH_NAME"
@@ -279,9 +346,10 @@ jobs:
 
           # Merge with squash to keep history clean
           git merge --squash "origin/$BRANCH_NAME"
-          git commit -m "chore(deps): weekly dependency update ($(date +%Y-%m-%d))
+          git commit -m "chore(deps): weekly dependency upgrade ($(date +%Y-%m-%d))
 
-          Automated weekly update of Composer dependencies.
+          Automated weekly upgrade of Composer dependencies to latest versions.
+          Includes major version upgrades where available and compatible.
 
           All tests passed:
           - Unit tests (pest)
@@ -320,7 +388,7 @@ jobs:
                   "type": "header",
                   "text": {
                     "type": "plain_text",
-                    "text": "Dependencies Updated Successfully",
+                    "text": "Dependencies Upgraded Successfully",
                     "emoji": true
                   }
                 },
@@ -385,7 +453,7 @@ jobs:
                   "type": "header",
                   "text": {
                     "type": "plain_text",
-                    "text": "Dependency Update Failed",
+                    "text": "Dependency Upgrade Failed",
                     "emoji": true
                   }
                 },
@@ -400,7 +468,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "The weekly dependency update failed during testing. Please review the workflow logs to identify which dependency caused the issue."
+                    "text": "The weekly dependency upgrade failed during testing. Please review the workflow logs to identify which upgrade caused the issue."
                   }
                 },
                 {
@@ -430,9 +498,9 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           ISSUE_BODY=$(cat <<EOF
-          ## Dependency Update Failure
+          ## Dependency Upgrade Failure
 
-          The weekly dependency update workflow failed during integration testing.
+          The weekly dependency upgrade workflow failed during integration testing.
 
           ### Details
           - **Workflow run**: ${RUN_URL}
@@ -440,17 +508,17 @@ jobs:
 
           ### Next steps
           1. Review the workflow logs linked above
-          2. Identify which dependency update caused the failure
-          3. Either fix the compatibility issue or pin the problematic dependency
+          2. Identify which dependency upgrade caused the failure
+          3. Either fix the compatibility issue or pin the problematic dependency version
 
           ---
-          *This issue was automatically created by the weekly dependency update workflow.*
+          *This issue was automatically created by the weekly dependency upgrade workflow.*
           EOF
           )
 
           gh issue create \
             --repo "$REPO" \
-            --title "Weekly dependency update failed ($(date +%Y-%m-%d))" \
+            --title "Weekly dependency upgrade failed ($(date +%Y-%m-%d))" \
             --body "$ISSUE_BODY" \
             --label "bug,dependencies"
 
@@ -474,7 +542,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*${{ github.repository }}*: No dependency updates available this week. All packages are up to date."
+                    "text": "*${{ github.repository }}*: No dependency upgrades available this week. All packages are at their latest versions."
                   }
                 }
               ]
