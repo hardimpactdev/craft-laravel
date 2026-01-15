@@ -2,6 +2,15 @@
 
 All notable changes to `Laravel` will be documented in this file.
 
+## v0.1.5 - 2026-01-15
+
+### Maintenance
+
+- Converted CLAUDE.md to AGENTS.md with symlink for OpenCode compatibility
+- Updated dependabot/fetch-metadata from 2.4.0 to 2.5.0
+
+**Full Changelog**: https://github.com/hardimpactdev/liftoff-laravel/compare/v0.1.4...v0.1.5
+
 ## v0.1.4 - 2026-01-08
 
 ### New Features
