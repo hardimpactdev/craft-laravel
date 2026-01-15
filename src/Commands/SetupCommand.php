@@ -1,15 +1,15 @@
 <?php
 
-namespace HardImpact\Liftoff\Commands;
+namespace HardImpact\Craft\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
 class SetupCommand extends Command
 {
-    protected $signature = 'liftoff:setup {type : The type of setup to run (auth, dashboard, app, cms, multilanguage)}';
+    protected $signature = 'craft:setup {type : The type of setup to run (auth, dashboard, app, cms, multilanguage)}';
 
-    protected $description = 'Setup Liftoff features';
+    protected $description = 'Setup Craft features';
 
     /**
      * The filesystem instance.
@@ -52,7 +52,7 @@ class SetupCommand extends Command
 
     protected function resolveSetup($type)
     {
-        $setupClass = 'HardImpact\\Liftoff\\Setup\\Setup'.ucfirst($type);
+        $setupClass = 'HardImpact\\Craft\\Setup\\Setup'.ucfirst($type);
 
         if (class_exists($setupClass)) {
             // Explicitly create the setup with a Filesystem instance

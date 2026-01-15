@@ -1,10 +1,10 @@
 ---
 name: release
-description: Publish a new release of hardimpactdev/liftoff-laravel to Packagist. Handles CHANGELOG updates, git tagging via GitHub CLI, and creating GitHub releases.
+description: Publish a new release of hardimpactdev/craft-laravel to Packagist. Handles CHANGELOG updates, git tagging via GitHub CLI, and creating GitHub releases.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 ---
 
-# Release Workflow for hardimpactdev/liftoff-laravel
+# Release Workflow for hardimpactdev/craft-laravel
 
 Publish new versions to Packagist via GitHub releases.
 
@@ -32,7 +32,7 @@ gh release create "v$VERSION" --title "v$VERSION" --notes-file - <<EOF
 - List changes here
 - See CHANGELOG.md for details
 
-**Full Changelog**: https://github.com/hardimpactdev/liftoff-laravel/compare/v0.1.3...v$VERSION
+**Full Changelog**: https://github.com/hardimpactdev/craft-laravel/compare/v0.1.3...v$VERSION
 EOF
 ```
 
@@ -65,7 +65,7 @@ Always update `CHANGELOG.md` before releasing:
 
 1. **GitHub Release**: Creating a release with `gh release create` creates a git tag
 2. **Packagist Webhook**: Packagist is configured to auto-update when new tags are pushed
-3. **Composer Update**: Users can now `composer update hardimpactdev/liftoff-laravel`
+3. **Composer Update**: Users can now `composer update hardimpactdev/craft-laravel`
 
 ## IMPORTANT: Use GitHub CLI for All Git Operations
 
@@ -75,10 +75,10 @@ When the repository lacks local git user config, **always use `gh` CLI** instead
 
 ```bash
 # Get current commit SHA
-CURRENT_SHA=$(gh api repos/hardimpactdev/liftoff-laravel/git/refs/heads/main --jq '.object.sha')
+CURRENT_SHA=$(gh api repos/hardimpactdev/craft-laravel/git/refs/heads/main --jq '.object.sha')
 
 # Create a blob for each changed file
-BLOB_SHA=$(gh api repos/hardimpactdev/liftoff-laravel/git/blobs \
+BLOB_SHA=$(gh api repos/hardimpactdev/craft-laravel/git/blobs \
   -f content="$(base64 -w0 path/to/file)" \
   -f encoding="base64" \
   --jq '.sha')
@@ -135,6 +135,6 @@ gh release view v0.1.4 --json assets
 ## Related Packages
 
 This package works with:
-- [liftoff-starterkit](https://github.com/hardimpactdev/liftoff-starterkit) - The Laravel starter template
+- [craft-starterkit](https://github.com/hardimpactdev/craft-starterkit) - The Laravel starter template
 - [waymaker](https://github.com/hardimpactdev/waymaker) - Route generation from controller attributes
 - [laravel-toolbar](https://github.com/nckrtl/laravel-toolbar) - Development toolbar

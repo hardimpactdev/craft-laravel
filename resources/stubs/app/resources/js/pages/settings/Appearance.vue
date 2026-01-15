@@ -4,7 +4,7 @@ import {
     AppearanceTabs,
     AppLayout,
     SettingsLayout,
-} from "@hardimpactdev/liftoff-vue";
+} from "@hardimpactdev/craft-vue";
 import { type BreadcrumbItem } from "@/types";
 
 const breadcrumbItems: BreadcrumbItem[] = [

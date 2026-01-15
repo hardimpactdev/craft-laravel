@@ -1,6 +1,6 @@
-## Liftoff Laravel
+## Craft Laravel
 
-Companion scaffolding package for [liftoff-starterkit](https://github.com/hardimpactdev/liftoff-starterkit). Provides commands to set up authentication, dashboard, CMS (Filament), and multi-language support.
+Companion scaffolding package for [craft-starterkit](https://github.com/hardimpactdev/craft-starterkit). Provides commands to set up authentication, dashboard, CMS (Filament), and multi-language support.
 
 ### Quick Decision Guide
 
@@ -8,23 +8,23 @@ Use this to determine which setup command to run:
 
 | User Request | Command | Why |
 |--------------|---------|-----|
-| "Add authentication" | `php artisan liftoff:setup app` | `app` includes auth + dashboard + settings |
-| "Add a dashboard" | `php artisan liftoff:setup app` | `app` includes auth + dashboard + settings |
-| "Set up the app" | `php artisan liftoff:setup app` | Complete frontend application stack |
-| "Add a CMS" | `php artisan liftoff:setup cms` | Filament admin panel with auth |
-| "Add admin panel" | `php artisan liftoff:setup cms` | Filament admin panel with auth |
+| "Add authentication" | `php artisan craft:setup app` | `app` includes auth + dashboard + settings |
+| "Add a dashboard" | `php artisan craft:setup app` | `app` includes auth + dashboard + settings |
+| "Set up the app" | `php artisan craft:setup app` | Complete frontend application stack |
+| "Add a CMS" | `php artisan craft:setup cms` | Filament admin panel with auth |
+| "Add admin panel" | `php artisan craft:setup cms` | Filament admin panel with auth |
 | "Set up everything" | Run both `app` then `cms` | Full stack: auth + dashboard + CMS |
-| "Add translations" | `php artisan liftoff:setup multilanguage` | i18n support |
+| "Add translations" | `php artisan craft:setup multilanguage` | i18n support |
 
 ### Available Commands
 
 | Command | What It Sets Up |
 |---------|-----------------|
-| `php artisan liftoff:setup app` | Auth + Dashboard + Settings (recommended for most apps) |
-| `php artisan liftoff:setup cms` | Auth + Filament CMS admin panel |
-| `php artisan liftoff:setup multilanguage` | Translation files and i18n support |
-| `php artisan liftoff:setup auth` | Auth only (use `app` instead unless building custom dashboard) |
-| `php artisan liftoff:setup dashboard` | Dashboard only (requires auth first, use `app` instead) |
+| `php artisan craft:setup app` | Auth + Dashboard + Settings (recommended for most apps) |
+| `php artisan craft:setup cms` | Auth + Filament CMS admin panel |
+| `php artisan craft:setup multilanguage` | Translation files and i18n support |
+| `php artisan craft:setup auth` | Auth only (use `app` instead unless building custom dashboard) |
+| `php artisan craft:setup dashboard` | Dashboard only (requires auth first, use `app` instead) |
 
 ### Complete Setup Workflows
 
@@ -33,7 +33,7 @@ Use this to determine which setup command to run:
 @verbatim
 <code-snippet name="Setup standard application" lang="bash">
 # Run the app scaffolder
-php artisan liftoff:setup app
+php artisan craft:setup app
 
 # Install dependencies and build
 bun install
@@ -49,7 +49,7 @@ php artisan migrate
 @verbatim
 <code-snippet name="Setup application with CMS" lang="bash">
 # Run the CMS scaffolder (includes auth)
-php artisan liftoff:setup cms
+php artisan craft:setup cms
 
 # Install dependencies and build
 bun install
@@ -68,10 +68,10 @@ php artisan make:filament-user
 @verbatim
 <code-snippet name="Setup complete stack with dashboard and CMS" lang="bash">
 # Run app first (auth + dashboard)
-php artisan liftoff:setup app
+php artisan craft:setup app
 
 # Then add CMS (Filament admin panel)
-php artisan liftoff:setup cms
+php artisan craft:setup cms
 
 # Install dependencies and build
 bun install
@@ -89,7 +89,7 @@ php artisan make:filament-user
 
 @verbatim
 <code-snippet name="Add i18n support to existing app" lang="bash">
-php artisan liftoff:setup multilanguage
+php artisan craft:setup multilanguage
 </code-snippet>
 @endverbatim
 

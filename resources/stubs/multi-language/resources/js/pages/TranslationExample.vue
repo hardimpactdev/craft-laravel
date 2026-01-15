@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useLanguage } from "@hardimpactdev/liftoff-vue";
+import { useLanguage } from "@hardimpactdev/craft-vue";
 
 const { updateLanguage } = useLanguage();
 </script>

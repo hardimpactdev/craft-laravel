@@ -1,7 +1,7 @@
 name: Integration Test
 
 on:
-  # Manual trigger only - scheduled upgrades happen in liftoff-starterkit
+  # Manual trigger only - scheduled upgrades happen in craft-starterkit
   workflow_dispatch:
 
 concurrency:
@@ -22,7 +22,7 @@ jobs:
       branch_name: ${{ steps.commit.outputs.branch_name }}
 
     steps:
-      - name: Checkout liftoff-laravel
+      - name: Checkout craft-laravel
         uses: actions/checkout@v4
         with:
           ref: main
@@ -180,17 +180,17 @@ jobs:
       starterkit_has_changes: ${{ steps.check_starterkit_changes.outputs.has_changes }}
 
     steps:
-      - name: Checkout liftoff-laravel (updated branch)
+      - name: Checkout craft-laravel (updated branch)
         uses: actions/checkout@v4
         with:
           ref: ${{ needs.update-dependencies.outputs.branch_name }}
-          path: liftoff-laravel
+          path: craft-laravel
           token: ${{ secrets.GH_PAT }}
 
-      - name: Checkout liftoff-starterkit
+      - name: Checkout craft-starterkit
         uses: actions/checkout@v4
         with:
-          repository: hardimpactdev/liftoff-starterkit
+          repository: hardimpactdev/craft-starterkit
           token: ${{ secrets.GH_PAT }}
           path: starterkit
 
@@ -228,7 +228,7 @@ jobs:
         working-directory: starterkit
         run: |
           composer config repositories.waymaker path ../waymaker
-          composer config repositories.liftoff-laravel path ../liftoff-laravel
+          composer config repositories.craft-laravel path ../craft-laravel
           composer config repositories.laravel-toolbar path ../laravel-toolbar
 
       - name: Install Composer dependencies
@@ -276,7 +276,7 @@ jobs:
 
       - name: Run App setup (Auth + Dashboard)
         working-directory: starterkit
-        run: php artisan liftoff:setup app
+        run: php artisan craft:setup app
 
       - name: Verify setup files
         working-directory: starterkit
@@ -372,7 +372,7 @@ jobs:
           Includes major version upgrades where available and compatible.
 
           All tests passed:
-          - Composer integration with liftoff-laravel
+          - Composer integration with craft-laravel
           - Frontend build (bun run build)
           - Homepage rendering verified
 
@@ -392,7 +392,7 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: Checkout liftoff-laravel
+      - name: Checkout craft-laravel
         uses: actions/checkout@v4
         with:
           ref: main
@@ -464,7 +464,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Upgrades Merged:*\n• `liftoff-laravel` - Composer dependencies\n• `liftoff-starterkit` - npm dependencies (if available)"
+                    "text": "*Upgrades Merged:*\n• `craft-laravel` - Composer dependencies\n• `craft-starterkit` - npm dependencies (if available)"
                   }
                 },
                 {

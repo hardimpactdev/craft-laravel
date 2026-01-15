@@ -1,8 +1,8 @@
 <?php
 
-namespace HardImpact\Liftoff\Setup\Auth;
+namespace HardImpact\Craft\Setup\Auth;
 
-use HardImpact\Liftoff\Setup\Tasks\Task;
+use HardImpact\Craft\Setup\Tasks\Task;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 

@@ -1,6 +1,6 @@
 <?php
 
-// config for hardimpactdev/liftoff-laravel
+// config for hardimpactdev/craft-laravel
 return [
 
 ];

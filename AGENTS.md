@@ -1,14 +1,14 @@
-# Liftoff Laravel Package
+# Craft Laravel Package
 
-Companion scaffolding package for [liftoff-starterkit](https://github.com/hardimpactdev/liftoff-starterkit). Provides commands to set up authentication, dashboard, CMS (Filament), and multi-language support.
+Companion scaffolding package for [craft-starterkit](https://github.com/hardimpactdev/craft-starterkit). Provides commands to set up authentication, dashboard, CMS (Filament), and multi-language support.
 
 ## Quick Reference: Scaffolding Commands
 
 | Command | What It Sets Up |
 |---------|-----------------|
-| `php artisan liftoff:setup app` | Auth + Dashboard + Settings (recommended for most apps) |
-| `php artisan liftoff:setup cms` | Auth + Filament CMS admin panel |
-| `php artisan liftoff:setup multilanguage` | Translation files and i18n support |
+| `php artisan craft:setup app` | Auth + Dashboard + Settings (recommended for most apps) |
+| `php artisan craft:setup cms` | Auth + Filament CMS admin panel |
+| `php artisan craft:setup multilanguage` | Translation files and i18n support |
 
 **After scaffolding:**
 ```bash
@@ -24,7 +24,7 @@ This package provides AI guidelines for [Laravel Boost](https://laravel.com/ai/b
 To use with Laravel Boost:
 1. Install Laravel Boost: `composer require laravel/boost --dev`
 2. Run: `php artisan boost:install`
-3. AI assistants will now recognize Liftoff's scaffolding capabilities
+3. AI assistants will now recognize Craft's scaffolding capabilities
 
 ## Creating Setups
 
@@ -71,11 +71,11 @@ Create a new file `src/Setup/YourFeatureScaffolder.php`:
 ```php
 <?php
 
-namespace HardImpact\Liftoff\Setups;
+namespace HardImpact\Craft\Setups;
 
 use Illuminate\Filesystem\Filesystem;
-use HardImpact\Liftoff\Setup\YourFeature\Task1;
-use HardImpact\Liftoff\Setup\YourFeature\Task2;
+use HardImpact\Craft\Setup\YourFeature\Task1;
+use HardImpact\Craft\Setup\YourFeature\Task2;
 
 class YourFeatureScaffolder extends Setup
 {
@@ -119,11 +119,11 @@ Each task should extend the base Task class. Here are common task patterns:
 ```php
 <?php
 
-namespace HardImpact\Liftoff\Setup\YourFeature;
+namespace HardImpact\Craft\Setup\YourFeature;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use HardImpact\Liftoff\Setup\Tasks\Task;
+use HardImpact\Craft\Setup\Tasks\Task;
 
 class YourTask extends Task
 {
@@ -340,13 +340,13 @@ resources/stubs/yourfeature/
 Once created, your setup will automatically be available through the setup command:
 
 ```bash
-php artisan liftoff:setup yourfeature
+php artisan craft:setup yourfeature
 ```
 
 The SetupCommand uses a naming convention to resolve Setups:
 
 -   Command argument: `yourfeature`
--   Resolved class: `HardImpact\Liftoff\Setup\YourfeatureScaffolder`
+-   Resolved class: `HardImpact\Craft\Setup\YourfeatureScaffolder`
 
 ### Best Practices
 
@@ -386,7 +386,7 @@ The package uses several GitHub Actions workflows for continuous integration and
 | Workflow | Trigger | Purpose |
 |----------|---------|---------|
 | `run-tests.yml` | Push (PHP files) | Matrix testing across PHP 8.3-8.4, Laravel 10-12 |
-| `integration-tests.yml` | Push to main, PRs | Tests scaffolding against liftoff-starterkit |
+| `integration-tests.yml` | Push to main, PRs | Tests scaffolding against craft-starterkit |
 | `phpstan.yml` | Push (PHP files) | Static analysis at level 5 |
 | `fix-php-code-style-issues.yml` | Push (PHP files) | Auto-fixes with Laravel Pint |
 | `dependabot-auto-merge.yml` | PR from Dependabot | Auto-merges minor/patch updates |
@@ -400,9 +400,9 @@ The `weekly-dependency-update.yml` workflow runs every Sunday at midnight UTC an
 2. **Unit Tests**: Runs `pest --ci` to ensure tests still pass
 3. **Static Analysis**: Runs `phpstan` to check for type errors
 4. **Starterkit Integration Test**:
-   - Clones `liftoff-starterkit`, `waymaker`, and `laravel-toolbar`
+   - Clones `craft-starterkit`, `waymaker`, and `laravel-toolbar`
    - Configures composer to use the updated local package
-   - Runs `php artisan liftoff:setup app` (Auth + Dashboard)
+   - Runs `php artisan craft:setup app` (Auth + Dashboard)
    - Updates Bun dependencies
    - Builds frontend assets
    - Verifies homepage returns HTTP 200

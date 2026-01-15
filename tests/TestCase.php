@@ -1,8 +1,8 @@
 <?php
 
-namespace HardImpact\Liftoff\Tests;
+namespace HardImpact\Craft\Tests;
 
-use HardImpact\Liftoff\LaravelServiceProvider;
+use HardImpact\Craft\LaravelServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'HardImpact\\Liftoff\\Laravel\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'HardImpact\\Craft\\Laravel\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 

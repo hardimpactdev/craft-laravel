@@ -1,12 +1,12 @@
 {
-    "name": "hardimpactdev/liftoff-laravel",
+    "name": "hardimpactdev/craft-laravel",
     "description": "This is my package laravel",
     "keywords": [
-        "Liftoff",
+        "Craft",
         "laravel",
         "laravel"
     ],
-    "homepage": "https://github.com/hardimpactdev/liftoff-laravel",
+    "homepage": "https://github.com/hardimpactdev/craft-laravel",
     "license": "MIT",
     "authors": [
         {
@@ -34,13 +34,13 @@
     },
     "autoload": {
         "psr-4": {
-            "HardImpact\\Liftoff\\": "src/",
-            "HardImpact\\Liftoff\\Database\\Factories\\": "database/factories/"
+            "HardImpact\\Craft\\": "src/",
+            "HardImpact\\Craft\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "HardImpact\\Liftoff\\Tests\\": "tests/",
+            "HardImpact\\Craft\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -62,10 +62,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "HardImpact\\Liftoff\\LaravelServiceProvider"
+                "HardImpact\\Craft\\LaravelServiceProvider"
             ],
             "aliases": {
-                "Laravel": "HardImpact\\Liftoff\\Facades\\Laravel"
+                "Laravel": "HardImpact\\Craft\\Facades\\Laravel"
             }
         }
     },

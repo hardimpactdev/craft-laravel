@@ -1,8 +1,8 @@
 <?php
 
-namespace HardImpact\Liftoff\Setup\Cms;
+namespace HardImpact\Craft\Setup\Cms;
 
-use HardImpact\Liftoff\Setup\Tasks\Task;
+use HardImpact\Craft\Setup\Tasks\Task;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;

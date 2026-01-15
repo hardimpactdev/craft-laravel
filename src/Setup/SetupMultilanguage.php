@@ -1,10 +1,10 @@
 <?php
 
-namespace HardImpact\Liftoff\Setup;
+namespace HardImpact\Craft\Setup;
 
-use HardImpact\Liftoff\Setup\MultiLanguage\CopyExamplePageTask;
-use HardImpact\Liftoff\Setup\MultiLanguage\CopyLangDirectoryTask;
-use HardImpact\Liftoff\Setup\Tasks\GenerateRoutesTask;
+use HardImpact\Craft\Setup\MultiLanguage\CopyExamplePageTask;
+use HardImpact\Craft\Setup\MultiLanguage\CopyLangDirectoryTask;
+use HardImpact\Craft\Setup\Tasks\GenerateRoutesTask;
 use Illuminate\Filesystem\Filesystem;
 
 class SetupMultilanguage extends Setup

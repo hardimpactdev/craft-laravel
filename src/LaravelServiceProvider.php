@@ -1,8 +1,8 @@
 <?php
 
-namespace HardImpact\Liftoff;
+namespace HardImpact\Craft;
 
-use HardImpact\Liftoff\Commands\SetupCommand;
+use HardImpact\Craft\Commands\SetupCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

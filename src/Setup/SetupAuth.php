@@ -1,12 +1,12 @@
 <?php
 
-namespace HardImpact\Liftoff\Setup;
+namespace HardImpact\Craft\Setup;
 
-use HardImpact\Liftoff\Setup\Auth\CopyAuthControllersTask;
-use HardImpact\Liftoff\Setup\Auth\CopyAuthRequestsTask;
-use HardImpact\Liftoff\Setup\Auth\CopyAuthTestsTask;
-use HardImpact\Liftoff\Setup\Auth\CopyAuthViewsTask;
-use HardImpact\Liftoff\Setup\Auth\PublishMigrationsTask;
+use HardImpact\Craft\Setup\Auth\CopyAuthControllersTask;
+use HardImpact\Craft\Setup\Auth\CopyAuthRequestsTask;
+use HardImpact\Craft\Setup\Auth\CopyAuthTestsTask;
+use HardImpact\Craft\Setup\Auth\CopyAuthViewsTask;
+use HardImpact\Craft\Setup\Auth\PublishMigrationsTask;
 use Illuminate\Filesystem\Filesystem;
 
 class SetupAuth extends Setup

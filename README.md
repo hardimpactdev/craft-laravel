@@ -1,11 +1,11 @@
-# Liftoff Laravel Package
+# Craft Laravel Package
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/hardimpactdev/liftoff-laravel.svg?style=flat-square)](https://packagist.org/packages/hardimpactdev/liftoff-laravel)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/hardimpactdev/liftoff-laravel/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/hardimpactdev/liftoff-laravel/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/hardimpactdev/liftoff-laravel/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/hardimpactdev/liftoff-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/hardimpactdev/liftoff-laravel.svg?style=flat-square)](https://packagist.org/packages/hardimpactdev/liftoff-laravel)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/hardimpactdev/craft-laravel.svg?style=flat-square)](https://packagist.org/packages/hardimpactdev/craft-laravel)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/hardimpactdev/craft-laravel/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/hardimpactdev/craft-laravel/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/hardimpactdev/craft-laravel/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/hardimpactdev/craft-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/hardimpactdev/craft-laravel.svg?style=flat-square)](https://packagist.org/packages/hardimpactdev/craft-laravel)
 
-Companion scaffolding package for [liftoff-starterkit](https://github.com/hardimpactdev/liftoff-starterkit). Provides commands to rapidly set up authentication, dashboard, settings, CMS (Filament), and multi-language support.
+Companion scaffolding package for [craft-starterkit](https://github.com/hardimpactdev/craft-starterkit). Provides commands to rapidly set up authentication, dashboard, settings, CMS (Filament), and multi-language support.
 
 ## Support us
 
@@ -35,7 +35,7 @@ php artisan boost:install
 You can install the package via composer:
 
 ```bash
-composer require hardimpactdev/liftoff-laravel
+composer require hardimpactdev/craft-laravel
 ```
 
 ## Scaffolders
@@ -49,7 +49,7 @@ The package provides powerful scaffolding commands to quickly set up different a
 The most comprehensive scaffolder that sets up a complete application with authentication and dashboard.
 
 ```bash
-php artisan liftoff:setup app
+php artisan craft:setup app
 ```
 
 This scaffolder includes:
@@ -63,14 +63,14 @@ This scaffolder includes:
 -   ✅ Full authentication system (runs Auth scaffolder)
 -   ✅ Automatic route generation
 
-**Note:** For CMS functionality, use `php artisan liftoff:setup cms` instead.
+**Note:** For CMS functionality, use `php artisan craft:setup cms` instead.
 
 #### 2. Auth Scaffolder
 
 Sets up a complete authentication system with login, registration, password reset, and email verification.
 
 ```bash
-php artisan liftoff:setup auth
+php artisan craft:setup auth
 ```
 
 This scaffolder includes:
@@ -88,7 +88,7 @@ This scaffolder includes:
 Sets up dashboard and settings pages. Requires authentication to be set up first.
 
 ```bash
-php artisan liftoff:setup dashboard
+php artisan craft:setup dashboard
 ```
 
 This scaffolder includes:
@@ -101,14 +101,14 @@ This scaffolder includes:
 -   ✅ Feature tests
 -   ✅ Automatic route generation
 
-**Note:** Run `php artisan liftoff:setup auth` first, or use `php artisan liftoff:setup app` which includes both.
+**Note:** Run `php artisan craft:setup auth` first, or use `php artisan craft:setup app` which includes both.
 
 #### 4. CMS Scaffolder
 
 Sets up Filament CMS with user management and authentication.
 
 ```bash
-php artisan liftoff:setup cms
+php artisan craft:setup cms
 ```
 
 This scaffolder includes:
@@ -126,7 +126,7 @@ This scaffolder includes:
 Sets up multi-language/i18n support with translation files.
 
 ```bash
-php artisan liftoff:setup multilanguage
+php artisan craft:setup multilanguage
 ```
 
 This scaffolder includes:
@@ -213,10 +213,10 @@ tests/Feature/Auth/
 
 ```bash
 # Install the package
-composer require hardimpactdev/liftoff-laravel
+composer require hardimpactdev/craft-laravel
 
 # Run the app scaffolder for a complete setup
-php artisan liftoff:setup app
+php artisan craft:setup app
 
 # Install frontend dependencies
 npm install # or bun install
@@ -232,7 +232,7 @@ npm run dev # or bun dev
 
 ```bash
 # Run just the auth scaffolder
-php artisan liftoff:setup auth
+php artisan craft:setup auth
 
 # Note: Requires App class to be present
 ```
@@ -241,7 +241,7 @@ php artisan liftoff:setup auth
 
 ```bash
 # Run the CMS scaffolder (includes auth)
-php artisan liftoff:setup cms
+php artisan craft:setup cms
 
 # Install frontend dependencies
 npm install # or bun install

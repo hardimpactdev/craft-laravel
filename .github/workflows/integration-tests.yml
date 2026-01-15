@@ -22,15 +22,15 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Checkout liftoff-laravel
+      - name: Checkout craft-laravel
         uses: actions/checkout@v4
         with:
-          path: liftoff-laravel
+          path: craft-laravel
 
-      - name: Checkout liftoff-starterkit
+      - name: Checkout craft-starterkit
         uses: actions/checkout@v4
         with:
-          repository: hardimpactdev/liftoff-starterkit
+          repository: hardimpactdev/craft-starterkit
           token: ${{ secrets.GH_PAT }}
           path: starterkit
 
@@ -59,7 +59,7 @@ jobs:
         working-directory: starterkit
         run: |
           composer config repositories.waymaker path ../waymaker
-          composer config repositories.liftoff-laravel path ../liftoff-laravel
+          composer config repositories.craft-laravel path ../craft-laravel
           composer config repositories.laravel-toolbar path ../laravel-toolbar
 
       - name: Install dependencies
@@ -74,7 +74,7 @@ jobs:
 
       - name: Run auth setup
         working-directory: starterkit
-        run: php artisan liftoff:setup auth
+        run: php artisan craft:setup auth
 
       - name: Verify auth files
         working-directory: starterkit
@@ -93,15 +93,15 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Checkout liftoff-laravel
+      - name: Checkout craft-laravel
         uses: actions/checkout@v4
         with:
-          path: liftoff-laravel
+          path: craft-laravel
 
-      - name: Checkout liftoff-starterkit
+      - name: Checkout craft-starterkit
         uses: actions/checkout@v4
         with:
-          repository: hardimpactdev/liftoff-starterkit
+          repository: hardimpactdev/craft-starterkit
           token: ${{ secrets.GH_PAT }}
           path: starterkit
 
@@ -130,7 +130,7 @@ jobs:
         working-directory: starterkit
         run: |
           composer config repositories.waymaker path ../waymaker
-          composer config repositories.liftoff-laravel path ../liftoff-laravel
+          composer config repositories.craft-laravel path ../craft-laravel
           composer config repositories.laravel-toolbar path ../laravel-toolbar
 
       - name: Install dependencies
@@ -145,7 +145,7 @@ jobs:
 
       - name: Run dashboard setup
         working-directory: starterkit
-        run: php artisan liftoff:setup dashboard
+        run: php artisan craft:setup dashboard
 
       - name: Verify dashboard files
         working-directory: starterkit
@@ -163,15 +163,15 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Checkout liftoff-laravel
+      - name: Checkout craft-laravel
         uses: actions/checkout@v4
         with:
-          path: liftoff-laravel
+          path: craft-laravel
 
-      - name: Checkout liftoff-starterkit
+      - name: Checkout craft-starterkit
         uses: actions/checkout@v4
         with:
-          repository: hardimpactdev/liftoff-starterkit
+          repository: hardimpactdev/craft-starterkit
           token: ${{ secrets.GH_PAT }}
           path: starterkit
 
@@ -200,7 +200,7 @@ jobs:
         working-directory: starterkit
         run: |
           composer config repositories.waymaker path ../waymaker
-          composer config repositories.liftoff-laravel path ../liftoff-laravel
+          composer config repositories.craft-laravel path ../craft-laravel
           composer config repositories.laravel-toolbar path ../laravel-toolbar
 
       - name: Install dependencies
@@ -215,7 +215,7 @@ jobs:
 
       - name: Run app setup
         working-directory: starterkit
-        run: php artisan liftoff:setup app
+        run: php artisan craft:setup app
 
       - name: Verify app files (auth + dashboard)
         working-directory: starterkit
@@ -234,15 +234,15 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: Checkout liftoff-laravel
+      - name: Checkout craft-laravel
         uses: actions/checkout@v4
         with:
-          path: liftoff-laravel
+          path: craft-laravel
 
-      - name: Checkout liftoff-starterkit
+      - name: Checkout craft-starterkit
         uses: actions/checkout@v4
         with:
-          repository: hardimpactdev/liftoff-starterkit
+          repository: hardimpactdev/craft-starterkit
           token: ${{ secrets.GH_PAT }}
           path: starterkit
 
@@ -280,7 +280,7 @@ jobs:
         working-directory: starterkit
         run: |
           composer config repositories.waymaker path ../waymaker
-          composer config repositories.liftoff-laravel path ../liftoff-laravel
+          composer config repositories.craft-laravel path ../craft-laravel
           composer config repositories.laravel-toolbar path ../laravel-toolbar
 
       - name: Install dependencies
@@ -295,7 +295,7 @@ jobs:
 
       - name: Run cms setup
         working-directory: starterkit
-        run: php artisan liftoff:setup cms
+        run: php artisan craft:setup cms
 
       - name: Verify cms files
         working-directory: starterkit
@@ -312,15 +312,15 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Checkout liftoff-laravel
+      - name: Checkout craft-laravel
         uses: actions/checkout@v4
         with:
-          path: liftoff-laravel
+          path: craft-laravel
 
-      - name: Checkout liftoff-starterkit
+      - name: Checkout craft-starterkit
         uses: actions/checkout@v4
         with:
-          repository: hardimpactdev/liftoff-starterkit
+          repository: hardimpactdev/craft-starterkit
           token: ${{ secrets.GH_PAT }}
           path: starterkit
 
@@ -349,7 +349,7 @@ jobs:
         working-directory: starterkit
         run: |
           composer config repositories.waymaker path ../waymaker
-          composer config repositories.liftoff-laravel path ../liftoff-laravel
+          composer config repositories.craft-laravel path ../craft-laravel
           composer config repositories.laravel-toolbar path ../laravel-toolbar
 
       - name: Install dependencies
@@ -364,7 +364,7 @@ jobs:
 
       - name: Run multilanguage setup
         working-directory: starterkit
-        run: php artisan liftoff:setup multilanguage
+        run: php artisan craft:setup multilanguage
 
       - name: Verify multilanguage files
         working-directory: starterkit

@@ -1,15 +1,15 @@
 <?php
 
-namespace HardImpact\Liftoff\Setup;
+namespace HardImpact\Craft\Setup;
 
-use HardImpact\Liftoff\Setup\App\CopyAppClassTask;
-use HardImpact\Liftoff\Setup\App\CopyAppControllersTask;
-use HardImpact\Liftoff\Setup\App\CopyAppMiddlewareTask;
-use HardImpact\Liftoff\Setup\App\CopyAppRequestsTask;
-use HardImpact\Liftoff\Setup\App\CopyAppTestsTask;
-use HardImpact\Liftoff\Setup\App\CopyAppViewsTask;
-use HardImpact\Liftoff\Setup\App\RunSetupAuthTask;
-use HardImpact\Liftoff\Setup\Tasks\GenerateRoutesTask;
+use HardImpact\Craft\Setup\App\CopyAppClassTask;
+use HardImpact\Craft\Setup\App\CopyAppControllersTask;
+use HardImpact\Craft\Setup\App\CopyAppMiddlewareTask;
+use HardImpact\Craft\Setup\App\CopyAppRequestsTask;
+use HardImpact\Craft\Setup\App\CopyAppTestsTask;
+use HardImpact\Craft\Setup\App\CopyAppViewsTask;
+use HardImpact\Craft\Setup\App\RunSetupAuthTask;
+use HardImpact\Craft\Setup\Tasks\GenerateRoutesTask;
 use Illuminate\Filesystem\Filesystem;
 
 class SetupApp extends Setup
@@ -18,7 +18,7 @@ class SetupApp extends Setup
      * The tasks to run.
      *
      * Sets up a full application with authentication, dashboard, and settings.
-     * Does NOT include CMS - run `liftoff:setup cms` separately if needed.
+     * Does NOT include CMS - run `craft:setup cms` separately if needed.
      *
      * @var array
      */

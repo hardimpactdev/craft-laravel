@@ -1,6 +1,6 @@
 <?php
 
-namespace HardImpact\Liftoff\Setup\Tasks;
+namespace HardImpact\Craft\Setup\Tasks;
 
 interface TaskInterface
 {

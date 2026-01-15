@@ -1,16 +1,16 @@
 <?php
 
-namespace HardImpact\Liftoff\Facades;
+namespace HardImpact\Craft\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \HardImpact\Liftoff\Laravel
+ * @see \HardImpact\Craft\Laravel
  */
 class Laravel extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \HardImpact\Liftoff\Laravel::class;
+        return \HardImpact\Craft\Laravel::class;
     }
 }

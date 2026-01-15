@@ -1,5 +1,5 @@
 <?php
 
-namespace HardImpact\Liftoff;
+namespace HardImpact\Craft;
 
 class Laravel {}

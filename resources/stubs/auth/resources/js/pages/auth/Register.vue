@@ -5,7 +5,7 @@ import {
     Label,
     InputError,
     TextLink,
-} from "@hardimpactdev/liftoff-vue";
+} from "@hardimpactdev/craft-vue";
 
 import { LoaderCircle } from "lucide-vue-next";
 

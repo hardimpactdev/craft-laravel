@@ -9,7 +9,7 @@ All notable changes to `Laravel` will be documented in this file.
 - Converted CLAUDE.md to AGENTS.md with symlink for OpenCode compatibility
 - Updated dependabot/fetch-metadata from 2.4.0 to 2.5.0
 
-**Full Changelog**: https://github.com/hardimpactdev/liftoff-laravel/compare/v0.1.4...v0.1.5
+**Full Changelog**: https://github.com/hardimpactdev/craft-laravel/compare/v0.1.4...v0.1.5
 
 ## v0.1.4 - 2026-01-08
 
@@ -22,7 +22,7 @@ All notable changes to `Laravel` will be documented in this file.
 - Document versioning workflow and CHANGELOG format
 - Include troubleshooting guide for releases
 
-**Full Changelog**: https://github.com/hardimpactdev/liftoff-laravel/compare/v0.1.3...v0.1.4
+**Full Changelog**: https://github.com/hardimpactdev/craft-laravel/compare/v0.1.3...v0.1.4
 
 ## v0.1.3 - 2026-01-08
 
@@ -55,16 +55,16 @@ All notable changes to `Laravel` will be documented in this file.
 
 ### Initial Release
 
-First tagged release of liftoff-laravel, the scaffolding companion package for liftoff-starterkit.
+First tagged release of craft-laravel, the scaffolding companion package for craft-starterkit.
 
 #### Features
 
 - **Modular Setup System**: Run individual setups as needed
-  - `liftoff:setup auth` - Add authentication
-  - `liftoff:setup dashboard` - Add dashboard + settings pages
-  - `liftoff:setup app` - Full app (auth + dashboard combined)
-  - `liftoff:setup cms` - Add Filament CMS
-  - `liftoff:setup multilanguage` - Add language files
+  - `craft:setup auth` - Add authentication
+  - `craft:setup dashboard` - Add dashboard + settings pages
+  - `craft:setup app` - Full app (auth + dashboard combined)
+  - `craft:setup cms` - Add Filament CMS
+  - `craft:setup multilanguage` - Add language files
   
 
 #### Bug Fixes
@@ -75,11 +75,11 @@ First tagged release of liftoff-laravel, the scaffolding companion package for l
 
 #### Compatibility
 
-- Aligned with liftoff-starterkit's current state
+- Aligned with craft-starterkit's current state
 - Removed redundant vite i18n config tasks (already in starterkit)
 - Added `language` field to User type stub
 - SetupApp no longer forces CMS installation
 
 #### Breaking Changes
 
-- `liftoff:setup app` no longer includes CMS - run `liftoff:setup cms` separately if needed
+- `craft:setup app` no longer includes CMS - run `craft:setup cms` separately if needed

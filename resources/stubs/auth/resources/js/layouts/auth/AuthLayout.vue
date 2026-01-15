@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AuthSimpleLayout as AuthLayout } from "@hardimpactdev/liftoff-vue";
+import { AuthSimpleLayout as AuthLayout } from "@hardimpactdev/craft-vue";
 
 defineProps<{
     title?: string;

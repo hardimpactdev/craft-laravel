@@ -1,6 +1,6 @@
 <?php
 
-namespace HardImpact\Liftoff\Setup;
+namespace HardImpact\Craft\Setup;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;

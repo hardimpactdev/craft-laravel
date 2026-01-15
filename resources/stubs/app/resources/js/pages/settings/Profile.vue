@@ -10,7 +10,7 @@ import {
     HeadingSmall,
     AppLayout,
     SettingsLayout,
-} from "@hardimpactdev/liftoff-vue";
+} from "@hardimpactdev/craft-vue";
 import { type BreadcrumbItem, type SharedData, type User } from "@/types";
 
 interface Props {
