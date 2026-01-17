@@ -12,6 +12,7 @@ import { LoaderCircle } from "lucide-vue-next";
 defineProps<{
     status?: string;
     canResetPassword: boolean;
+    canRegister: boolean;
 }>();
 
 const form = useForm({
@@ -21,7 +22,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.submit(Controllers.Auth.LoginController.login(), {
+    form.submit("/login", {
         onFinish: () => form.reset("password"),
     });
 };
@@ -63,9 +64,7 @@ const submit = () => {
                         <Label for="password">Password</Label>
                         <TextLink
                             v-if="canResetPassword"
-                            :href="
-                                Controllers.Auth.ForgotPasswordController.show()
-                            "
+                            href="/forgot-password"
                             class="text-sm"
                             :tabindex="5"
                         >
@@ -110,15 +109,13 @@ const submit = () => {
                 </Button>
             </div>
 
-            <div class="text-center text-sm text-muted-foreground">
+            <div
+                v-if="canRegister"
+                class="text-center text-sm text-muted-foreground"
+            >
                 Don't have an account?
 
-                <TextLink
-                    :href="Controllers.Auth.RegisterController.show()"
-                    :tabindex="5"
-                >
-                    Sign up
-                </TextLink>
+                <TextLink href="/register" :tabindex="5"> Sign up </TextLink>
             </div>
         </form>
     </AuthLayout>

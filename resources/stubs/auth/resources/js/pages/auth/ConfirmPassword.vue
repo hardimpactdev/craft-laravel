@@ -7,7 +7,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.submit(Controllers.Auth.ConfirmablePasswordController.confirm(), {
+    form.submit("/user/confirm-password", {
         onFinish: () => {
             form.reset();
         },

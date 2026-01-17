@@ -281,14 +281,19 @@ jobs:
       - name: Verify setup files
         working-directory: starterkit
         run: |
-          echo "Verifying Auth files..."
-          test -f app/Http/Controllers/Auth/LoginController.php
-          test -f app/Http/Controllers/Auth/RegisterController.php
+          echo "Verifying Auth files (Fortify-based)..."
+          test -f app/Providers/FortifyServiceProvider.php
+          test -f config/fortify.php
+          test -f app/Actions/Fortify/CreateNewUser.php
+          test -f app/Actions/Fortify/ResetUserPassword.php
           test -f resources/js/pages/auth/Login.vue
+          test -f resources/js/pages/auth/TwoFactorChallenge.vue
+          test -f resources/js/composables/useTwoFactorAuth.ts
 
           echo "Verifying Dashboard files..."
           test -f app/Http/Controllers/DashboardController.php
           test -f resources/js/pages/Dashboard.vue
+          test -f resources/js/pages/settings/TwoFactor.vue
 
           echo "All setup files verified!"
 

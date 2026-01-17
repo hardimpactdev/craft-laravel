@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Button, TextLink } from "@hardimpactdev/craft-vue";
-import { Head, useForm } from "@inertiajs/vue3";
 import { LoaderCircle } from "lucide-vue-next";
 
 defineProps<{
@@ -10,9 +9,7 @@ defineProps<{
 const form = useForm({});
 
 const submit = () => {
-    form.submit(
-        Controllers.Auth.EmailVerificationNotificationController.sendNotification()
-    );
+    form.submit("/email/verification-notification");
 };
 </script>
 
@@ -41,7 +38,7 @@ const submit = () => {
             </Button>
 
             <TextLink
-                :href="Controllers.Auth.LoginController.logout()"
+                href="/logout"
                 method="post"
                 as="button"
                 class="mx-auto block text-sm"

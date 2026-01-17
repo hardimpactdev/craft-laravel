@@ -17,7 +17,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.submit(Controllers.Auth.ForgotPasswordController.sendResetLink(), {
+    form.submit("/forgot-password", {
         onFinish: () => form.reset("email"),
     });
 };
@@ -66,9 +66,7 @@ const submit = () => {
 
             <div class="space-x-1 text-center text-sm text-muted-foreground">
                 <span>Or, return to</span>
-                <TextLink :href="Controllers.Auth.LoginController.login()">
-                    log in
-                </TextLink>
+                <TextLink href="/login"> log in </TextLink>
             </div>
         </div>
     </AuthLayout>

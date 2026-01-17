@@ -79,12 +79,37 @@ jobs:
       - name: Verify auth files
         working-directory: starterkit
         run: |
-          test -f app/Http/Controllers/Auth/LoginController.php
-          test -f app/Http/Controllers/Auth/RegisterController.php
-          test -f app/Http/Requests/Auth/LoginRequest.php
+          # Fortify provider and config
+          test -f app/Providers/FortifyServiceProvider.php
+          test -f config/fortify.php
+          
+          # Fortify actions
+          test -f app/Actions/Fortify/CreateNewUser.php
+          test -f app/Actions/Fortify/ResetUserPassword.php
+          
+          # Concerns (validation rules)
+          test -f app/Concerns/PasswordValidationRules.php
+          test -f app/Concerns/ProfileValidationRules.php
+          
+          # 2FA Controller
+          test -f app/Http/Controllers/Settings/TwoFactorAuthenticationController.php
+          
+          # Vue auth pages
           test -f resources/js/pages/auth/Login.vue
           test -f resources/js/pages/auth/Register.vue
+          test -f resources/js/pages/auth/TwoFactorChallenge.vue
+          
+          # 2FA components and composable
+          test -f resources/js/components/TwoFactorSetupModal.vue
+          test -f resources/js/components/TwoFactorRecoveryCodes.vue
+          test -f resources/js/composables/useTwoFactorAuth.ts
+          
+          # Tests
           test -f tests/Feature/Auth/AuthenticationTest.php
+          
+          # Verify FortifyServiceProvider is registered
+          grep -q "FortifyServiceProvider" bootstrap/providers.php
+          
           echo "All auth files verified!"
 
   test-dashboard:
@@ -220,12 +245,21 @@ jobs:
       - name: Verify app files (auth + dashboard)
         working-directory: starterkit
         run: |
-          test -f app/Http/Controllers/Auth/LoginController.php
-          test -f app/Http/Requests/Auth/LoginRequest.php
+          # Auth (Fortify-based)
+          test -f app/Providers/FortifyServiceProvider.php
+          test -f config/fortify.php
+          test -f app/Actions/Fortify/CreateNewUser.php
           test -f resources/js/pages/auth/Login.vue
+          test -f resources/js/pages/auth/TwoFactorChallenge.vue
+          
+          # Dashboard
           test -f app/Http/Controllers/DashboardController.php
           test -f resources/js/pages/Dashboard.vue
+          
+          # Settings (including 2FA)
           test -f resources/js/pages/settings/Profile.vue
+          test -f resources/js/pages/settings/TwoFactor.vue
+          
           echo "All app files verified!"
 
   test-cms:

@@ -17,7 +17,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.submit(Controllers.Auth.NewPasswordController.resetPassword(), {
+    form.submit("/reset-password", {
         onFinish: () => {
             form.reset("password", "password_confirmation");
         },

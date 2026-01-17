@@ -47,6 +47,30 @@ class CopyAuthViewsTask extends Task
 
         $this->info('Authentication layout copied successfully.');
 
+        // Copy 2FA composable
+        $composableStubPath = __DIR__.'/../../../resources/stubs/auth/resources/js/composables';
+        $composableDestinationPath = resource_path('js/composables');
+
+        if (! $this->copyDirectory($composableStubPath, $composableDestinationPath)) {
+            $this->error('Failed to copy 2FA composable.');
+
+            return false;
+        }
+
+        $this->info('2FA composable copied successfully.');
+
+        // Copy 2FA components
+        $componentsStubPath = __DIR__.'/../../../resources/stubs/auth/resources/js/components';
+        $componentsDestinationPath = resource_path('js/components');
+
+        if (! $this->copyDirectory($componentsStubPath, $componentsDestinationPath)) {
+            $this->error('Failed to copy 2FA components.');
+
+            return false;
+        }
+
+        $this->info('2FA components copied successfully.');
+
         return true;
     }
 
