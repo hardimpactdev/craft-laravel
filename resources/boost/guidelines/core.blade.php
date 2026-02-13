@@ -109,7 +109,7 @@ php artisan craft:setup multilanguage
 
 #### CMS Setup
 - Everything from Auth setup (controllers, views, tests)
-- `filament/filament:^3.3` Composer package
+- `filament/filament:^5.2` Composer package
 - `app/Filament/*` - Filament resources and pages
 - `app/Providers/Filament/AdminPanelProvider.php` - Admin panel config
 - `public/css/filament/*` - Filament theme

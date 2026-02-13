@@ -26,7 +26,7 @@ class InstallFilamentComposerPackageTask extends Task
     {
         $this->info('Installing Filament package via Composer...');
 
-        $process = new Process(['composer', 'require', 'filament/filament:^3.3', '-W'], base_path());
+        $process = new Process(['composer', 'require', 'filament/filament:^5.2', '-W'], base_path());
         $process->setTimeout(300); // 5 minutes timeout
 
         if ($this->command) {
