@@ -14,7 +14,22 @@ Class App\Facades\App not found
 
 ## Solution
 
-The stub files now use the `{{namespace}}` placeholder which gets replaced during scaffolding with the actual application namespace (e.g., `App\`, `Custom\`, etc.).
+The stub files now use the `{{namespace}}` placeholder which gets replaced during scaffolding with the actual application namespace.
+
+### Changes Made:
+
+1. **Stub Files Updated**:
+   - `resources/stubs/app/app/App.php` - Uses `namespace {{namespace}};`
+   - `resources/stubs/auth/tests/Feature/Auth/RegistrationTest.php` - Uses `use {{namespace}}App;`
+   - `resources/stubs/auth/tests/Feature/Auth/EmailVerificationTest.php` - Uses `use {{namespace}}App;`
+
+2. **Task Classes Fixed**:
+   - `src/Setup/App/CopyAppClassTask.php` - Now uses `rtrim(app()->getNamespace(), '\\')` to remove trailing backslash for namespace declarations
+   - `src/Setup/Auth/CopyAuthTestsTask.php` - Uses `app()->getNamespace()` as-is (with trailing backslash) for use statements
+
+This ensures that:
+- Namespace declarations like `namespace App;` are generated correctly (without trailing backslash)
+- Use statements like `use App\App;` are generated correctly (with trailing backslash)
 
 ## For Existing Consumers
 

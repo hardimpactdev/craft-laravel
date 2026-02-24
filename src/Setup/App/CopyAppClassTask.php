@@ -27,7 +27,7 @@ class CopyAppClassTask extends Task
         $to = app_path('App.php');
 
         $replacements = [
-            '{{namespace}}' => app()->getNamespace(),
+            '{{namespace}}' => rtrim(app()->getNamespace(), '\\'),
         ];
 
         if ($this->copyFile($from, $to, $replacements)) {
