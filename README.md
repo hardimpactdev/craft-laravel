@@ -177,27 +177,35 @@ tests/Feature/
 #### Auth Scaffolder creates:
 
 ```
-app/Http/
-├── Controllers/Auth/
-│   ├── ConfirmablePasswordController.php
-│   ├── EmailVerificationNotificationController.php
-│   ├── EmailVerificationPromptController.php
-│   ├── ForgotPasswordController.php
-│   ├── LoginController.php
-│   ├── NewPasswordController.php
-│   ├── RegisterController.php
-│   └── VerifyEmailController.php
-└── Requests/Auth/
-    └── LoginRequest.php
+app/
+├── Actions/Fortify/
+│   ├── CreateNewUser.php
+│   └── ResetUserPassword.php
+├── Concerns/
+│   ├── PasswordValidationRules.php
+│   └── ProfileValidationRules.php
+├── Http/
+│   ├── Controllers/Settings/
+│   │   └── TwoFactorAuthenticationController.php
+│   └── Requests/Settings/
+│       └── TwoFactorAuthenticationRequest.php
+└── Providers/
+    └── FortifyServiceProvider.php
+config/
+└── fortify.php
 resources/js/
-├── layouts/auth/
-│   └── AuthLayout.vue
+├── components/
+│   ├── TwoFactorRecoveryCodes.vue
+│   └── TwoFactorSetupModal.vue
+├── composables/
+│   └── useTwoFactorAuth.ts
 └── pages/auth/
     ├── ConfirmPassword.vue
     ├── ForgotPassword.vue
     ├── Login.vue
     ├── Register.vue
     ├── ResetPassword.vue
+    ├── TwoFactorChallenge.vue
     └── VerifyEmail.vue
 tests/Feature/Auth/
 ├── AuthenticationTest.php
