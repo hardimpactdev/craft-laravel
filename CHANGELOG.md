@@ -2,6 +2,24 @@
 
 All notable changes to `Laravel` will be documented in this file.
 
+## v0.2.9 - Auth Scaffold Namespace Fix - 2026-02-24
+
+### Bug Fixes
+
+- **Auth Scaffold**: Fixed namespace placeholder bug causing `Class App\Facades\App not found` errors
+  - Updated stub files to use `{{namespace}}` placeholder for proper namespace replacement
+  - Fixed CopyAppClassTask to trim trailing backslash for valid PHP namespace declarations
+  - Added comprehensive regression tests
+  
+
+### Files Changed
+
+- resources/stubs/app/app/App.php
+- resources/stubs/auth/tests/Feature/Auth/RegistrationTest.php
+- resources/stubs/auth/tests/Feature/Auth/EmailVerificationTest.php
+- src/Setup/App/CopyAppClassTask.php
+- tests/Feature/AuthScaffoldTest.php
+
 ## 0.2.9 - 2026-02-24
 
 ### Bug Fixes
@@ -11,6 +29,7 @@ All notable changes to `Laravel` will be documented in this file.
   - Updated auth test stubs to use `{{namespace}}App` for proper namespace replacement
   - Fixed `CopyAppClassTask` to trim trailing backslash for valid PHP namespace declarations
   - Added comprehensive regression tests in `AuthScaffoldTest.php`
+  
 
 **Full Changelog**: https://github.com/hardimpactdev/craft-laravel/compare/v0.2.6...v0.2.7
 
