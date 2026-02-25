@@ -134,6 +134,63 @@ bun run dev
 </code-snippet>
 @endverbatim
 
+### Strict Defaults (Active by Default)
+
+This project enforces strict runtime defaults via `config/laravel.php`. These are active unless explicitly disabled.
+
+#### All Environments
+
+- **Strict models** (`Model::shouldBeStrict()`) — prevents lazy loading, silently discarded attributes, and accessing missing attributes. Always eager-load relationships or rely on automatic eager loading.
+- **Automatic eager loading** (`Model::automaticallyEagerLoadRelationships()`) — eliminates N+1 queries automatically (Laravel 12.8+). You still should define `$with` on models when the relationship is always needed.
+- **Immutable dates** (`Date::use(CarbonImmutable::class)`) — all date casts return `CarbonImmutable`. Never mutate a date in place; assign the return value instead.
+- **Aggressive prefetching** (`Vite::useAggressivePrefetching()`) — Vite prefetches all assets for faster page loads.
+
+#### Production Only
+
+- **Force HTTPS** (`URL::forceHttps()`) — all generated URLs use HTTPS.
+- **Prohibit destructive commands** (`DB::prohibitDestructiveCommands()`) — prevents `migrate:fresh`, `migrate:reset`, `db:wipe` in production.
+- **Password defaults** (`Password::defaults(...)`) — minimum 12 characters, mixed case, numbers, symbols, and uncompromised check.
+
+#### Test Only
+
+- **Prevent stray requests** (`Http::preventStrayRequests()`) — any unfaked HTTP call throws an exception. Always fake external HTTP calls in tests.
+- **Fake sleep** (`Sleep::fake()`) — `Sleep::for()` calls are faked so tests run instantly.
+
+#### Writing Compatible Code
+
+@verbatim
+<code-snippet name="Strict defaults compatible patterns" lang="php">
+// ✅ Always add strict types to new PHP files
+declare(strict_types=1);
+
+// ✅ Dates are immutable — assign return values
+$nextWeek = $user->created_at->addWeek();
+
+// ❌ Never mutate dates in place
+$user->created_at->addWeek(); // has no effect with CarbonImmutable
+
+// ✅ Always fake HTTP calls in tests
+Http::fake(['api.example.com/*' => Http::response(['ok' => true])]);
+
+// ✅ Eager-load when not using automatic eager loading
+$users = User::with('posts', 'comments')->get();
+</code-snippet>
+@endverbatim
+
+#### Disabling a Default
+
+To disable a specific default, set it to `false` in `config/laravel.php`:
+
+@verbatim
+<code-snippet name="Disable a strict default" lang="php">
+// config/laravel.php
+'defaults' => [
+    'strict_models' => false, // disable strict models
+    // ... other defaults remain true
+],
+</code-snippet>
+@endverbatim
+
 ### Important Notes
 
 1. **Always run migrations** after any setup that includes auth
