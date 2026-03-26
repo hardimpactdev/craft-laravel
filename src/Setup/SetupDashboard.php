@@ -2,6 +2,7 @@
 
 namespace HardImpact\Craft\Setup;
 
+use HardImpact\Craft\Setup\App\ConfigureAppEntryTask;
 use HardImpact\Craft\Setup\App\CopyAppClassTask;
 use HardImpact\Craft\Setup\App\CopyAppControllersTask;
 use HardImpact\Craft\Setup\App\CopyAppMiddlewareTask;
@@ -29,6 +30,7 @@ class SetupDashboard extends Setup
         CopyAppRequestsTask::class,
         EnsureRegistryConfigTask::class,
         InstallAppFrontendTask::class,
+        ConfigureAppEntryTask::class,
         CopyAppTestsTask::class,
         GenerateRoutesTask::class,
     ];
