@@ -7,7 +7,7 @@ use Illuminate\Filesystem\Filesystem;
 
 class SetupCommand extends Command
 {
-    protected $signature = 'craft:setup {type : The type of setup to run (auth, dashboard, app, cms, multilanguage, task-tracking)}';
+    protected $signature = 'craft:setup {type : The type of setup to run (app, filament)}';
 
     protected $description = 'Setup Craft features';
 
