@@ -2,7 +2,6 @@
 
 namespace HardImpact\Craft\Setup;
 
-use HardImpact\Craft\Setup\MultiLanguage\CopyExamplePageTask;
 use HardImpact\Craft\Setup\MultiLanguage\CopyLangDirectoryTask;
 use HardImpact\Craft\Setup\Tasks\GenerateRoutesTask;
 use Illuminate\Filesystem\Filesystem;
@@ -19,7 +18,6 @@ class SetupMultilanguage extends Setup
      */
     protected $tasks = [
         CopyLangDirectoryTask::class,
-        CopyExamplePageTask::class,
         GenerateRoutesTask::class,
     ];
 

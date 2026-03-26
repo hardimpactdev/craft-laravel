@@ -7,7 +7,8 @@ use HardImpact\Craft\Setup\App\CopyAppControllersTask;
 use HardImpact\Craft\Setup\App\CopyAppMiddlewareTask;
 use HardImpact\Craft\Setup\App\CopyAppRequestsTask;
 use HardImpact\Craft\Setup\App\CopyAppTestsTask;
-use HardImpact\Craft\Setup\App\CopyAppViewsTask;
+use HardImpact\Craft\Setup\App\InstallAppFrontendTask;
+use HardImpact\Craft\Setup\Tasks\EnsureRegistryConfigTask;
 use HardImpact\Craft\Setup\Tasks\GenerateRoutesTask;
 use Illuminate\Filesystem\Filesystem;
 
@@ -26,7 +27,8 @@ class SetupDashboard extends Setup
         CopyAppControllersTask::class,
         CopyAppMiddlewareTask::class,
         CopyAppRequestsTask::class,
-        CopyAppViewsTask::class,
+        EnsureRegistryConfigTask::class,
+        InstallAppFrontendTask::class,
         CopyAppTestsTask::class,
         GenerateRoutesTask::class,
     ];

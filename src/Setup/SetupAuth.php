@@ -3,12 +3,13 @@
 namespace HardImpact\Craft\Setup;
 
 use HardImpact\Craft\Setup\Auth\CopyAuthTestsTask;
-use HardImpact\Craft\Setup\Auth\CopyAuthViewsTask;
 use HardImpact\Craft\Setup\Auth\CopyFortifyFilesTask;
+use HardImpact\Craft\Setup\Auth\InstallAuthFrontendTask;
 use HardImpact\Craft\Setup\Auth\InstallFortifyTask;
 use HardImpact\Craft\Setup\Auth\PublishMigrationsTask;
 use HardImpact\Craft\Setup\Auth\RegisterFortifyServiceProviderTask;
 use HardImpact\Craft\Setup\Auth\UpdateUserModelTask;
+use HardImpact\Craft\Setup\Tasks\EnsureRegistryConfigTask;
 use Illuminate\Filesystem\Filesystem;
 
 class SetupAuth extends Setup
@@ -23,7 +24,8 @@ class SetupAuth extends Setup
         CopyFortifyFilesTask::class,
         RegisterFortifyServiceProviderTask::class,
         UpdateUserModelTask::class,
-        CopyAuthViewsTask::class,
+        EnsureRegistryConfigTask::class,
+        InstallAuthFrontendTask::class,
         CopyAuthTestsTask::class,
         PublishMigrationsTask::class,
     ];

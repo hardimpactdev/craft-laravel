@@ -69,7 +69,7 @@ class HandleInertiaRequests extends Middleware
                         'items' => [
                             [
                                 'title' => 'GitHub Repo',
-                                'href' => 'https://github.com/laravel/vue-starter-kit',
+                                'href' => 'https://github.com/hardimpactdev/craft-laravel',
                                 'icon' => 'GitHub',
                             ],
                         ],

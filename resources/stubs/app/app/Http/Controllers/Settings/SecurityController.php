@@ -14,21 +14,24 @@ use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class PasswordController extends Controller
+class SecurityController extends Controller
 {
     /**
-     * Show the user's password settings page.
+     * Show the user's security settings page.
      */
-    #[Get(uri: '/settings/password', name: 'password.edit', middleware: 'auth')]
-    public function edit(): Response
+    #[Get(uri: '/settings/security', name: 'security.edit', middleware: ['auth', 'verified'])]
+    public function edit(Request $request): Response
     {
-        return Inertia::render('settings/Password');
+        return Inertia::render('settings/Security', [
+            'twoFactorEnabled' => ! is_null($request->user()->two_factor_secret),
+            'canManageTwoFactor' => true,
+        ]);
     }
 
     /**
      * Update the user's password.
      */
-    #[Put(uri: '/settings/password', name: 'password.update', middleware: 'auth')]
+    #[Put(uri: '/settings/password', name: 'security.password', middleware: 'auth')]
     public function update(Request $request): RedirectResponse
     {
         $validated = $request->validate([

@@ -72,17 +72,6 @@ class CopyFortifyFilesTask extends Task
         }
         $this->info('Concerns copied successfully.');
 
-        // Copy TwoFactorAuthenticationController
-        $tfaControllerStubPath = __DIR__.'/../../../resources/stubs/auth/app/Http/Controllers/Settings/TwoFactorAuthenticationController.php';
-        $tfaControllerDestPath = app_path('Http/Controllers/Settings/TwoFactorAuthenticationController.php');
-
-        if (! $this->copyFile($tfaControllerStubPath, $tfaControllerDestPath, $replacements)) {
-            $this->error('Failed to copy TwoFactorAuthenticationController.');
-
-            return false;
-        }
-        $this->info('TwoFactorAuthenticationController copied successfully.');
-
         // Copy TwoFactorAuthenticationRequest
         $tfaRequestStubPath = __DIR__.'/../../../resources/stubs/auth/app/Http/Requests/Settings/TwoFactorAuthenticationRequest.php';
         $tfaRequestDestPath = app_path('Http/Requests/Settings/TwoFactorAuthenticationRequest.php');
