@@ -2,6 +2,7 @@
 
 namespace HardImpact\Craft\Setup;
 
+use HardImpact\Craft\Setup\App\BuildFrontendTask;
 use HardImpact\Craft\Setup\App\ConfigureAppEntryTask;
 use HardImpact\Craft\Setup\App\CopyAppClassTask;
 use HardImpact\Craft\Setup\App\CopyAppControllersTask;
@@ -11,6 +12,7 @@ use HardImpact\Craft\Setup\App\CopyAppTestsTask;
 use HardImpact\Craft\Setup\App\InstallAppFrontendTask;
 use HardImpact\Craft\Setup\Tasks\EnsureRegistryConfigTask;
 use HardImpact\Craft\Setup\Tasks\GenerateRoutesTask;
+use HardImpact\Craft\Setup\Tasks\RunMigrationsTask;
 use Illuminate\Filesystem\Filesystem;
 
 class SetupDashboard extends Setup
@@ -32,7 +34,9 @@ class SetupDashboard extends Setup
         InstallAppFrontendTask::class,
         ConfigureAppEntryTask::class,
         CopyAppTestsTask::class,
+        RunMigrationsTask::class,
         GenerateRoutesTask::class,
+        BuildFrontendTask::class,
     ];
 
     /**
