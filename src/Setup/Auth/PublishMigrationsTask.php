@@ -26,6 +26,12 @@ class PublishMigrationsTask extends Task
     {
         $this->info('Publishing authentication migrations...');
 
+        // Publish Fortify's 2FA migrations
+        Artisan::call('vendor:publish', [
+            '--tag' => 'fortify-migrations',
+            '--force' => true,
+        ]);
+
         // For Spatie's Laravel Package Tools, the tag is "package-name-migrations"
         $exitCode = Artisan::call('vendor:publish', [
             '--tag' => 'laravel-migrations',
