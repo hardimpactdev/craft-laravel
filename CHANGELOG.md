@@ -2,6 +2,15 @@
 
 All notable changes to `Laravel` will be documented in this file.
 
+## v0.3.2 - 2026-05-12
+
+### What's changed
+
+- Add Laravel 13 support to `illuminate/contracts` constraint (^12.0 || ^13.0).
+- Scaffolding refinements: simplify scaffolds to app + filament, add `RunMigrationsTask` and `BuildFrontendTask`, `ConfigureAppEntryTask` for app.tsx layout resolver, publish Fortify 2FA migrations, exclude Home page from sidebar layout, rename `password.update` route to `security.password`.
+
+**Full Changelog**: https://github.com/hardimpactdev/craft-laravel/compare/v0.3.1...v0.3.2
+
 ## v0.2.9 - Auth Scaffold Namespace Fix - 2026-02-24
 
 ### Bug Fixes
