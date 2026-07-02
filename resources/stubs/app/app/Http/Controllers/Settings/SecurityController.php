@@ -22,9 +22,26 @@ class SecurityController extends Controller
     #[Get(uri: '/settings/security', name: 'security.edit', middleware: ['auth', 'verified'])]
     public function edit(Request $request): Response
     {
+        $user = $request->user();
+        $twoFactorEnabled = $user && method_exists($user, 'hasEnabledTwoFactorAuthentication')
+            ? $user->hasEnabledTwoFactorAuthentication()
+            : filled($user?->two_factor_secret);
+        $twoFactorPending = filled($user?->two_factor_secret) && ! $twoFactorEnabled;
+        $fortifyFeatures = \Laravel\Fortify\Features::class;
+        $canManageTwoFactor = class_exists($fortifyFeatures)
+            && $fortifyFeatures::enabled($fortifyFeatures::twoFactorAuthentication());
+
         return Inertia::render('settings/Security', [
-            'twoFactorEnabled' => ! is_null($request->user()->two_factor_secret),
-            'canManageTwoFactor' => true,
+            'twoFactorEnabled' => $twoFactorEnabled,
+            'twoFactorPending' => $twoFactorPending,
+            'continueTwoFactorSetup' => $twoFactorPending
+                && $request->boolean('continueTwoFactorSetup'),
+            'canManageTwoFactor' => $canManageTwoFactor,
+            'requiresConfirmation' => $canManageTwoFactor
+                && $fortifyFeatures::optionEnabled(
+                    $fortifyFeatures::twoFactorAuthentication(),
+                    'confirm',
+                ),
         ]);
     }
 
