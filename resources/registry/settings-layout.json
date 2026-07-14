@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "settings-layout",
+  "dependencies": [],
+  "registryDependencies": [
+    "@craft/heading",
+    "separator",
+    "sidebar",
+    "@craft/use-current-url",
+    "@craft/craft-types"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/blocks/settings-layout.tsx",
+      "content": "import { Link } from \"@inertiajs/react\";\nimport type { PropsWithChildren } from \"react\";\nimport Heading from \"@/components/heading\";\nimport { Button } from \"@/components/ui/button\";\nimport { Separator } from \"@/components/ui/separator\";\nimport { useCurrentUrl } from \"@/hooks/use-current-url\";\nimport { cn, toUrl } from \"@/lib/utils\";\nimport type { NavItem } from \"@/lib/types\";\n\nconst sidebarNavItems: NavItem[] = [\n    {\n        title: \"Profile\",\n        href: \"/settings/profile\",\n        icon: null,\n    },\n    {\n        title: \"Security\",\n        href: \"/settings/security\",\n        icon: null,\n    },\n    {\n        title: \"Appearance\",\n        href: \"/settings/appearance\",\n        icon: null,\n    },\n];\n\nexport default function SettingsLayout({ children }: PropsWithChildren) {\n    const { isCurrentOrParentUrl } = useCurrentUrl();\n\n    return (\n        <div className=\"px-4 py-6\">\n            <Heading title=\"Settings\" description=\"Manage your profile and account settings\" />\n\n            <div className=\"flex flex-col lg:flex-row lg:space-x-12\">\n                <aside className=\"w-full max-w-xl lg:w-48\">\n                    <nav className=\"flex flex-col space-y-1 space-x-0\" aria-label=\"Settings\">\n                        {sidebarNavItems.map((item, index) => (\n                            <Button\n                                key={`${toUrl(item.href)}-${index}`}\n                                size=\"sm\"\n                                variant=\"ghost\"\n                                nativeButton={false}\n                                render={<Link href={item.href} />}\n                                className={cn(\"w-full justify-start\", {\n                                    \"bg-muted\": isCurrentOrParentUrl(item.href),\n                                })}\n                            >\n                                {item.icon && <item.icon className=\"h-4 w-4\" />}\n                                {item.title}\n                            </Button>\n                        ))}\n                    </nav>\n                </aside>\n\n                <Separator className=\"my-6 lg:hidden\" />\n\n                <div className=\"flex-1 md:max-w-2xl\">\n                    <section className=\"max-w-xl space-y-12\">{children}</section>\n                </div>\n            </div>\n        </div>\n    );\n}\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

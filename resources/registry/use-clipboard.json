@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-clipboard",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york-v4/hooks/use-clipboard.ts",
+      "content": "import { useState } from \"react\";\n\nexport type CopiedValue = string | null;\nexport type CopyFn = (text: string) => Promise<boolean>;\nexport type UseClipboardReturn = [CopiedValue, CopyFn];\n\nexport function useClipboard(): UseClipboardReturn {\n    const [copiedText, setCopiedText] = useState<CopiedValue>(null);\n\n    const copy: CopyFn = async (text) => {\n        if (!navigator?.clipboard) {\n            console.warn(\"Clipboard not supported\");\n\n            return false;\n        }\n\n        try {\n            await navigator.clipboard.writeText(text);\n            setCopiedText(text);\n\n            return true;\n        } catch (error) {\n            console.warn(\"Copy failed\", error);\n            setCopiedText(null);\n\n            return false;\n        }\n    };\n\n    return [copiedText, copy];\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}

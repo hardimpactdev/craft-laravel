@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace HardImpact\Craft\Setup\Auth;
 
 use HardImpact\Craft\Setup\Tasks\Task;
@@ -50,6 +52,17 @@ class CopyFortifyFilesTask extends Task
         }
         $this->info('Fortify config copied successfully.');
 
+        // Copy passkeys config
+        $passkeysConfigStubPath = __DIR__.'/../../../resources/stubs/auth/config/passkeys.php';
+        $passkeysConfigDestPath = config_path('passkeys.php');
+
+        if (! $this->copyFile($passkeysConfigStubPath, $passkeysConfigDestPath, $replacements)) {
+            $this->error('Failed to copy passkeys config.');
+
+            return false;
+        }
+        $this->info('Passkeys config copied successfully.');
+
         // Copy Fortify Actions
         $actionsStubPath = __DIR__.'/../../../resources/stubs/auth/app/Actions/Fortify';
         $actionsDestPath = app_path('Actions/Fortify');
@@ -72,16 +85,27 @@ class CopyFortifyFilesTask extends Task
         }
         $this->info('Concerns copied successfully.');
 
-        // Copy TwoFactorAuthenticationRequest
-        $tfaRequestStubPath = __DIR__.'/../../../resources/stubs/auth/app/Http/Requests/Settings/TwoFactorAuthenticationRequest.php';
-        $tfaRequestDestPath = app_path('Http/Requests/Settings/TwoFactorAuthenticationRequest.php');
+        // Copy Fortify responses
+        $responsesStubPath = __DIR__.'/../../../resources/stubs/auth/app/Http/Responses';
+        $responsesDestPath = app_path('Http/Responses');
 
-        if (! $this->copyFile($tfaRequestStubPath, $tfaRequestDestPath, $replacements)) {
-            $this->error('Failed to copy TwoFactorAuthenticationRequest.');
+        if (! $this->copyDirectory($responsesStubPath, $responsesDestPath, $replacements)) {
+            $this->error('Failed to copy Fortify responses.');
 
             return false;
         }
-        $this->info('TwoFactorAuthenticationRequest copied successfully.');
+        $this->info('Fortify responses copied successfully.');
+
+        // Copy RequireSensitiveActionConfirmation middleware
+        $sensitiveActionMiddlewareStubPath = __DIR__.'/../../../resources/stubs/auth/app/Http/Middleware/RequireSensitiveActionConfirmation.php';
+        $sensitiveActionMiddlewareDestPath = app_path('Http/Middleware/RequireSensitiveActionConfirmation.php');
+
+        if (! $this->copyFile($sensitiveActionMiddlewareStubPath, $sensitiveActionMiddlewareDestPath, $replacements)) {
+            $this->error('Failed to copy RequireSensitiveActionConfirmation middleware.');
+
+            return false;
+        }
+        $this->info('RequireSensitiveActionConfirmation middleware copied successfully.');
 
         // Copy TwoFactorAuthenticationController
         $tfaControllerStubPath = __DIR__.'/../../../resources/stubs/auth/app/Http/Controllers/Settings/TwoFactorAuthenticationController.php';
@@ -93,6 +117,17 @@ class CopyFortifyFilesTask extends Task
             return false;
         }
         $this->info('TwoFactorAuthenticationController copied successfully.');
+
+        // Copy TwoFactorAuthenticationRequest
+        $tfaRequestStubPath = __DIR__.'/../../../resources/stubs/auth/app/Http/Requests/Settings/TwoFactorAuthenticationRequest.php';
+        $tfaRequestDestPath = app_path('Http/Requests/Settings/TwoFactorAuthenticationRequest.php');
+
+        if (! $this->copyFile($tfaRequestStubPath, $tfaRequestDestPath, $replacements)) {
+            $this->error('Failed to copy TwoFactorAuthenticationRequest.');
+
+            return false;
+        }
+        $this->info('TwoFactorAuthenticationRequest copied successfully.');
 
         return true;
     }

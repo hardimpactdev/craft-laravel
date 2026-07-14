@@ -1,14 +1,22 @@
-name: Integration Tests
+name: Starterkit integration
 
 on:
   push:
     branches: [main]
     paths:
-      - 'src/**'
-      - 'resources/stubs/**'
-      - '.github/workflows/integration-tests.yml'
+      - "src/**"
+      - "resources/registry/**"
+      - "resources/stubs/**"
+      - "composer.json"
+      - ".github/workflows/integration-tests.yml"
   pull_request:
     branches: [main]
+    paths:
+      - "src/**"
+      - "resources/registry/**"
+      - "resources/stubs/**"
+      - "composer.json"
+      - ".github/workflows/integration-tests.yml"
   workflow_dispatch:
 
 concurrency:
@@ -16,396 +24,97 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test-auth:
-    name: Test Auth Setup
+  scaffold:
+    name: ${{ matrix.setup }} setup
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        setup: [app, filament, multilanguage]
 
     steps:
-      - name: Checkout craft-laravel
+      - name: Checkout Craft Laravel
         uses: actions/checkout@v4
         with:
           path: craft-laravel
 
-      - name: Checkout craft-starterkit
+      - name: Checkout Craft React starterkit
         uses: actions/checkout@v4
         with:
-          repository: hardimpactdev/craft-starterkit
+          repository: hardimpactdev/craft-starterkit-react
           token: ${{ secrets.GH_PAT }}
           path: starterkit
-
-      - name: Checkout waymaker
-        uses: actions/checkout@v4
-        with:
-          repository: hardimpactdev/waymaker
-          token: ${{ secrets.GH_PAT }}
-          path: waymaker
-
-      - name: Checkout laravel-toolbar
-        uses: actions/checkout@v4
-        with:
-          repository: nckrtl/laravel-toolbar
-          token: ${{ secrets.GH_PAT }}
-          path: laravel-toolbar
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          php-version: "8.4"
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, intl, gd, fileinfo
           coverage: none
 
-      - name: Configure composer repositories
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: starterkit/package-lock.json
+
+      - name: Install the package under test
         working-directory: starterkit
         run: |
-          composer config repositories.waymaker path ../waymaker
           composer config repositories.craft-laravel path ../craft-laravel
-          composer config repositories.laravel-toolbar path ../laravel-toolbar
+          composer require hardimpactdev/craft-laravel:@dev --with-all-dependencies --prefer-dist --no-interaction
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         working-directory: starterkit
-        run: composer install --no-interaction --prefer-dist
+        run: npm ci
 
-      - name: Setup environment
+      - name: Prepare application
         working-directory: starterkit
         run: |
           cp .env.example .env
           php artisan key:generate
+          touch database/database.sqlite
 
-      - name: Run auth setup
-        working-directory: starterkit
-        run: php artisan craft:setup auth
-
-      - name: Verify auth files
+      - name: Run setup twice
         working-directory: starterkit
         run: |
-          # Fortify provider and config
-          test -f app/Providers/FortifyServiceProvider.php
-          test -f config/fortify.php
-          
-          # Fortify actions
-          test -f app/Actions/Fortify/CreateNewUser.php
-          test -f app/Actions/Fortify/ResetUserPassword.php
-          
-          # Concerns (validation rules)
-          test -f app/Concerns/PasswordValidationRules.php
-          test -f app/Concerns/ProfileValidationRules.php
-          
-          # 2FA Controller
-          test -f app/Http/Controllers/Settings/TwoFactorAuthenticationController.php
-          
-          # Vue auth pages
-          test -f resources/js/pages/auth/Login.vue
-          test -f resources/js/pages/auth/Register.vue
-          test -f resources/js/pages/auth/TwoFactorChallenge.vue
-          
-          # 2FA components and composable
-          test -f resources/js/components/TwoFactorSetupModal.vue
-          test -f resources/js/components/TwoFactorRecoveryCodes.vue
-          test -f resources/js/composables/useTwoFactorAuth.ts
-          
-          # Tests
-          test -f tests/Feature/Auth/AuthenticationTest.php
-          
-          # Verify FortifyServiceProvider is registered
-          grep -q "FortifyServiceProvider" bootstrap/providers.php
-          
-          echo "All auth files verified!"
+          php artisan craft:setup ${{ matrix.setup }}
+          php artisan craft:setup ${{ matrix.setup }}
 
-  test-dashboard:
-    name: Test Dashboard Setup
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+      - name: Verify generated files
+        working-directory: starterkit
+        shell: bash
+        run: |
+          case "${{ matrix.setup }}" in
+            app)
+              test -f app/Providers/FortifyServiceProvider.php
+              test -f config/passkeys.php
+              test -f resources/js/pages/auth/login.tsx
+              test -f resources/js/pages/Dashboard.tsx
+              test -f resources/js/pages/settings/security.tsx
+              ;;
+            filament)
+              test -f app/Providers/Filament/AdminPanelProvider.php
+              test -f app/Filament/Pages/Auth/EditProfile.php
+              test -f app/Http/Middleware/AuthenticateFilament.php
+              test -f resources/views/filament/user-security/passkeys.blade.php
+              ;;
+            multilanguage)
+              test -f lang/en.json
+              test -f lang/nl.json
+              test -f resources/js/pages/TranslationExample.tsx
+              grep -q "i18n: true" vite.config.ts
+              ;;
+          esac
 
-    steps:
-      - name: Checkout craft-laravel
-        uses: actions/checkout@v4
-        with:
-          path: craft-laravel
+      - name: Build frontend
+        working-directory: starterkit
+        run: npm run build
 
-      - name: Checkout craft-starterkit
-        uses: actions/checkout@v4
-        with:
-          repository: hardimpactdev/craft-starterkit
-          token: ${{ secrets.GH_PAT }}
-          path: starterkit
-
-      - name: Checkout waymaker
-        uses: actions/checkout@v4
-        with:
-          repository: hardimpactdev/waymaker
-          token: ${{ secrets.GH_PAT }}
-          path: waymaker
-
-      - name: Checkout laravel-toolbar
-        uses: actions/checkout@v4
-        with:
-          repository: nckrtl/laravel-toolbar
-          token: ${{ secrets.GH_PAT }}
-          path: laravel-toolbar
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
-          coverage: none
-
-      - name: Configure composer repositories
+      - name: Run migrations and tests
         working-directory: starterkit
         run: |
-          composer config repositories.waymaker path ../waymaker
-          composer config repositories.craft-laravel path ../craft-laravel
-          composer config repositories.laravel-toolbar path ../laravel-toolbar
-
-      - name: Install dependencies
-        working-directory: starterkit
-        run: composer install --no-interaction --prefer-dist
-
-      - name: Setup environment
-        working-directory: starterkit
-        run: |
-          cp .env.example .env
-          php artisan key:generate
-
-      - name: Run dashboard setup
-        working-directory: starterkit
-        run: php artisan craft:setup dashboard
-
-      - name: Verify dashboard files
-        working-directory: starterkit
-        run: |
-          test -f app/Http/Controllers/DashboardController.php
-          test -f app/Http/Controllers/Settings/ProfileController.php
-          test -f resources/js/pages/Dashboard.vue
-          test -f resources/js/pages/settings/Profile.vue
-          test -f tests/Feature/DashboardTest.php
-          echo "All dashboard files verified!"
-
-  test-app:
-    name: Test App Setup (Auth + Dashboard)
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    steps:
-      - name: Checkout craft-laravel
-        uses: actions/checkout@v4
-        with:
-          path: craft-laravel
-
-      - name: Checkout craft-starterkit
-        uses: actions/checkout@v4
-        with:
-          repository: hardimpactdev/craft-starterkit
-          token: ${{ secrets.GH_PAT }}
-          path: starterkit
-
-      - name: Checkout waymaker
-        uses: actions/checkout@v4
-        with:
-          repository: hardimpactdev/waymaker
-          token: ${{ secrets.GH_PAT }}
-          path: waymaker
-
-      - name: Checkout laravel-toolbar
-        uses: actions/checkout@v4
-        with:
-          repository: nckrtl/laravel-toolbar
-          token: ${{ secrets.GH_PAT }}
-          path: laravel-toolbar
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
-          coverage: none
-
-      - name: Configure composer repositories
-        working-directory: starterkit
-        run: |
-          composer config repositories.waymaker path ../waymaker
-          composer config repositories.craft-laravel path ../craft-laravel
-          composer config repositories.laravel-toolbar path ../laravel-toolbar
-
-      - name: Install dependencies
-        working-directory: starterkit
-        run: composer install --no-interaction --prefer-dist
-
-      - name: Setup environment
-        working-directory: starterkit
-        run: |
-          cp .env.example .env
-          php artisan key:generate
-
-      - name: Run app setup
-        working-directory: starterkit
-        run: php artisan craft:setup app
-
-      - name: Verify app files (auth + dashboard)
-        working-directory: starterkit
-        run: |
-          # Auth (Fortify-based)
-          test -f app/Providers/FortifyServiceProvider.php
-          test -f config/fortify.php
-          test -f app/Actions/Fortify/CreateNewUser.php
-          test -f resources/js/pages/auth/Login.vue
-          test -f resources/js/pages/auth/TwoFactorChallenge.vue
-          
-          # Dashboard
-          test -f app/Http/Controllers/DashboardController.php
-          test -f resources/js/pages/Dashboard.vue
-          
-          # Settings (including 2FA)
-          test -f resources/js/pages/settings/Profile.vue
-          test -f resources/js/pages/settings/TwoFactor.vue
-          
-          echo "All app files verified!"
-
-  test-cms:
-    name: Test CMS Setup
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-
-    steps:
-      - name: Checkout craft-laravel
-        uses: actions/checkout@v4
-        with:
-          path: craft-laravel
-
-      - name: Checkout craft-starterkit
-        uses: actions/checkout@v4
-        with:
-          repository: hardimpactdev/craft-starterkit
-          token: ${{ secrets.GH_PAT }}
-          path: starterkit
-
-      - name: Checkout waymaker
-        uses: actions/checkout@v4
-        with:
-          repository: hardimpactdev/waymaker
-          token: ${{ secrets.GH_PAT }}
-          path: waymaker
-
-      - name: Checkout laravel-toolbar
-        uses: actions/checkout@v4
-        with:
-          repository: nckrtl/laravel-toolbar
-          token: ${{ secrets.GH_PAT }}
-          path: laravel-toolbar
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
-          coverage: none
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Configure npm registry auth
-        working-directory: starterkit
-        run: |
-          echo "@hardimpactdev:registry=https://npm.pkg.github.com" >> .npmrc
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_PAT }}" >> .npmrc
-
-      - name: Configure composer repositories
-        working-directory: starterkit
-        run: |
-          composer config repositories.waymaker path ../waymaker
-          composer config repositories.craft-laravel path ../craft-laravel
-          composer config repositories.laravel-toolbar path ../laravel-toolbar
-
-      - name: Install dependencies
-        working-directory: starterkit
-        run: composer install --no-interaction --prefer-dist
-
-      - name: Setup environment
-        working-directory: starterkit
-        run: |
-          cp .env.example .env
-          php artisan key:generate
-
-      - name: Run cms setup
-        working-directory: starterkit
-        run: php artisan craft:setup cms
-
-      - name: Verify cms files
-        working-directory: starterkit
-        run: |
-          test -d app/Filament
-          test -f app/Providers/Filament/AdminPanelProvider.php
-          test -d resources/css/filament
-          grep -q "AdminPanelProvider" bootstrap/providers.php
-          echo "All CMS files verified!"
-
-  test-multilanguage:
-    name: Test Multilanguage Setup
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    steps:
-      - name: Checkout craft-laravel
-        uses: actions/checkout@v4
-        with:
-          path: craft-laravel
-
-      - name: Checkout craft-starterkit
-        uses: actions/checkout@v4
-        with:
-          repository: hardimpactdev/craft-starterkit
-          token: ${{ secrets.GH_PAT }}
-          path: starterkit
-
-      - name: Checkout waymaker
-        uses: actions/checkout@v4
-        with:
-          repository: hardimpactdev/waymaker
-          token: ${{ secrets.GH_PAT }}
-          path: waymaker
-
-      - name: Checkout laravel-toolbar
-        uses: actions/checkout@v4
-        with:
-          repository: nckrtl/laravel-toolbar
-          token: ${{ secrets.GH_PAT }}
-          path: laravel-toolbar
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
-          coverage: none
-
-      - name: Configure composer repositories
-        working-directory: starterkit
-        run: |
-          composer config repositories.waymaker path ../waymaker
-          composer config repositories.craft-laravel path ../craft-laravel
-          composer config repositories.laravel-toolbar path ../laravel-toolbar
-
-      - name: Install dependencies
-        working-directory: starterkit
-        run: composer install --no-interaction --prefer-dist
-
-      - name: Setup environment
-        working-directory: starterkit
-        run: |
-          cp .env.example .env
-          php artisan key:generate
-
-      - name: Run multilanguage setup
-        working-directory: starterkit
-        run: php artisan craft:setup multilanguage
-
-      - name: Verify multilanguage files
-        working-directory: starterkit
-        run: |
-          test -d lang/en
-          test -d lang/nl
-          test -f lang/en/auth.php
-          test -f lang/nl/auth.php
-          test -f resources/js/pages/TranslationExample.vue
-          echo "All multilanguage files verified!"
+          php artisan migrate:fresh --force
+          composer test

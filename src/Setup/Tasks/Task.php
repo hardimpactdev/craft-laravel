@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace HardImpact\Craft\Setup\Tasks;
 
 use Illuminate\Console\Command;
@@ -7,19 +9,9 @@ use Illuminate\Filesystem\Filesystem;
 
 abstract class Task implements TaskInterface
 {
-    /**
-     * The filesystem instance.
-     *
-     * @var Filesystem
-     */
-    protected $filesystem;
+    protected Filesystem $filesystem;
 
-    /**
-     * The command instance.
-     *
-     * @var Command|null
-     */
-    protected $command;
+    protected ?Command $command;
 
     /**
      * Create a new task instance.
@@ -34,11 +26,8 @@ abstract class Task implements TaskInterface
 
     /**
      * Output an info message.
-     *
-     * @param  string  $message
-     * @return void
      */
-    protected function info($message)
+    protected function info(string $message): void
     {
         if ($this->command) {
             $this->command->info($message);
@@ -47,11 +36,8 @@ abstract class Task implements TaskInterface
 
     /**
      * Output an error message.
-     *
-     * @param  string  $message
-     * @return void
      */
-    protected function error($message)
+    protected function error(string $message): void
     {
         if ($this->command) {
             $this->command->error($message);
@@ -60,12 +46,8 @@ abstract class Task implements TaskInterface
 
     /**
      * Copy a file, replacing placeholders.
-     *
-     * @param  string  $from
-     * @param  string  $to
-     * @return bool
      */
-    protected function copyFile($from, $to, array $replacements = [])
+    protected function copyFile(string $from, string $to, array $replacements = []): bool
     {
         if (! $this->filesystem->exists($from)) {
             $this->error("Source file not found: {$from}");
@@ -86,12 +68,8 @@ abstract class Task implements TaskInterface
 
     /**
      * Copy a directory recursively.
-     *
-     * @param  string  $from
-     * @param  string  $to
-     * @return bool
      */
-    protected function copyDirectory($from, $to, array $replacements = [])
+    protected function copyDirectory(string $from, string $to, array $replacements = []): bool
     {
         if (! $this->filesystem->isDirectory($from)) {
             $this->error("Source directory not found: {$from}");

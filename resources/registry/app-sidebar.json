@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "app-sidebar",
+  "dependencies": [
+    "@inertiajs/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "sidebar",
+    "@craft/ui-sidebar",
+    "@craft/dropdown-menu",
+    "@craft/label",
+    "@craft/sheet",
+    "@craft/app-logo",
+    "@craft/nav-main",
+    "@craft/nav-footer",
+    "@craft/nav-user"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/components/app-sidebar.tsx",
+      "content": "import { Link } from \"@inertiajs/react\";\nimport { LayoutGrid } from \"lucide-react\";\nimport AppLogo from \"@/components/app-logo\";\nimport { NavFooter } from \"@/components/nav-footer\";\nimport { NavMain } from \"@/components/nav-main\";\nimport { NavUser } from \"@/components/nav-user\";\nimport {\n    Sidebar,\n    SidebarContent,\n    SidebarFooter,\n    SidebarHeader,\n    SidebarMenu,\n    SidebarMenuButton,\n    SidebarMenuItem,\n} from \"@/components/ui/sidebar\";\nimport type { NavItem } from \"@/lib/types\";\n\nconst mainNavItems: NavItem[] = [\n    {\n        title: \"Dashboard\",\n        href: \"/\",\n        icon: LayoutGrid,\n    },\n];\n\nconst footerNavItems: NavItem[] = [];\n\nexport function AppSidebar() {\n    return (\n        <Sidebar collapsible=\"icon\" variant=\"inset\">\n            <SidebarHeader>\n                <SidebarMenu>\n                    <SidebarMenuItem>\n                        <SidebarMenuButton size=\"lg\" render={<Link href=\"/\" prefetch />}>\n                            <AppLogo />\n                        </SidebarMenuButton>\n                    </SidebarMenuItem>\n                </SidebarMenu>\n            </SidebarHeader>\n\n            <SidebarContent>\n                <NavMain items={mainNavItems} />\n            </SidebarContent>\n\n            <SidebarFooter>\n                <NavFooter items={footerNavItems} className=\"mt-auto\" />\n                <NavUser />\n            </SidebarFooter>\n        </Sidebar>\n    );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

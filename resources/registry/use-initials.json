@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-initials",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york-v4/hooks/use-initials.tsx",
+      "content": "import { useCallback } from \"react\";\n\nexport type GetInitialsFn = (fullName: string) => string;\n\nexport function useInitials(): GetInitialsFn {\n    return useCallback((fullName: string): string => {\n        const names = fullName.trim().split(\" \");\n\n        if (names.length === 0) {\n            return \"\";\n        }\n\n        if (names.length === 1) {\n            return names[0].charAt(0).toUpperCase();\n        }\n\n        const firstInitial = names[0].charAt(0);\n        const lastInitial = names[names.length - 1].charAt(0);\n\n        return `${firstInitial}${lastInitial}`.toUpperCase();\n    }, []);\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}

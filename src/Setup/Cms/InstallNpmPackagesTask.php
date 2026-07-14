@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace HardImpact\Craft\Setup\Cms;
 
 use HardImpact\Craft\Setup\Tasks\Task;
@@ -24,12 +26,18 @@ class InstallNpmPackagesTask extends Task
      */
     public function run(): bool
     {
-        $this->info('Installing npm packages via bun...');
-
         $packages = ['@tailwindcss/forms', '@tailwindcss/typography'];
+        $packageManager = $this->packageManager();
 
-        $process = new Process(array_merge(['bun', 'add', '-D'], $packages), base_path());
-        $process->setTimeout(300); // 5 minutes timeout
+        if ($packageManager === null) {
+            $this->error('Failed to install npm packages: neither bun nor npm is available.');
+
+            return false;
+        }
+
+        $this->info("Installing npm packages via {$packageManager}...");
+
+        $process = $this->packageInstallProcess($packages, $packageManager);
 
         if ($this->command) {
             $process->run(function ($type, $buffer) {
@@ -48,6 +56,78 @@ class InstallNpmPackagesTask extends Task
         $this->info('NPM packages installed successfully.');
 
         return true;
+    }
+
+    protected function packageInstallProcess(array $packages, string $packageManager): Process
+    {
+        $command = match ($packageManager) {
+            'bun' => ['bun', 'add', '-D'],
+            default => ['npm', 'install', '--save-dev'],
+        };
+
+        $process = new Process(array_merge($command, $packages), base_path());
+        $process->setTimeout(300);
+
+        return $process;
+    }
+
+    protected function packageManager(): ?string
+    {
+        $configuredPackageManager = $this->configuredPackageManager();
+
+        if ($configuredPackageManager !== null) {
+            return $this->executableExists($configuredPackageManager)
+                ? $configuredPackageManager
+                : null;
+        }
+
+        if ($this->executableExists('bun')) {
+            return 'bun';
+        }
+
+        if ($this->executableExists('npm')) {
+            return 'npm';
+        }
+
+        return null;
+    }
+
+    protected function configuredPackageManager(): ?string
+    {
+        $packageJsonPath = base_path('package.json');
+
+        if ($this->filesystem->exists($packageJsonPath)) {
+            $packageJson = json_decode($this->filesystem->get($packageJsonPath), true);
+            $packageManager = is_array($packageJson) ? ($packageJson['packageManager'] ?? null) : null;
+
+            if (is_string($packageManager)) {
+                if (str_starts_with($packageManager, 'npm@')) {
+                    return 'npm';
+                }
+
+                if (str_starts_with($packageManager, 'bun@')) {
+                    return 'bun';
+                }
+            }
+        }
+
+        if ($this->filesystem->exists(base_path('package-lock.json'))) {
+            return 'npm';
+        }
+
+        if ($this->filesystem->exists(base_path('bun.lock')) || $this->filesystem->exists(base_path('bun.lockb'))) {
+            return 'bun';
+        }
+
+        return null;
+    }
+
+    protected function executableExists(string $executable): bool
+    {
+        $process = new Process(['sh', '-lc', 'command -v "$1"', 'sh', $executable]);
+        $process->run();
+
+        return $process->isSuccessful();
     }
 
     /**

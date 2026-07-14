@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "form-errors",
+  "dependencies": [
+    "sonner"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york-v4/lib/form-errors.ts",
+      "content": "import { toast } from \"sonner\";\n\ntype ErrorBag = Record<string, unknown>;\n\nfunction findFirstError(value: unknown): string | undefined {\n    if (typeof value === \"string\" && value.trim()) {\n        return value;\n    }\n\n    if (Array.isArray(value)) {\n        for (const item of value) {\n            const error = findFirstError(item);\n\n            if (error) {\n                return error;\n            }\n        }\n\n        return undefined;\n    }\n\n    if (value && typeof value === \"object\") {\n        for (const item of Object.values(value as ErrorBag)) {\n            const error = findFirstError(item);\n\n            if (error) {\n                return error;\n            }\n        }\n    }\n\n    return undefined;\n}\n\nexport function firstFormError(errors: unknown): string | undefined {\n    return findFirstError(errors);\n}\n\nexport function toastFirstFormError(errors: unknown): void {\n    const message = firstFormError(errors);\n\n    if (message) {\n        toast.error(message);\n    }\n}\n",
+      "type": "registry:lib"
+    }
+  ],
+  "type": "registry:lib"
+}

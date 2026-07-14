@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Laravel\Fortify\Features;
 
 return [
@@ -77,6 +79,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Non-Inertia Login Destinations
+    |--------------------------------------------------------------------------
+    |
+    | These paths return classic HTML responses instead of Inertia pages. When
+    | login is submitted through Inertia and redirects to one of these paths,
+    | Fortify will trigger a full browser visit instead of an Inertia visit.
+    |
+    */
+
+    'non_inertia_paths' => [
+        //
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Fortify Routes Prefix / Subdomain
     |--------------------------------------------------------------------------
     |
@@ -117,6 +134,15 @@ return [
     'limiters' => [
         'login' => 'login',
         'two-factor' => 'two-factor',
+    ],
+
+    'paths' => [
+        'password' => [
+            'confirm' => '/confirm-password',
+        ],
+        'verification' => [
+            'notice' => '/verify-email',
+        ],
     ],
 
     /*

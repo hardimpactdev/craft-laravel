@@ -1,0 +1,1472 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "craft",
+  "homepage": "https://craft-ui.dev",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-shell",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/app-shell.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-content",
+      "type": "registry:component",
+      "dependencies": [],
+      "registryDependencies": [
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/app-content.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-sidebar",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "sidebar",
+        "@craft/ui-sidebar",
+        "@craft/dropdown-menu",
+        "@craft/label",
+        "@craft/sheet",
+        "@craft/app-logo",
+        "@craft/nav-main",
+        "@craft/nav-footer",
+        "@craft/nav-user"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/app-sidebar.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-sidebar-header",
+      "type": "registry:component",
+      "dependencies": [],
+      "registryDependencies": [
+        "sidebar",
+        "separator",
+        "@craft/breadcrumbs"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/app-sidebar-header.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-header",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "navigation-menu",
+        "sheet",
+        "dropdown-menu",
+        "avatar",
+        "tooltip",
+        "@craft/app-logo",
+        "@craft/app-logo-icon",
+        "@craft/breadcrumbs",
+        "@craft/user-menu-content",
+        "@craft/use-initials",
+        "@craft/use-current-url"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/app-header.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-logo",
+      "type": "registry:component",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/app-logo.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-logo-icon",
+      "type": "registry:component",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/app-logo-icon.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "nav-main",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "sidebar",
+        "@craft/use-current-url"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/nav-main.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "nav-footer",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "sidebar",
+        "@craft/use-current-url"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/nav-footer.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "nav-user",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "sidebar",
+        "avatar",
+        "dropdown-menu",
+        "@craft/use-mobile",
+        "@craft/user-info",
+        "@craft/user-menu-content"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/nav-user.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "user-info",
+      "type": "registry:component",
+      "dependencies": [],
+      "registryDependencies": [
+        "avatar",
+        "@craft/use-initials"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/user-info.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "user-menu-content",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "dropdown-menu",
+        "@craft/use-appearance"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/user-menu-content.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "breadcrumbs",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "breadcrumb"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/breadcrumbs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "heading",
+      "type": "registry:component",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/heading.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "input-error",
+      "type": "registry:component",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/input-error.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "text-link",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/text-link.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "appearance-tabs",
+      "type": "registry:component",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "tabs",
+        "@craft/use-appearance"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/appearance-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "use-appearance",
+      "type": "registry:hook",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/hooks/use-appearance.tsx",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "use-initials",
+      "type": "registry:hook",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/hooks/use-initials.tsx",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "use-mobile",
+      "type": "registry:hook",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/hooks/use-mobile.tsx",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "use-current-url",
+      "type": "registry:hook",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/hooks/use-current-url.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "craft-types",
+      "type": "registry:lib",
+      "dependencies": [
+        "@inertiajs/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/lib/types.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-sidebar-layout",
+      "type": "registry:block",
+      "dependencies": [],
+      "registryDependencies": [
+        "@craft/app-shell",
+        "@craft/app-sidebar",
+        "@craft/app-content",
+        "@craft/app-sidebar-header",
+        "@craft/craft-types",
+        "@craft/sonner"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/blocks/app-sidebar-layout.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-header-layout",
+      "type": "registry:block",
+      "dependencies": [],
+      "registryDependencies": [
+        "@craft/app-shell",
+        "@craft/app-header",
+        "@craft/app-content",
+        "@craft/breadcrumb",
+        "@craft/craft-types"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/blocks/app-header-layout.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-layout",
+      "type": "registry:block",
+      "dependencies": [],
+      "registryDependencies": [
+        "@craft/app-sidebar-layout",
+        "@craft/app-header-layout"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/blocks/app-layout.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "auth-layout",
+      "type": "registry:block",
+      "dependencies": [],
+      "registryDependencies": [
+        "@craft/auth-simple-layout"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/blocks/auth-layout.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "auth-simple-layout",
+      "type": "registry:block",
+      "dependencies": [],
+      "registryDependencies": [
+        "@craft/app-logo-icon",
+        "@craft/sonner"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/blocks/auth-simple-layout.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "settings-layout",
+      "type": "registry:block",
+      "dependencies": [],
+      "registryDependencies": [
+        "@craft/heading",
+        "separator",
+        "sidebar",
+        "@craft/use-current-url",
+        "@craft/craft-types"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/blocks/settings-layout.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/breadcrumb.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/dropdown-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "input",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "label",
+      "type": "registry:ui",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "skeleton",
+      "type": "registry:ui",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sonner",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "sonner"
+      ],
+      "registryDependencies": [
+        "@craft/use-appearance"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/sonner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "ui-sidebar",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "@craft/input",
+        "@craft/sheet",
+        "@craft/skeleton",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/sidebar.tsx",
+          "target": "resources/js/components/ui/sidebar.tsx",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sheet",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "alert",
+      "type": "registry:ui",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "alert-error",
+      "type": "registry:component",
+      "dependencies": [],
+      "registryDependencies": [
+        "@craft/alert",
+        "@craft/use-error-toast"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/alert-error.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "password-input",
+      "type": "registry:component",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/password-input.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "delete-user",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/heading",
+        "@craft/input-error",
+        "@craft/password-input",
+        "button",
+        "dialog",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/delete-user.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "passkey-item",
+      "type": "registry:component",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "@craft/craft-types"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/passkey-item.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "passkey-register",
+      "type": "registry:component",
+      "dependencies": [
+        "@laravel/passkeys",
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/action-confirmation-provider",
+        "@craft/use-error-toast",
+        "button",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/passkey-register.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "passkey-verify",
+      "type": "registry:component",
+      "dependencies": [
+        "@laravel/passkeys",
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/use-error-toast",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/passkey-verify.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "manage-passkeys",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/passkey-item",
+        "@craft/passkey-register",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/manage-passkeys.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "manage-two-factor",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/two-factor-setup-modal",
+        "@craft/use-two-factor-auth",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/manage-two-factor.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "two-factor-setup-modal",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/alert-error",
+        "@craft/form-errors",
+        "@craft/use-clipboard",
+        "button",
+        "dialog",
+        "input-otp",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/two-factor-setup-modal.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "use-clipboard",
+      "type": "registry:hook",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/hooks/use-clipboard.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "use-two-factor-auth",
+      "type": "registry:hook",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/hooks/use-two-factor-auth.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "settings-profile-page",
+      "type": "registry:block",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/app-layout",
+        "@craft/settings-layout",
+        "@craft/delete-user",
+        "@craft/form-errors",
+        "@craft/heading",
+        "@craft/input-error",
+        "@craft/craft-types",
+        "button",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/pages/settings/profile.tsx",
+          "target": "resources/js/pages/settings/profile.tsx",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "settings-security-page",
+      "type": "registry:block",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/app-layout",
+        "@craft/settings-layout",
+        "@craft/form-errors",
+        "@craft/heading",
+        "@craft/input-error",
+        "@craft/password-input",
+        "@craft/manage-passkeys",
+        "@craft/manage-two-factor",
+        "button",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/pages/settings/security.tsx",
+          "target": "resources/js/pages/settings/security.tsx",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "settings-appearance-page",
+      "type": "registry:block",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/app-layout",
+        "@craft/settings-layout",
+        "@craft/appearance-tabs",
+        "@craft/heading"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/pages/settings/appearance.tsx",
+          "target": "resources/js/pages/settings/appearance.tsx",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "auth-login-page",
+      "type": "registry:block",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/auth-layout",
+        "@craft/form-errors",
+        "@craft/input-error",
+        "@craft/password-input",
+        "@craft/text-link",
+        "@craft/passkey-verify",
+        "button",
+        "checkbox",
+        "input",
+        "label",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/pages/auth/login.tsx",
+          "target": "resources/js/pages/auth/login.tsx",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "form-errors",
+      "type": "registry:lib",
+      "dependencies": [
+        "sonner"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/lib/form-errors.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json"
+    },
+    {
+      "name": "confirm-action",
+      "type": "registry:lib",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/form-errors"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/lib/confirm-action.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/new-york-v4/lib/confirm-action.test.ts",
+          "target": "resources/js/lib/confirm-action.test.ts",
+          "type": "registry:file"
+        }
+      ],
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json"
+    },
+    {
+      "name": "use-error-toast",
+      "type": "registry:hook",
+      "dependencies": [],
+      "registryDependencies": [
+        "@craft/form-errors"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/hooks/use-error-toast.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json"
+    },
+    {
+      "name": "action-confirmation-provider",
+      "type": "registry:component",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/confirm-action",
+        "button",
+        "dialog",
+        "input",
+        "input-otp",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/components/action-confirmation-provider.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json"
+    },
+    {
+      "name": "dashboard-page",
+      "type": "registry:block",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/app-layout"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/pages/Dashboard.tsx",
+          "target": "resources/js/pages/Dashboard.tsx",
+          "type": "registry:file"
+        }
+      ],
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json"
+    },
+    {
+      "name": "auth-register-page",
+      "type": "registry:block",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/auth-layout",
+        "@craft/form-errors",
+        "@craft/input-error",
+        "@craft/password-input",
+        "@craft/text-link",
+        "button",
+        "input",
+        "label",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/pages/auth/register.tsx",
+          "target": "resources/js/pages/auth/register.tsx",
+          "type": "registry:file"
+        }
+      ],
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json"
+    },
+    {
+      "name": "auth-forgot-password-page",
+      "type": "registry:block",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/auth-layout",
+        "@craft/form-errors",
+        "@craft/input-error",
+        "@craft/text-link",
+        "button",
+        "input",
+        "label",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/pages/auth/forgot-password.tsx",
+          "target": "resources/js/pages/auth/forgot-password.tsx",
+          "type": "registry:file"
+        }
+      ],
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json"
+    },
+    {
+      "name": "auth-reset-password-page",
+      "type": "registry:block",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/auth-layout",
+        "@craft/form-errors",
+        "@craft/input-error",
+        "@craft/password-input",
+        "@craft/text-link",
+        "button",
+        "input",
+        "label",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/pages/auth/reset-password.tsx",
+          "target": "resources/js/pages/auth/reset-password.tsx",
+          "type": "registry:file"
+        }
+      ],
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json"
+    },
+    {
+      "name": "auth-verify-email-page",
+      "type": "registry:block",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/auth-layout",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/pages/auth/verify-email.tsx",
+          "target": "resources/js/pages/auth/verify-email.tsx",
+          "type": "registry:file"
+        }
+      ],
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json"
+    },
+    {
+      "name": "auth-confirm-password-page",
+      "type": "registry:block",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/auth-layout",
+        "@craft/form-errors",
+        "@craft/input-error",
+        "@craft/password-input",
+        "button",
+        "label",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/pages/auth/confirm-password.tsx",
+          "target": "resources/js/pages/auth/confirm-password.tsx",
+          "type": "registry:file"
+        }
+      ],
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json"
+    },
+    {
+      "name": "auth-two-factor-challenge-page",
+      "type": "registry:block",
+      "dependencies": [
+        "@inertiajs/react"
+      ],
+      "registryDependencies": [
+        "@craft/auth-layout",
+        "@craft/form-errors",
+        "@craft/input-error",
+        "@craft/use-two-factor-auth",
+        "button",
+        "input",
+        "label",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/pages/auth/two-factor-challenge.tsx",
+          "target": "resources/js/pages/auth/two-factor-challenge.tsx",
+          "type": "registry:file"
+        }
+      ],
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json"
+    },
+    {
+      "name": "craft-auth-scaffold",
+      "type": "registry:block",
+      "dependencies": [],
+      "registryDependencies": [
+        "@craft/auth-login-page",
+        "@craft/auth-register-page",
+        "@craft/auth-forgot-password-page",
+        "@craft/auth-reset-password-page",
+        "@craft/auth-verify-email-page",
+        "@craft/auth-confirm-password-page",
+        "@craft/auth-two-factor-challenge-page",
+        "@craft/breadcrumb",
+        "@craft/dropdown-menu",
+        "@craft/input",
+        "@craft/label",
+        "@craft/sheet",
+        "@craft/skeleton",
+        "@craft/sonner",
+        "@craft/ui-sidebar",
+        "@craft/use-appearance",
+        "@craft/use-current-url",
+        "@craft/use-initials",
+        "@craft/use-mobile",
+        "@craft/avatar",
+        "@craft/button",
+        "@craft/card",
+        "@craft/checkbox",
+        "@craft/dialog",
+        "@craft/input-otp",
+        "@craft/navigation-menu",
+        "@craft/separator",
+        "@craft/spinner",
+        "@craft/tabs",
+        "@craft/tooltip",
+        "@craft/use-mobile-legacy"
+      ],
+      "files": [],
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json"
+    },
+    {
+      "name": "craft-app-scaffold",
+      "type": "registry:block",
+      "dependencies": [],
+      "registryDependencies": [
+        "@craft/dashboard-page",
+        "@craft/settings-profile-page",
+        "@craft/settings-security-page",
+        "@craft/settings-appearance-page",
+        "@craft/breadcrumb",
+        "@craft/dropdown-menu",
+        "@craft/input",
+        "@craft/label",
+        "@craft/sheet",
+        "@craft/skeleton",
+        "@craft/sonner",
+        "@craft/ui-sidebar",
+        "@craft/use-appearance",
+        "@craft/use-current-url",
+        "@craft/use-initials",
+        "@craft/use-mobile",
+        "@craft/avatar",
+        "@craft/button",
+        "@craft/card",
+        "@craft/checkbox",
+        "@craft/dialog",
+        "@craft/input-otp",
+        "@craft/navigation-menu",
+        "@craft/separator",
+        "@craft/spinner",
+        "@craft/tabs",
+        "@craft/tooltip",
+        "@craft/use-mobile-legacy"
+      ],
+      "files": [],
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "avatar",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "button",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "card",
+      "type": "registry:ui",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "checkbox",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "dialog",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@craft/button",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "input-otp",
+      "type": "registry:ui",
+      "dependencies": [
+        "input-otp",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/input-otp.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "navigation-menu",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/navigation-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "separator",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "spinner",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/spinner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "tabs",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "tooltip",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york-v4/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "use-mobile-legacy",
+      "type": "registry:hook",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york-v4/hooks/use-mobile.ts",
+          "type": "registry:file",
+          "target": "resources/js/hooks/use-mobile.ts"
+        }
+      ]
+    }
+  ]
+}

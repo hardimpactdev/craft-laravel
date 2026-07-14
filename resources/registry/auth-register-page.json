@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "auth-register-page",
+  "dependencies": [
+    "@inertiajs/react"
+  ],
+  "registryDependencies": [
+    "@craft/auth-layout",
+    "@craft/form-errors",
+    "@craft/input-error",
+    "@craft/password-input",
+    "@craft/text-link",
+    "button",
+    "input",
+    "label",
+    "spinner"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/pages/auth/register.tsx",
+      "content": "import { Form, Head } from \"@inertiajs/react\";\nimport InputError from \"@/components/input-error\";\nimport PasswordInput from \"@/components/password-input\";\nimport TextLink from \"@/components/text-link\";\nimport { Button } from \"@/components/ui/button\";\nimport { toastFirstFormError } from \"@/lib/form-errors\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\nimport { Spinner } from \"@/components/ui/spinner\";\nimport { store } from \"@/routes/register\";\nimport { login } from \"@/routes\";\n\nexport default function Register() {\n    return (\n        <>\n            <Head title=\"Register\" />\n\n            <Form\n                action={store()}\n                resetOnSuccess={[\"password\", \"password_confirmation\"]}\n                onError={toastFirstFormError}\n                className=\"flex flex-col gap-6\"\n            >\n                {({ processing, errors }) => (\n                    <>\n                        <div className=\"grid gap-6\">\n                            <div className=\"grid gap-2\">\n                                <Label htmlFor=\"name\">Name</Label>\n                                <Input\n                                    id=\"name\"\n                                    name=\"name\"\n                                    required\n                                    autoFocus\n                                    autoComplete=\"name\"\n                                    placeholder=\"Full name\"\n                                />\n                                <InputError message={errors.name} />\n                            </div>\n\n                            <div className=\"grid gap-2\">\n                                <Label htmlFor=\"email\">Email address</Label>\n                                <Input\n                                    id=\"email\"\n                                    type=\"email\"\n                                    name=\"email\"\n                                    required\n                                    autoComplete=\"email\"\n                                    placeholder=\"email@example.com\"\n                                />\n                                <InputError message={errors.email} />\n                            </div>\n\n                            <div className=\"grid gap-2\">\n                                <Label htmlFor=\"password\">Password</Label>\n                                <PasswordInput\n                                    id=\"password\"\n                                    name=\"password\"\n                                    required\n                                    autoComplete=\"new-password\"\n                                    placeholder=\"Password\"\n                                />\n                                <InputError message={errors.password} />\n                            </div>\n\n                            <div className=\"grid gap-2\">\n                                <Label htmlFor=\"password_confirmation\">Confirm password</Label>\n                                <PasswordInput\n                                    id=\"password_confirmation\"\n                                    name=\"password_confirmation\"\n                                    required\n                                    autoComplete=\"new-password\"\n                                    placeholder=\"Confirm password\"\n                                />\n                                <InputError message={errors.password_confirmation} />\n                            </div>\n\n                            <Button type=\"submit\" className=\"w-full\" disabled={processing}>\n                                {processing && <Spinner />}\n                                Create account\n                            </Button>\n                        </div>\n\n                        <div className=\"text-center text-sm text-muted-foreground\">\n                            Already have an account? <TextLink href={login()}>Log in</TextLink>\n                        </div>\n                    </>\n                )}\n            </Form>\n        </>\n    );\n}\n\nRegister.layout = {\n    title: \"Create an account\",\n    description: \"Enter your details below to create your account\",\n};\n",
+      "type": "registry:file",
+      "target": "resources/js/pages/auth/register.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

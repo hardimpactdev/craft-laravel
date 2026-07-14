@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "user-menu-content",
+  "dependencies": [
+    "@inertiajs/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "dropdown-menu",
+    "@craft/use-appearance"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/components/user-menu-content.tsx",
+      "content": "import { Link, router } from \"@inertiajs/react\";\nimport { LogOut, Settings } from \"lucide-react\";\nimport {\n    DropdownMenuGroup,\n    DropdownMenuItem,\n    DropdownMenuSeparator,\n} from \"@/components/ui/dropdown-menu\";\nimport { UserInfo } from \"@/components/user-info\";\nimport { useMobileNavigation } from \"@/hooks/use-mobile-navigation\";\nimport type { User } from \"@/lib/types\";\n\ntype Props = {\n    user: User;\n};\n\nexport function UserMenuContent({ user }: Props) {\n    const cleanup = useMobileNavigation();\n\n    const handleLogout = () => {\n        cleanup();\n        router.flushAll();\n    };\n\n    return (\n        <>\n            <div className=\"p-0 font-normal\">\n                <div className=\"flex items-center gap-2 px-1 py-1.5 text-left text-sm\">\n                    <UserInfo user={user} showEmail={true} />\n                </div>\n            </div>\n            <DropdownMenuSeparator />\n            <DropdownMenuGroup>\n                <DropdownMenuItem\n                    render={\n                        <Link\n                            className=\"block w-full cursor-pointer\"\n                            href=\"/settings/profile\"\n                            prefetch\n                            onClick={cleanup}\n                        />\n                    }\n                >\n                    <Settings className=\"mr-2\" />\n                    Settings\n                </DropdownMenuItem>\n            </DropdownMenuGroup>\n            <DropdownMenuSeparator />\n            <DropdownMenuItem\n                render={\n                    <Link\n                        className=\"block w-full cursor-pointer\"\n                        href=\"/logout\"\n                        as=\"button\"\n                        method=\"post\"\n                        onClick={handleLogout}\n                        data-test=\"logout-button\"\n                    />\n                }\n            >\n                <LogOut className=\"mr-2\" />\n                Log out\n            </DropdownMenuItem>\n        </>\n    );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

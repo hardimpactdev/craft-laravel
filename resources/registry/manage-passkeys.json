@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "manage-passkeys",
+  "dependencies": [
+    "@inertiajs/react"
+  ],
+  "registryDependencies": [
+    "@craft/passkey-item",
+    "@craft/passkey-register",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/components/manage-passkeys.tsx",
+      "content": "import { router } from \"@inertiajs/react\";\nimport { KeyRound } from \"lucide-react\";\nimport { destroy } from \"@/actions/Laravel/Passkeys/Http/Controllers/PasskeyRegistrationController\";\nimport Heading from \"@/components/heading\";\nimport PasskeyItem from \"@/components/passkey-item\";\nimport PasskeyRegistration from \"@/components/passkey-register\";\nimport type { Passkey } from \"@/lib/types\";\n\nexport type Props = {\n    canManagePasskeys?: boolean;\n    passkeys?: Passkey[];\n};\n\nconst EmptyState = () => {\n    return (\n        <div className=\"p-8 text-center\">\n            <div className=\"mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-muted\">\n                <KeyRound className=\"h-7 w-7 text-muted-foreground\" />\n            </div>\n            <p className=\"font-medium\">No passkeys yet</p>\n            <p className=\"mt-1 text-sm text-muted-foreground\">\n                Add a passkey to sign in without a password\n            </p>\n        </div>\n    );\n};\n\nexport default function ManagePasskeys(props: Props) {\n    const passkeys = props.passkeys ?? [];\n\n    const handleDelete = (id: number, onError: () => void) => {\n        router.delete(destroy.url(id), {\n            preserveScroll: true,\n            onError,\n        });\n    };\n\n    const handleRegisterSuccess = () => {\n        router.reload();\n    };\n\n    if (!(props.canManagePasskeys ?? false)) {\n        return null;\n    }\n\n    return (\n        <div className=\"space-y-6\">\n            <Heading\n                variant=\"small\"\n                title=\"Passkeys\"\n                description=\"Manage your passkeys for passwordless sign-in\"\n            />\n\n            <div className=\"overflow-hidden rounded-lg border border-border\">\n                {passkeys.length > 0 ? (\n                    passkeys.map((passkey) => (\n                        <PasskeyItem key={passkey.id} passkey={passkey} onDelete={handleDelete} />\n                    ))\n                ) : (\n                    <EmptyState />\n                )}\n            </div>\n\n            <PasskeyRegistration onSuccess={handleRegisterSuccess} />\n        </div>\n    );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace HardImpact\Craft\Setup\Auth;
 
 use HardImpact\Craft\Setup\Tasks\Task;

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "app-content",
+  "dependencies": [],
+  "registryDependencies": [
+    "sidebar"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/components/app-content.tsx",
+      "content": "import * as React from \"react\";\nimport { SidebarInset } from \"@/components/ui/sidebar\";\nimport type { AppVariant } from \"@/lib/types\";\n\ntype Props = React.ComponentProps<\"main\"> & {\n    variant?: AppVariant;\n};\n\nexport function AppContent({ variant = \"sidebar\", children, ...props }: Props) {\n    if (variant === \"sidebar\") {\n        return <SidebarInset {...props}>{children}</SidebarInset>;\n    }\n\n    return (\n        <main\n            className=\"mx-auto flex h-full w-full max-w-7xl flex-1 flex-col gap-4 rounded-xl\"\n            {...props}\n        >\n            {children}\n        </main>\n    );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

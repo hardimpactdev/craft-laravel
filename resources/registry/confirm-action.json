@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "confirm-action",
+  "dependencies": [
+    "@inertiajs/react"
+  ],
+  "registryDependencies": [
+    "@craft/form-errors"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/lib/confirm-action.ts",
+      "content": "export const PASSWORD_CONFIRMATION_REQUIRED = \"Password confirmation required.\";\nexport const TWO_FACTOR_CONFIRMATION_REQUIRED = \"Two factor authentication required.\";\n\nexport type ConfirmationType = \"password\" | \"two-factor\";\n\ntype ProtectedAction<T> = () => Promise<T>;\ntype ConfirmAction = (type: ConfirmationType) => Promise<void>;\n\nexport const getRequiredConfirmationType = (error: unknown): ConfirmationType | null => {\n    if (!(error instanceof Error)) {\n        return null;\n    }\n\n    if (error.message === PASSWORD_CONFIRMATION_REQUIRED) {\n        return \"password\";\n    }\n\n    if (error.message === TWO_FACTOR_CONFIRMATION_REQUIRED) {\n        return \"two-factor\";\n    }\n\n    return null;\n};\n\nexport async function runConfirmAction<T>(\n    action: ProtectedAction<T>,\n    confirmAction: ConfirmAction,\n): Promise<T> {\n    try {\n        return await action();\n    } catch (error) {\n        const confirmationType = getRequiredConfirmationType(error);\n\n        if (!confirmationType) {\n            throw error;\n        }\n\n        await confirmAction(confirmationType);\n\n        return action();\n    }\n}\n",
+      "type": "registry:lib"
+    },
+    {
+      "path": "registry/new-york-v4/lib/confirm-action.test.ts",
+      "content": "import { describe, expect, it, vi } from \"vitest\";\nimport {\n  PASSWORD_CONFIRMATION_REQUIRED,\n  TWO_FACTOR_CONFIRMATION_REQUIRED,\n  runConfirmAction,\n} from \"./confirm-action\";\n\ndescribe(\"runConfirmAction\", () => {\n  it(\"confirms the password and retries the original action after Laravel asks for password confirmation\", async () => {\n    const action = vi\n      .fn<() => Promise<string>>()\n      .mockRejectedValueOnce(new Error(PASSWORD_CONFIRMATION_REQUIRED))\n      .mockResolvedValueOnce(\"registered\");\n    const confirmAction = vi\n      .fn<(type: \"password\" | \"two-factor\") => Promise<void>>()\n      .mockResolvedValue(undefined);\n\n    await expect(runConfirmAction(action, confirmAction)).resolves.toBe(\"registered\");\n\n    expect(action).toHaveBeenCalledTimes(2);\n    expect(confirmAction).toHaveBeenCalledTimes(1);\n    expect(confirmAction).toHaveBeenCalledWith(\"password\");\n  });\n\n  it(\"confirms an otp code and retries the original action after Laravel asks for two-factor confirmation\", async () => {\n    const action = vi\n      .fn<() => Promise<string>>()\n      .mockRejectedValueOnce(new Error(TWO_FACTOR_CONFIRMATION_REQUIRED))\n      .mockResolvedValueOnce(\"registered\");\n    const confirmAction = vi\n      .fn<(type: \"password\" | \"two-factor\") => Promise<void>>()\n      .mockResolvedValue(undefined);\n\n    await expect(runConfirmAction(action, confirmAction)).resolves.toBe(\"registered\");\n\n    expect(action).toHaveBeenCalledTimes(2);\n    expect(confirmAction).toHaveBeenCalledTimes(1);\n    expect(confirmAction).toHaveBeenCalledWith(\"two-factor\");\n  });\n\n  it(\"does not retry errors that are not confirmation requirements\", async () => {\n    const error = new Error(\"WebAuthn cancelled\");\n    const action = vi.fn<() => Promise<string>>().mockRejectedValue(error);\n    const confirmAction = vi\n      .fn<(type: \"password\" | \"two-factor\") => Promise<void>>()\n      .mockResolvedValue(undefined);\n\n    await expect(runConfirmAction(action, confirmAction)).rejects.toBe(error);\n\n    expect(action).toHaveBeenCalledTimes(1);\n    expect(confirmAction).not.toHaveBeenCalled();\n  });\n});\n",
+      "type": "registry:file",
+      "target": "resources/js/lib/confirm-action.test.ts"
+    }
+  ],
+  "type": "registry:lib"
+}

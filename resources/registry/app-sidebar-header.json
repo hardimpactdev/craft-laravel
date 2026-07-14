@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "app-sidebar-header",
+  "dependencies": [],
+  "registryDependencies": [
+    "sidebar",
+    "separator",
+    "@craft/breadcrumbs"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/components/app-sidebar-header.tsx",
+      "content": "import { Breadcrumbs } from \"@/components/breadcrumbs\";\nimport { SidebarTrigger } from \"@/components/ui/sidebar\";\nimport type { BreadcrumbItem as BreadcrumbItemType } from \"@/lib/types\";\n\nexport function AppSidebarHeader({ breadcrumbs = [] }: { breadcrumbs?: BreadcrumbItemType[] }) {\n    return (\n        <header className=\"flex h-16 shrink-0 items-center gap-2 border-b border-sidebar-border/50 px-6 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 md:px-4\">\n            <div className=\"flex items-center gap-2\">\n                <SidebarTrigger className=\"-ml-1\" />\n                <Breadcrumbs breadcrumbs={breadcrumbs} />\n            </div>\n        </header>\n    );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

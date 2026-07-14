@@ -1,22 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace HardImpact\Craft\Commands;
 
+use HardImpact\Craft\Setup\SetupApp;
+use HardImpact\Craft\Setup\SetupFilament;
+use HardImpact\Craft\Setup\SetupInterface;
+use HardImpact\Craft\Setup\SetupMultilanguage;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
 class SetupCommand extends Command
 {
-    protected $signature = 'craft:setup {type : The type of setup to run (app, filament)}';
+    private const array SETUPS = [
+        'app' => SetupApp::class,
+        'filament' => SetupFilament::class,
+        'multilanguage' => SetupMultilanguage::class,
+    ];
+
+    protected $signature = 'craft:setup {type : The type of setup to run (app, filament, multilanguage)}';
 
     protected $description = 'Setup Craft features';
 
-    /**
-     * The filesystem instance.
-     *
-     * @var Filesystem
-     */
-    protected $filesystem;
+    protected Filesystem $filesystem;
 
     /**
      * Create a new command instance.
@@ -30,35 +37,34 @@ class SetupCommand extends Command
         $this->filesystem = $filesystem;
     }
 
-    public function handle()
+    public function handle(): int
     {
-        $type = $this->argument('type');
+        return $this->runSetup((string) $this->argument('type'), $this);
+    }
 
-        // Get the appropriate setup
+    public function runSetup(string $type, Command $command): int
+    {
         $setup = $this->resolveSetup($type);
 
         if (! $setup) {
-            $this->error("Setup for '{$type}' not found.");
+            $command->error("Setup for '{$type}' not found.");
 
             return 1;
         }
 
-        // Pass this command instance to the setup
-        $setup->setCommand($this);
+        $setup->setCommand($command);
 
-        // Run the setup
         return $setup->setup();
     }
 
-    protected function resolveSetup($type)
+    protected function resolveSetup(string $type): ?SetupInterface
     {
-        $setupClass = 'HardImpact\\Craft\\Setup\\Setup'.ucfirst($type);
+        $setupClass = self::SETUPS[$type] ?? null;
 
-        if (class_exists($setupClass)) {
-            // Explicitly create the setup with a Filesystem instance
-            return new $setupClass($this->filesystem);
+        if ($setupClass === null) {
+            return null;
         }
 
-        return null;
+        return new $setupClass($this->filesystem);
     }
 }

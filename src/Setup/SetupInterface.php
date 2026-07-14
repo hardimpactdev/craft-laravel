@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace HardImpact\Craft\Setup;
 
 use Illuminate\Console\Command;
@@ -18,5 +20,5 @@ interface SetupInterface
      *
      * @return $this
      */
-    public function setCommand(Command $command);
+    public function setCommand(Command $command): static;
 }

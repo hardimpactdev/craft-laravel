@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "app-logo",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york-v4/components/app-logo.tsx",
+      "content": "import AppLogoIcon from \"@/components/app-logo-icon\";\n\nexport default function AppLogo() {\n    return (\n        <>\n            <div className=\"flex aspect-square size-8 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground\">\n                <AppLogoIcon className=\"size-5 fill-current text-white dark:text-black\" />\n            </div>\n            <div className=\"ml-1 grid flex-1 text-left text-sm\">\n                <span className=\"mb-0.5 truncate leading-tight font-semibold\">\n                    Laravel Starter Kit\n                </span>\n            </div>\n        </>\n    );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "app-sidebar-layout",
+  "dependencies": [],
+  "registryDependencies": [
+    "@craft/app-shell",
+    "@craft/app-sidebar",
+    "@craft/app-content",
+    "@craft/app-sidebar-header",
+    "@craft/craft-types",
+    "@craft/sonner"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/blocks/app-sidebar-layout.tsx",
+      "content": "import { AppContent } from \"@/components/app-content\";\nimport { AppShell } from \"@/components/app-shell\";\nimport { AppSidebar } from \"@/components/app-sidebar\";\nimport { AppSidebarHeader } from \"@/components/app-sidebar-header\";\nimport { Toaster } from \"@/components/ui/sonner\";\nimport type { AppLayoutProps } from \"@/lib/types\";\n\nexport default function AppSidebarLayout({ children, breadcrumbs = [] }: AppLayoutProps) {\n    return (\n        <AppShell variant=\"sidebar\">\n            <AppSidebar />\n            <AppContent variant=\"sidebar\" className=\"overflow-x-hidden\">\n                <AppSidebarHeader breadcrumbs={breadcrumbs} />\n                {children}\n                <Toaster position=\"bottom-center\" richColors />\n            </AppContent>\n        </AppShell>\n    );\n}\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

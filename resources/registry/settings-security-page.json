@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "settings-security-page",
+  "dependencies": [
+    "@inertiajs/react"
+  ],
+  "registryDependencies": [
+    "@craft/app-layout",
+    "@craft/settings-layout",
+    "@craft/form-errors",
+    "@craft/heading",
+    "@craft/input-error",
+    "@craft/password-input",
+    "@craft/manage-passkeys",
+    "@craft/manage-two-factor",
+    "button",
+    "label"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/pages/settings/security.tsx",
+      "content": "import { Form, Head } from \"@inertiajs/react\";\nimport { useRef } from \"react\";\nimport SecurityController from \"@/actions/App/Http/Controllers/Settings/SecurityController\";\nimport Heading from \"@/components/heading\";\nimport InputError from \"@/components/input-error\";\nimport PasswordInput from \"@/components/password-input\";\nimport { Button } from \"@/components/ui/button\";\nimport { toastFirstFormError } from \"@/lib/form-errors\";\nimport { Label } from \"@/components/ui/label\";\n/* @chisel-passkeys */\nimport type { Props as ManagePasskeysProps } from \"@/components/manage-passkeys\";\nimport ManagePasskeys from \"@/components/manage-passkeys\";\n/* @end-chisel-passkeys */\n/* @chisel-2fa */\nimport type { Props as ManageTwoFactorProps } from \"@/components/manage-two-factor\";\nimport ManageTwoFactor from \"@/components/manage-two-factor\";\n/* @end-chisel-2fa */\n\ntype Props = {\n  passwordRules: string;\n} /* @chisel-passkeys */ & ManagePasskeysProps /* @end-chisel-passkeys */ /* @chisel-2fa */ &\n  ManageTwoFactorProps /* @end-chisel-2fa */;\n\nexport default function Security(props: Props) {\n  const passwordInput = useRef<HTMLInputElement>(null);\n  const currentPasswordInput = useRef<HTMLInputElement>(null);\n\n  return (\n    <>\n      <Head title=\"Security settings\" />\n\n      <h1 className=\"sr-only\">Security settings</h1>\n\n      <div className=\"space-y-6\">\n        <Heading\n          variant=\"small\"\n          title=\"Update password\"\n          description=\"Ensure your account is using a long, random password to stay secure\"\n        />\n\n        <Form\n          {...SecurityController.update.form()}\n          options={{\n            preserveScroll: true,\n          }}\n          resetOnError={[\"password\", \"password_confirmation\", \"current_password\"]}\n          resetOnSuccess\n          onError={(errors) => {\n            toastFirstFormError(errors);\n\n            if (errors.password) {\n              passwordInput.current?.focus();\n            }\n\n            if (errors.current_password) {\n              currentPasswordInput.current?.focus();\n            }\n          }}\n          className=\"space-y-6\"\n        >\n          {({ errors, processing }) => (\n            <>\n              <div className=\"grid gap-2\">\n                <Label htmlFor=\"current_password\">Current password</Label>\n\n                <PasswordInput\n                  id=\"current_password\"\n                  ref={currentPasswordInput}\n                  name=\"current_password\"\n                  className=\"mt-1 block w-full\"\n                  autoComplete=\"current-password\"\n                  placeholder=\"Current password\"\n                />\n\n                <InputError message={errors.current_password} />\n              </div>\n\n              <div className=\"grid gap-2\">\n                <Label htmlFor=\"password\">New password</Label>\n\n                <PasswordInput\n                  id=\"password\"\n                  ref={passwordInput}\n                  name=\"password\"\n                  className=\"mt-1 block w-full\"\n                  autoComplete=\"new-password\"\n                  placeholder=\"New password\"\n                  passwordrules={props.passwordRules}\n                />\n\n                <InputError message={errors.password} />\n              </div>\n\n              <div className=\"grid gap-2\">\n                <Label htmlFor=\"password_confirmation\">Confirm password</Label>\n\n                <PasswordInput\n                  id=\"password_confirmation\"\n                  name=\"password_confirmation\"\n                  className=\"mt-1 block w-full\"\n                  autoComplete=\"new-password\"\n                  placeholder=\"Confirm password\"\n                  passwordrules={props.passwordRules}\n                />\n\n                <InputError message={errors.password_confirmation} />\n              </div>\n\n              <div className=\"flex items-center gap-4\">\n                <Button disabled={processing} data-test=\"update-password-button\">\n                  Save\n                </Button>\n              </div>\n            </>\n          )}\n        </Form>\n      </div>\n\n      {/* @chisel-2fa */}\n      <ManageTwoFactor\n        canManageTwoFactor={props.canManageTwoFactor}\n        twoFactorEnabled={props.twoFactorEnabled}\n        twoFactorPending={props.twoFactorPending}\n                continueTwoFactorSetup={props.continueTwoFactorSetup}\n      />\n      {/* @end-chisel-2fa */}\n\n      {/* @chisel-passkeys */}\n      <ManagePasskeys canManagePasskeys={props.canManagePasskeys} passkeys={props.passkeys} />\n      {/* @end-chisel-passkeys */}\n    </>\n  );\n}\n\nSecurity.layout = {\n  breadcrumbs: [\n    {\n      title: \"Security settings\",\n      href: SecurityController.edit(),\n    },\n  ],\n};\n",
+      "type": "registry:file",
+      "target": "resources/js/pages/settings/security.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

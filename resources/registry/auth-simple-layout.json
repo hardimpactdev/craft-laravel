@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "auth-simple-layout",
+  "dependencies": [],
+  "registryDependencies": [
+    "@craft/app-logo-icon",
+    "@craft/sonner"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/blocks/auth-simple-layout.tsx",
+      "content": "import { Link } from \"@inertiajs/react\";\nimport AppLogoIcon from \"@/components/app-logo-icon\";\nimport { Toaster } from \"@/components/ui/sonner\";\nimport type { AuthLayoutProps } from \"@/types\";\n\nexport default function AuthSimpleLayout({ children, title, description }: AuthLayoutProps) {\n    return (\n        <div className=\"flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10\">\n            <div className=\"w-full max-w-sm\">\n                <div className=\"flex flex-col gap-8\">\n                    <div className=\"flex flex-col items-center gap-4\">\n                        <Link href=\"/\" className=\"flex flex-col items-center gap-2 font-medium\">\n                            <div className=\"mb-1 flex h-9 w-9 items-center justify-center rounded-md\">\n                                <AppLogoIcon className=\"size-9 fill-current text-[var(--foreground)] dark:text-white\" />\n                            </div>\n                            <span className=\"sr-only\">{title}</span>\n                        </Link>\n\n                        <div className=\"space-y-2 text-center\">\n                            <h1 className=\"text-xl font-medium\">{title}</h1>\n                            <p className=\"text-center text-sm text-muted-foreground\">\n                                {description}\n                            </p>\n                        </div>\n                    </div>\n                    {children}\n                    <Toaster position=\"bottom-center\" richColors />\n                </div>\n            </div>\n        </div>\n    );\n}\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

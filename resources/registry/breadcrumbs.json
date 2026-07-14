@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumbs",
+  "dependencies": [
+    "@inertiajs/react"
+  ],
+  "registryDependencies": [
+    "breadcrumb"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/components/breadcrumbs.tsx",
+      "content": "import { Link } from \"@inertiajs/react\";\nimport { Fragment } from \"react\";\nimport {\n    Breadcrumb,\n    BreadcrumbItem,\n    BreadcrumbLink,\n    BreadcrumbList,\n    BreadcrumbPage,\n    BreadcrumbSeparator,\n} from \"@/components/ui/breadcrumb\";\nimport type { BreadcrumbItem as BreadcrumbItemType } from \"@/lib/types\";\n\nexport function Breadcrumbs({ breadcrumbs }: { breadcrumbs: BreadcrumbItemType[] }) {\n    return (\n        <>\n            {breadcrumbs.length > 0 && (\n                <Breadcrumb>\n                    <BreadcrumbList>\n                        {breadcrumbs.map((item, index) => {\n                            const isLast = index === breadcrumbs.length - 1;\n                            return (\n                                <Fragment key={index}>\n                                    <BreadcrumbItem>\n                                        {isLast ? (\n                                            <BreadcrumbPage>{item.title}</BreadcrumbPage>\n                                        ) : (\n                                            <BreadcrumbLink render={<Link href={item.href} />}>\n                                                {item.title}\n                                            </BreadcrumbLink>\n                                        )}\n                                    </BreadcrumbItem>\n                                    {!isLast && <BreadcrumbSeparator />}\n                                </Fragment>\n                            );\n                        })}\n                    </BreadcrumbList>\n                </Breadcrumb>\n            )}\n        </>\n    );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

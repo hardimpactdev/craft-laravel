@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "craft-types",
+  "dependencies": [
+    "@inertiajs/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york-v4/lib/types.ts",
+      "content": "import type { InertiaLinkProps } from \"@inertiajs/react\";\nimport type { LucideIcon } from \"lucide-react\";\nimport type { ReactNode } from \"react\";\n\nexport type BreadcrumbItem = {\n    title: string;\n    href: NonNullable<InertiaLinkProps[\"href\"]>;\n};\n\nexport type NavItem = {\n    title: string;\n    href: NonNullable<InertiaLinkProps[\"href\"]>;\n    icon?: LucideIcon | null;\n    isActive?: boolean;\n};\n\nexport type AppLayoutProps = {\n    children: ReactNode;\n    breadcrumbs?: BreadcrumbItem[];\n};\n\nexport type AppVariant = \"header\" | \"sidebar\";\n\nexport type FlashToast = {\n    type: \"success\" | \"info\" | \"warning\" | \"error\";\n    message: string;\n};\n\nexport type AuthLayoutProps = {\n    children?: ReactNode;\n    name?: string;\n    title?: string;\n    description?: string;\n};\n\nexport type User = {\n    id: number;\n    name: string;\n    email: string;\n    avatar?: string;\n    email_verified_at?: string | null;\n    two_factor_enabled?: boolean;\n    created_at: string;\n    updated_at: string;\n    permissions?: string[];\n    [key: string]: unknown;\n};\n\nexport type Auth = {\n    user?: User | null;\n};\n\nexport type Passkey = {\n    id: number;\n    name: string;\n    authenticator: string | null;\n    created_at_diff: string;\n    last_used_at_diff: string | null;\n};\n\nexport type TwoFactorSetupData = {\n    svg: string;\n    url: string;\n};\n\nexport type TwoFactorSecretKey = {\n    secretKey: string;\n};\n",
+      "type": "registry:lib"
+    }
+  ],
+  "type": "registry:lib"
+}

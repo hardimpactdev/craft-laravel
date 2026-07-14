@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "settings-appearance-page",
+  "dependencies": [
+    "@inertiajs/react"
+  ],
+  "registryDependencies": [
+    "@craft/app-layout",
+    "@craft/settings-layout",
+    "@craft/appearance-tabs",
+    "@craft/heading"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/pages/settings/appearance.tsx",
+      "content": "import { Head } from \"@inertiajs/react\";\nimport AppearanceTabs from \"@/components/appearance-tabs\";\nimport Heading from \"@/components/heading\";\nimport AppearanceController from \"@/actions/App/Http/Controllers/Settings/AppearanceController\";\n\nexport default function Appearance() {\n    return (\n        <>\n            <Head title=\"Appearance settings\" />\n\n            <h1 className=\"sr-only\">Appearance settings</h1>\n\n            <div className=\"space-y-6\">\n                <Heading\n                    variant=\"small\"\n                    title=\"Appearance settings\"\n                    description=\"Update the appearance settings for your account\"\n                />\n                <AppearanceTabs />\n            </div>\n        </>\n    );\n}\n\nAppearance.layout = {\n    breadcrumbs: [\n        {\n            title: \"Appearance settings\",\n            href: AppearanceController.edit(),\n        },\n    ],\n};\n",
+      "type": "registry:file",
+      "target": "resources/js/pages/settings/appearance.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

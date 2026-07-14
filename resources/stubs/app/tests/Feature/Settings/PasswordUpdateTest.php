@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Settings;
 
-use App\Models\User;
+use {{namespace}}Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -19,7 +19,7 @@ class PasswordUpdateTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->from('/settings/security')
+            ->from('/settings/password')
             ->put('/settings/password', [
                 'current_password' => 'password',
                 'password' => 'new-password',
@@ -28,7 +28,7 @@ class PasswordUpdateTest extends TestCase
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect('/settings/security');
+            ->assertRedirect('/settings/password');
 
         $this->assertTrue(Hash::check('new-password', $user->refresh()->password));
     }
@@ -39,7 +39,7 @@ class PasswordUpdateTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->from('/settings/security')
+            ->from('/settings/password')
             ->put('/settings/password', [
                 'current_password' => 'wrong-password',
                 'password' => 'new-password',
@@ -48,6 +48,6 @@ class PasswordUpdateTest extends TestCase
 
         $response
             ->assertSessionHasErrors('current_password')
-            ->assertRedirect('/settings/security');
+            ->assertRedirect('/settings/password');
     }
 }

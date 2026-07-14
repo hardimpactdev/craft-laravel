@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dashboard-page",
+  "dependencies": [
+    "@inertiajs/react"
+  ],
+  "registryDependencies": [
+    "@craft/app-layout"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/pages/Dashboard.tsx",
+      "content": "import { Head } from \"@inertiajs/react\";\n\nexport default function Dashboard() {\n    return (\n        <>\n            <Head title=\"Dashboard\" />\n\n            <div className=\"space-y-2 p-6\">\n                <h1 className=\"text-2xl font-semibold tracking-tight\">Dashboard</h1>\n                <p className=\"text-sm text-muted-foreground\">You are signed in.</p>\n            </div>\n        </>\n    );\n}\n",
+      "type": "registry:file",
+      "target": "resources/js/pages/Dashboard.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

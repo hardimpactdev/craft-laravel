@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "app-shell",
+  "dependencies": [
+    "@inertiajs/react"
+  ],
+  "registryDependencies": [
+    "sidebar"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/components/app-shell.tsx",
+      "content": "import { usePage } from \"@inertiajs/react\";\nimport type { ReactNode } from \"react\";\nimport { SidebarProvider } from \"@/components/ui/sidebar\";\nimport type { AppVariant } from \"@/lib/types\";\n\ntype Props = {\n    children: ReactNode;\n    variant?: AppVariant;\n};\n\ntype PageProps = {\n    sidebarOpen?: boolean;\n};\n\nexport function AppShell({ children, variant = \"sidebar\" }: Props) {\n    const isOpen = usePage<PageProps>().props.sidebarOpen ?? true;\n\n    if (variant === \"header\") {\n        return <div className=\"flex min-h-screen w-full flex-col\">{children}</div>;\n    }\n\n    return <SidebarProvider defaultOpen={isOpen}>{children}</SidebarProvider>;\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

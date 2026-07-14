@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Settings;
+namespace {{namespace}}Http\Controllers\Settings;
 
-use App\Http\Controllers\Controller;
+use {{namespace}}Http\Controllers\Controller;
 use HardImpact\Waymaker\Get;
 use HardImpact\Waymaker\Put;
 use Illuminate\Http\RedirectResponse;
@@ -13,42 +13,48 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Inertia\Response;
+use Laravel\Fortify\Features;
+use Laravel\Passkeys\Passkeys;
 
 class SecurityController extends Controller
 {
-    /**
-     * Show the user's security settings page.
-     */
-    #[Get(uri: '/settings/security', name: 'security.edit', middleware: ['auth', 'verified'])]
+    public static string $routePrefix = 'settings';
+
+    #[Get(uri: 'security', middleware: ['auth', 'verified'])]
     public function edit(Request $request): Response
     {
         $user = $request->user();
-        $twoFactorEnabled = $user && method_exists($user, 'hasEnabledTwoFactorAuthentication')
-            ? $user->hasEnabledTwoFactorAuthentication()
-            : filled($user?->two_factor_secret);
-        $twoFactorPending = filled($user?->two_factor_secret) && ! $twoFactorEnabled;
-        $fortifyFeatures = \Laravel\Fortify\Features::class;
-        $canManageTwoFactor = class_exists($fortifyFeatures)
-            && $fortifyFeatures::enabled($fortifyFeatures::twoFactorAuthentication());
 
-        return Inertia::render('settings/Security', [
-            'twoFactorEnabled' => $twoFactorEnabled,
+        $twoFactorPending = filled($user?->two_factor_secret)
+            && ! ($user?->hasEnabledTwoFactorAuthentication() ?? false);
+
+        return Inertia::render('settings/security', [
+            'passwordRules' => 'minlength:8',
+            'canManagePasskeys' => class_exists(Passkeys::class),
+            'passkeys' => $user?->passkeys()
+                ->latest()
+                ->get()
+                ->map(fn ($passkey): array => [
+                    'id' => $passkey->id,
+                    'name' => $passkey->name,
+                    'authenticator' => $passkey->authenticator,
+                    'created_at_diff' => $passkey->created_at?->diffForHumans(),
+                    'last_used_at_diff' => $passkey->last_used_at?->diffForHumans(),
+                ])
+                ->all() ?? [],
+            'canManageTwoFactor' => Features::enabled(Features::twoFactorAuthentication()),
+            'requiresConfirmation' => Features::optionEnabled(
+                Features::twoFactorAuthentication(),
+                'confirm',
+            ),
+            'twoFactorEnabled' => $user?->hasEnabledTwoFactorAuthentication() ?? false,
             'twoFactorPending' => $twoFactorPending,
             'continueTwoFactorSetup' => $twoFactorPending
                 && $request->boolean('continueTwoFactorSetup'),
-            'canManageTwoFactor' => $canManageTwoFactor,
-            'requiresConfirmation' => $canManageTwoFactor
-                && $fortifyFeatures::optionEnabled(
-                    $fortifyFeatures::twoFactorAuthentication(),
-                    'confirm',
-                ),
         ]);
     }
 
-    /**
-     * Update the user's password.
-     */
-    #[Put(uri: '/settings/password', name: 'security.password', middleware: 'auth')]
+    #[Put(uri: 'security', middleware: 'auth')]
     public function update(Request $request): RedirectResponse
     {
         $validated = $request->validate([

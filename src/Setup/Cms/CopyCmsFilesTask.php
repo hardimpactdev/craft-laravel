@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace HardImpact\Craft\Setup\Cms;
 
 use HardImpact\Craft\Setup\Tasks\Task;
@@ -28,11 +30,10 @@ class CopyCmsFilesTask extends Task
         // Define the mapping of stub directories to destination directories
         $mappings = [
             'app/Filament' => app_path('Filament'),
+            'app/Http/Middleware' => app_path('Http/Middleware'),
             'app/Resources' => app_path('Filament/Resources'),
-            'public/css' => public_path('css'),
-            'public/js' => public_path('js'),
-            'public/images' => public_path('images'),
             'resources/css' => resource_path('css'),
+            'resources/views' => resource_path('views'),
         ];
 
         $replacements = [

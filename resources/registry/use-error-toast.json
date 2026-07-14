@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-error-toast",
+  "dependencies": [],
+  "registryDependencies": [
+    "@craft/form-errors"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/hooks/use-error-toast.ts",
+      "content": "import { useEffect, useRef } from \"react\";\nimport { firstFormError, toastFirstFormError } from \"@/lib/form-errors\";\n\nexport function useErrorToast(errors: unknown): void {\n    const previousMessage = useRef<string | undefined>(undefined);\n    const message = firstFormError(errors);\n\n    useEffect(() => {\n        if (!message) {\n            previousMessage.current = undefined;\n\n            return;\n        }\n\n        if (message === previousMessage.current) {\n            return;\n        }\n\n        previousMessage.current = message;\n        toastFirstFormError(message);\n    }, [message]);\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}

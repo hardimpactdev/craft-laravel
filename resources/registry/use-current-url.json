@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-current-url",
+  "dependencies": [
+    "@inertiajs/react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york-v4/hooks/use-current-url.ts",
+      "content": "import type { InertiaLinkProps } from \"@inertiajs/react\";\nimport { usePage } from \"@inertiajs/react\";\nimport { toUrl } from \"@/lib/utils\";\n\nexport type IsCurrentUrlFn = (\n    urlToCheck: NonNullable<InertiaLinkProps[\"href\"]>,\n    currentUrl?: string,\n    startsWith?: boolean,\n) => boolean;\n\nexport type IsCurrentOrParentUrlFn = (\n    urlToCheck: NonNullable<InertiaLinkProps[\"href\"]>,\n    currentUrl?: string,\n) => boolean;\n\nexport type WhenCurrentUrlFn = <TIfTrue, TIfFalse = null>(\n    urlToCheck: NonNullable<InertiaLinkProps[\"href\"]>,\n    ifTrue: TIfTrue,\n    ifFalse?: TIfFalse,\n) => TIfTrue | TIfFalse;\n\nexport type UseCurrentUrlReturn = {\n    currentUrl: string;\n    isCurrentUrl: IsCurrentUrlFn;\n    isCurrentOrParentUrl: IsCurrentOrParentUrlFn;\n    whenCurrentUrl: WhenCurrentUrlFn;\n};\n\nexport function useCurrentUrl(): UseCurrentUrlReturn {\n    const page = usePage();\n    const currentUrlPath = new URL(\n        page.url,\n        typeof window !== \"undefined\" ? window.location.origin : \"http://localhost\",\n    ).pathname;\n\n    const isCurrentUrl: IsCurrentUrlFn = (\n        urlToCheck: NonNullable<InertiaLinkProps[\"href\"]>,\n        currentUrl?: string,\n        startsWith: boolean = false,\n    ) => {\n        const urlToCompare = currentUrl ?? currentUrlPath;\n        const urlString = toUrl(urlToCheck);\n\n        const comparePath = (path: string): boolean =>\n            startsWith ? urlToCompare.startsWith(path) : path === urlToCompare;\n\n        if (!urlString.startsWith(\"http\")) {\n            return comparePath(urlString);\n        }\n\n        try {\n            const absoluteUrl = new URL(urlString);\n\n            return comparePath(absoluteUrl.pathname);\n        } catch {\n            return false;\n        }\n    };\n\n    const isCurrentOrParentUrl: IsCurrentOrParentUrlFn = (\n        urlToCheck: NonNullable<InertiaLinkProps[\"href\"]>,\n        currentUrl?: string,\n    ) => {\n        return isCurrentUrl(urlToCheck, currentUrl, true);\n    };\n\n    const whenCurrentUrl: WhenCurrentUrlFn = <TIfTrue, TIfFalse = null>(\n        urlToCheck: NonNullable<InertiaLinkProps[\"href\"]>,\n        ifTrue: TIfTrue,\n        ifFalse: TIfFalse = null as TIfFalse,\n    ): TIfTrue | TIfFalse => {\n        return isCurrentUrl(urlToCheck) ? ifTrue : ifFalse;\n    };\n\n    return {\n        currentUrl: currentUrlPath,\n        isCurrentUrl,\n        isCurrentOrParentUrl,\n        whenCurrentUrl,\n    };\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}

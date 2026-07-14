@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Middleware;
+namespace {{namespace}}Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -61,7 +61,7 @@ class HandleInertiaRequests extends Middleware
                             [
                                 'title' => 'Dashboard',
                                 'href' => '/dashboard',
-                                'icon' => 'LayoutGrid',
+                                'icon' => 'lucide:layout-grid',
                             ],
                         ],
                     ],
@@ -69,7 +69,7 @@ class HandleInertiaRequests extends Middleware
                         'items' => [
                             [
                                 'title' => 'GitHub Repo',
-                                'href' => 'https://github.com/hardimpactdev/craft-laravel',
+                                'href' => 'https://github.com/laravel/react-starter-kit',
                                 'icon' => 'GitHub',
                             ],
                         ],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace HardImpact\Craft\Setup\Tasks;
 
 use Illuminate\Console\Command;
@@ -26,6 +28,9 @@ class GenerateRoutesTask extends Task
         $this->info('Generating routes from controller attributes...');
 
         try {
+            $this->ensureSqliteDatabaseExists();
+            config(['cache.default' => 'array']);
+
             // Run the waymaker:generate command
             $exitCode = Artisan::call('waymaker:generate', [], $this->command ? $this->command->getOutput() : null);
 
@@ -51,5 +56,25 @@ class GenerateRoutesTask extends Task
     public function description(): string
     {
         return 'Generating routes from controller attributes...';
+    }
+
+    private function ensureSqliteDatabaseExists(): void
+    {
+        if (config('database.default') !== 'sqlite') {
+            return;
+        }
+
+        $database = config('database.connections.sqlite.database');
+
+        if (! is_string($database) || $database === ':memory:' || $database === '') {
+            return;
+        }
+
+        if ($this->filesystem->exists($database)) {
+            return;
+        }
+
+        $this->filesystem->ensureDirectoryExists(dirname($database));
+        $this->filesystem->put($database, '');
     }
 }

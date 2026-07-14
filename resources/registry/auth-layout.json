@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "auth-layout",
+  "dependencies": [],
+  "registryDependencies": [
+    "@craft/auth-simple-layout"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/blocks/auth-layout.tsx",
+      "content": "import AuthLayoutTemplate from \"@/components/auth-simple-layout\";\n\nexport default function AuthLayout({\n    children,\n    title,\n    description,\n    ...props\n}: {\n    children: React.ReactNode;\n    title: string;\n    description: string;\n}) {\n    return (\n        <AuthLayoutTemplate title={title} description={description} {...props}>\n            {children}\n        </AuthLayoutTemplate>\n    );\n}\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

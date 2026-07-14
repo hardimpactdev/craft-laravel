@@ -1,10 +1,12 @@
 {
     "name": "hardimpactdev/craft-laravel",
-    "description": "This is my package laravel",
+    "description": "React, authentication, Filament, and localization scaffolding for Craft Laravel applications",
     "keywords": [
-        "Craft",
+        "craft",
+        "filament",
         "laravel",
-        "laravel"
+        "react",
+        "scaffolding"
     ],
     "homepage": "https://github.com/hardimpactdev/craft-laravel",
     "license": "MIT",
@@ -18,24 +20,23 @@
     "require": {
         "php": "^8.3",
         "spatie/laravel-package-tools": "^1.16",
-        "illuminate/contracts": "^12.0||^13.0"
+        "illuminate/contracts": "^12.0 || ^13.0"
     },
     "require-dev": {
+        "larastan/larastan": "^3.10",
         "laravel/pint": "^1.14",
         "nunomaduro/collision": "^8.1.1",
-        "larastan/larastan": "^2.9||^3.0",
-        "orchestra/testbench": "^10.0.0",
-        "pestphp/pest": "^3.0",
-        "pestphp/pest-plugin-arch": "^3.0",
-        "pestphp/pest-plugin-laravel": "^3.0",
+        "orchestra/testbench": "^11.1",
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-arch": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0",
         "phpstan/extension-installer": "^1.3||^2.0",
         "phpstan/phpstan-deprecation-rules": "^1.1||^2.0",
         "phpstan/phpstan-phpunit": "^1.3||^2.0"
     },
     "autoload": {
         "psr-4": {
-            "HardImpact\\Craft\\": "src/",
-            "HardImpact\\Craft\\Database\\Factories\\": "database/factories/"
+            "HardImpact\\Craft\\": "src/"
         }
     },
     "autoload-dev": {
@@ -47,7 +48,7 @@
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
-        "analyse": "vendor/bin/phpstan analyse",
+        "analyse": "vendor/bin/phpstan analyse --memory-limit=1G",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
         "format": "vendor/bin/pint"
@@ -63,10 +64,7 @@
         "laravel": {
             "providers": [
                 "HardImpact\\Craft\\LaravelServiceProvider"
-            ],
-            "aliases": {
-                "Laravel": "HardImpact\\Craft\\Facades\\Laravel"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",

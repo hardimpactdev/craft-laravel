@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace HardImpact\Craft\Setup;
 
 use Illuminate\Console\Command;
@@ -7,19 +9,9 @@ use Illuminate\Filesystem\Filesystem;
 
 abstract class Setup implements SetupInterface
 {
-    /**
-     * The filesystem instance.
-     *
-     * @var Filesystem
-     */
-    protected $filesystem;
+    protected Filesystem $filesystem;
 
-    /**
-     * The command instance.
-     *
-     * @var Command|null
-     */
-    protected $command;
+    protected ?Command $command = null;
 
     /**
      * The tasks to run.
@@ -43,7 +35,7 @@ abstract class Setup implements SetupInterface
      *
      * @return $this
      */
-    public function setCommand(Command $command)
+    public function setCommand(Command $command): static
     {
         $this->command = $command;
 
@@ -84,19 +76,5 @@ abstract class Setup implements SetupInterface
         }
 
         return 0;
-    }
-
-    protected function info($message)
-    {
-        if ($this->command) {
-            $this->command->info($message);
-        }
-    }
-
-    protected function error($message)
-    {
-        if ($this->command) {
-            $this->command->error($message);
-        }
     }
 }

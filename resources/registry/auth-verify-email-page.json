@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "auth-verify-email-page",
+  "dependencies": [
+    "@inertiajs/react"
+  ],
+  "registryDependencies": [
+    "@craft/auth-layout",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/pages/auth/verify-email.tsx",
+      "content": "import { Form, Head } from \"@inertiajs/react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Spinner } from \"@/components/ui/spinner\";\nimport { send } from \"@/routes/verification\";\n\ntype Props = {\n    status?: string;\n};\n\nexport default function VerifyEmail({ status }: Props) {\n    return (\n        <>\n            <Head title=\"Verify email\" />\n\n            <div className=\"space-y-6 text-center text-sm text-muted-foreground\">\n                <p>Please verify your email address by clicking the link we sent you.</p>\n\n                {status === \"verification-link-sent\" && (\n                    <p className=\"font-medium text-green-600\">\n                        A new verification link has been sent to your email address.\n                    </p>\n                )}\n\n                <Form action={send()}>\n                    {({ processing }) => (\n                        <Button type=\"submit\" className=\"w-full\" disabled={processing}>\n                            {processing && <Spinner />}\n                            Resend verification email\n                        </Button>\n                    )}\n                </Form>\n            </div>\n        </>\n    );\n}\n\nVerifyEmail.layout = {\n    title: \"Verify email\",\n    description: \"Confirm your email address to continue\",\n};\n",
+      "type": "registry:file",
+      "target": "resources/js/pages/auth/verify-email.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

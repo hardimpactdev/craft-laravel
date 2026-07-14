@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "app-header-layout",
+  "dependencies": [],
+  "registryDependencies": [
+    "@craft/app-shell",
+    "@craft/app-header",
+    "@craft/app-content",
+    "@craft/breadcrumb",
+    "@craft/craft-types"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/blocks/app-header-layout.tsx",
+      "content": "import { AppContent } from \"@/components/app-content\";\nimport { AppHeader } from \"@/components/app-header\";\nimport { AppShell } from \"@/components/app-shell\";\nimport type { AppLayoutProps } from \"@/lib/types\";\n\nexport default function AppHeaderLayout({ children, breadcrumbs }: AppLayoutProps) {\n    return (\n        <AppShell variant=\"header\">\n            <AppHeader breadcrumbs={breadcrumbs} />\n            <AppContent variant=\"header\">{children}</AppContent>\n        </AppShell>\n    );\n}\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

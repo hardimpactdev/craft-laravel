@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "app-layout",
+  "dependencies": [],
+  "registryDependencies": [
+    "@craft/app-sidebar-layout",
+    "@craft/app-header-layout"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/blocks/app-layout.tsx",
+      "content": "import AppLayoutTemplate from \"@/components/app-sidebar-layout\";\nimport { ActionConfirmationProvider } from \"@/components/action-confirmation-provider\";\nimport type { AppLayoutProps } from \"@/lib/types\";\n\nexport default ({ children, breadcrumbs, ...props }: AppLayoutProps) => (\n    <ActionConfirmationProvider>\n        <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>\n            {children}\n        </AppLayoutTemplate>\n    </ActionConfirmationProvider>\n);\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

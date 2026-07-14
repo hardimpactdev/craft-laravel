@@ -1,304 +1,89 @@
-# Craft Laravel Package
+# Craft Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/hardimpactdev/craft-laravel.svg?style=flat-square)](https://packagist.org/packages/hardimpactdev/craft-laravel)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/hardimpactdev/craft-laravel/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/hardimpactdev/craft-laravel/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/hardimpactdev/craft-laravel/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/hardimpactdev/craft-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/hardimpactdev/craft-laravel/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/hardimpactdev/craft-laravel/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/hardimpactdev/craft-laravel.svg?style=flat-square)](https://packagist.org/packages/hardimpactdev/craft-laravel)
 
-Companion scaffolding package for [craft-starterkit](https://github.com/hardimpactdev/craft-starterkit). Provides commands to rapidly set up authentication, dashboard, settings, CMS (Filament), and multi-language support.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/Laravel.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/Laravel)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+React, authentication, Filament, and localization scaffolding for the [Craft React starterkit](https://github.com/hardimpactdev/craft-starterkit-react).
 
 ## Requirements
 
--   PHP 8.1 or higher
--   Laravel 10.x, 11.x, or 12.x
--   Node.js and npm/bun for frontend assets
-
-## AI-Assisted Development
-
-This package includes [Laravel Boost](https://laravel.com/ai/boost) integration. When you have both packages installed, AI assistants will automatically understand the available scaffolding commands.
-
-```bash
-composer require laravel/boost --dev
-php artisan boost:install
-```
+- PHP 8.3 or newer
+- Laravel 12 or 13
+- Node.js with npm, or Bun
+- A Craft React starterkit application
 
 ## Installation
 
-You can install the package via composer:
-
 ```bash
 composer require hardimpactdev/craft-laravel
 ```
 
-## Scaffolders
+## Setups
 
-The package provides powerful scaffolding commands to quickly set up different aspects of your application. All scaffolders automatically generate routes using the waymaker package.
+The package exposes three setup commands:
 
-### Available Scaffolders
+| Command | Installs |
+| --- | --- |
+| `php artisan craft:setup app` | Fortify authentication, passkeys, two-factor authentication, dashboard, settings, and the React application shell |
+| `php artisan craft:setup filament` | Authentication plus a Filament 5 admin panel, user management, profile, passkey, and two-factor pages |
+| `php artisan craft:setup multilanguage` | JSON translations, a React example page, and Craft Vite i18n configuration |
 
-#### 1. App Scaffolder (Full Application Setup)
+The React scaffold registry is bundled with this package, so setup does not depend on a local `craft-ui-react` checkout.
 
-The most comprehensive scaffolder that sets up a complete application with authentication and dashboard.
+### Application setup
 
 ```bash
+npm install
 php artisan craft:setup app
+php artisan migrate
+npm run build
 ```
 
-This scaffolder includes:
+The generated application includes Fortify login and registration, password reset, email verification, passkeys, two-factor confirmation, dashboard and account settings pages, Waymaker controllers, Wayfinder imports, and feature tests.
 
--   ✅ App class with redirect configuration
--   ✅ Dashboard controller and views
--   ✅ Settings pages (profile, password, appearance)
--   ✅ HandleInertiaRequests middleware
--   ✅ TypeScript type definitions
--   ✅ Feature tests
--   ✅ Full authentication system (runs Auth scaffolder)
--   ✅ Automatic route generation
-
-**Note:** For CMS functionality, use `php artisan craft:setup cms` instead.
-
-#### 2. Auth Scaffolder
-
-Sets up a complete authentication system with login, registration, password reset, and email verification.
+### Filament setup
 
 ```bash
-php artisan craft:setup auth
+npm install
+php artisan craft:setup filament
+php artisan migrate
+php artisan make:filament-user
+npm run build
 ```
 
-This scaffolder includes:
+Filament authentication redirects are configured for `/admin`. If the application scaffold already provides a dashboard, its redirect remains in place.
 
--   ✅ Authentication controllers with route attributes
--   ✅ Login request validation
--   ✅ Vue.js authentication pages
--   ✅ Authentication tests
--   ✅ User migration publishing
-
-**Note:** The auth scaffolder requires the App class to be present. If running standalone, ensure you have an App class or run the app scaffolder instead.
-
-#### 3. Dashboard Scaffolder
-
-Sets up dashboard and settings pages. Requires authentication to be set up first.
-
-```bash
-php artisan craft:setup dashboard
-```
-
-This scaffolder includes:
-
--   ✅ App class with redirect configuration
--   ✅ Dashboard controller and views
--   ✅ Settings pages (profile, password, appearance)
--   ✅ HandleInertiaRequests middleware
--   ✅ TypeScript type definitions
--   ✅ Feature tests
--   ✅ Automatic route generation
-
-**Note:** Run `php artisan craft:setup auth` first, or use `php artisan craft:setup app` which includes both.
-
-#### 4. CMS Scaffolder
-
-Sets up Filament CMS with user management and authentication.
-
-```bash
-php artisan craft:setup cms
-```
-
-This scaffolder includes:
-
--   ✅ App class with redirect configuration
--   ✅ Full authentication system (runs Auth scaffolder)
--   ✅ Filament package installation
--   ✅ User resource for managing users
--   ✅ Admin panel configuration
--   ✅ Filament CSS build process
--   ✅ Automatic route generation
-
-#### 5. Multilanguage Scaffolder
-
-Sets up multi-language/i18n support with translation files.
+### Multilanguage setup
 
 ```bash
 php artisan craft:setup multilanguage
+npm run build
 ```
 
-This scaffolder includes:
+This creates `lang/en.json`, `lang/nl.json`, and `resources/js/pages/TranslationExample.tsx`, then enables `i18n` in `vite.config.ts`.
 
--   ✅ Language translation files
--   ✅ Example translation component
--   ✅ Automatic route generation
+All setups generate Waymaker routes and are safe to run again.
 
-### Route Generation
-
-All scaffolders use the waymaker package to automatically generate routes from controller attributes. Routes are generated at the end of each scaffolding process, eliminating the need to manually run `php artisan waymaker:generate`.
-
-### Files and Directories Created
-
-#### App Scaffolder creates:
-
-```
-app/
-├── App.php
-├── Http/
-│   ├── Controllers/
-│   │   ├── DashboardController.php
-│   │   └── Settings/
-│   │       ├── AppearanceController.php
-│   │       ├── PasswordController.php
-│   │       └── ProfileController.php
-│   ├── Middleware/
-│   │   └── HandleInertiaRequests.php
-│   └── Requests/
-│       └── Settings/
-│           └── ProfileUpdateRequest.php
-resources/js/
-├── pages/
-│   ├── Dashboard.vue
-│   └── settings/
-│       ├── Appearance.vue
-│       ├── Password.vue
-│       └── Profile.vue
-└── types/
-    └── index.d.ts
-tests/Feature/
-├── DashboardTest.php
-└── Settings/
-    ├── PasswordUpdateTest.php
-    └── ProfileUpdateTest.php
-```
-
-#### Auth Scaffolder creates:
-
-```
-app/
-├── Actions/Fortify/
-│   ├── CreateNewUser.php
-│   └── ResetUserPassword.php
-├── Concerns/
-│   ├── PasswordValidationRules.php
-│   └── ProfileValidationRules.php
-├── Http/
-│   ├── Controllers/Settings/
-│   │   └── TwoFactorAuthenticationController.php
-│   └── Requests/Settings/
-│       └── TwoFactorAuthenticationRequest.php
-└── Providers/
-    └── FortifyServiceProvider.php
-config/
-└── fortify.php
-resources/js/
-├── components/
-│   ├── TwoFactorRecoveryCodes.vue
-│   └── TwoFactorSetupModal.vue
-├── composables/
-│   └── useTwoFactorAuth.ts
-└── pages/auth/
-    ├── ConfirmPassword.vue
-    ├── ForgotPassword.vue
-    ├── Login.vue
-    ├── Register.vue
-    ├── ResetPassword.vue
-    ├── TwoFactorChallenge.vue
-    └── VerifyEmail.vue
-tests/Feature/Auth/
-├── AuthenticationTest.php
-├── EmailVerificationTest.php
-├── PasswordConfirmationTest.php
-├── PasswordResetTest.php
-└── RegistrationTest.php
-```
-
-### Usage Examples
-
-#### Quick Start - Full Application
-
-```bash
-# Install the package
-composer require hardimpactdev/craft-laravel
-
-# Run the app scaffolder for a complete setup
-php artisan craft:setup app
-
-# Install frontend dependencies
-npm install # or bun install
-
-# Run migrations
-php artisan migrate
-
-# Start development server
-npm run dev # or bun dev
-```
-
-#### Authentication Only
-
-```bash
-# Run just the auth scaffolder
-php artisan craft:setup auth
-
-# Note: Requires App class to be present
-```
-
-#### CMS with Authentication
-
-```bash
-# Run the CMS scaffolder (includes auth)
-php artisan craft:setup cms
-
-# Install frontend dependencies
-npm install # or bun install
-
-# Run migrations
-php artisan migrate
-
-# Create a Filament admin user (required to access /admin)
-php artisan make:filament-user
-```
-
-### Important Notes
-
-1. **Middleware Replacement**: The HandleInertiaRequests middleware will be replaced if it already exists in your application.
-
-2. **Route Attributes**: All controllers use route attributes from the waymaker package, eliminating the need for manual route definitions.
-
-3. **App Class**: The App class provides a centralized location for application configuration, including login redirect routes.
-
-4. **File Merging**: When copying directories, existing files are preserved unless they have the same name as files being copied.
-
-5. **Dependencies**: Make sure to install the waymaker package if not already installed:
-    ```bash
-    composer require nckrtl/waymaker
-    ```
-
-## Testing
+## Development
 
 ```bash
 composer test
+composer analyse
+composer format -- --test
+composer validate --strict
 ```
+
+The integration workflow also runs every public setup against the current Craft React starterkit and builds the resulting application.
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+See [CHANGELOG.md](CHANGELOG.md) for release history.
 
-## Contributing
+## Security
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
-## Credits
-
--   [nckrtl](https://github.com/nckrtl)
--   [All Contributors](../../contributors)
+Report vulnerabilities through the repository's [security policy](../../security/policy).
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License. See [LICENSE.md](LICENSE.md).

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "nav-user",
+  "dependencies": [
+    "@inertiajs/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "sidebar",
+    "avatar",
+    "dropdown-menu",
+    "@craft/use-mobile",
+    "@craft/user-info",
+    "@craft/user-menu-content"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/components/nav-user.tsx",
+      "content": "import { usePage } from \"@inertiajs/react\";\nimport { ChevronsUpDown } from \"lucide-react\";\nimport {\n    DropdownMenu,\n    DropdownMenuContent,\n    DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\nimport {\n    SidebarMenu,\n    SidebarMenuButton,\n    SidebarMenuItem,\n    useSidebar,\n} from \"@/components/ui/sidebar\";\nimport { UserInfo } from \"@/components/user-info\";\nimport { UserMenuContent } from \"@/components/user-menu-content\";\nimport { useIsMobile } from \"@/hooks/use-mobile\";\nimport type { Auth } from \"@/lib/types\";\n\nexport function NavUser() {\n    const { auth } = usePage<{ auth?: Auth }>().props;\n    const { state } = useSidebar();\n    const isMobile = useIsMobile();\n\n    if (!auth?.user) {\n        return null;\n    }\n\n    return (\n        <SidebarMenu>\n            <SidebarMenuItem>\n                <DropdownMenu>\n                    <DropdownMenuTrigger\n                        render={\n                            <SidebarMenuButton\n                                size=\"lg\"\n                                className=\"group text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent\"\n                                data-test=\"sidebar-menu-button\"\n                            />\n                        }\n                    >\n                        <UserInfo user={auth.user} />\n                        <ChevronsUpDown className=\"ml-auto size-4\" />\n                    </DropdownMenuTrigger>\n                    <DropdownMenuContent\n                        className=\"min-w-56 rounded-lg\"\n                        align=\"end\"\n                        side={isMobile ? \"bottom\" : state === \"collapsed\" ? \"left\" : \"bottom\"}\n                    >\n                        <UserMenuContent user={auth.user} />\n                    </DropdownMenuContent>\n                </DropdownMenu>\n            </SidebarMenuItem>\n        </SidebarMenu>\n    );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

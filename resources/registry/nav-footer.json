@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "nav-footer",
+  "dependencies": [
+    "@inertiajs/react"
+  ],
+  "registryDependencies": [
+    "sidebar",
+    "@craft/use-current-url"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/components/nav-footer.tsx",
+      "content": "import type { ComponentPropsWithoutRef } from \"react\";\nimport {\n    SidebarGroup,\n    SidebarGroupContent,\n    SidebarMenu,\n    SidebarMenuButton,\n    SidebarMenuItem,\n} from \"@/components/ui/sidebar\";\nimport { toUrl } from \"@/lib/utils\";\nimport type { NavItem } from \"@/lib/types\";\n\nexport function NavFooter({\n    items,\n    className,\n    ...props\n}: ComponentPropsWithoutRef<typeof SidebarGroup> & {\n    items: NavItem[];\n}) {\n    return (\n        <SidebarGroup {...props} className={`group-data-[collapsible=icon]:p-0 ${className || \"\"}`}>\n            <SidebarGroupContent>\n                <SidebarMenu>\n                    {items.map((item) => (\n                        <SidebarMenuItem key={item.title}>\n                            <SidebarMenuButton\n                                render={\n                                    <a\n                                        href={toUrl(item.href)}\n                                        target=\"_blank\"\n                                        rel=\"noopener noreferrer\"\n                                    />\n                                }\n                                className=\"text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100\"\n                            >\n                                {item.icon && <item.icon className=\"h-5 w-5\" />}\n                                <span>{item.title}</span>\n                            </SidebarMenuButton>\n                        </SidebarMenuItem>\n                    ))}\n                </SidebarMenu>\n            </SidebarGroupContent>\n        </SidebarGroup>\n    );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}
