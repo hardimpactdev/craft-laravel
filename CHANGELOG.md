@@ -2,6 +2,35 @@
 
 All notable changes to `Laravel` will be documented in this file.
 
+## v0.3.4 - 2026-07-14
+
+### What's changed
+
+- Rebuilt the package scaffolds for the Laravel 13 + React 19 Craft starterkit.
+- Bundled the complete Craft React registry so app and authentication setup no longer depends on an unpublished local package.
+- Expanded the app scaffold with Fortify authentication, passkeys, two-factor confirmation, security settings, and generated Wayfinder imports.
+- Added a Filament 5 admin scaffold with shared authentication, user management, profile editing, passkeys, and two-factor controls.
+- Replaced the legacy Vue multilanguage example with JSON translations and a React example page.
+- Cleaned package metadata, obsolete tasks and stubs, distribution exports, and the Laravel/OS CI matrices.
+
+### Breaking changes
+
+The supported public setup commands are now limited to:
+
+- `php artisan craft:setup app`
+- `php artisan craft:setup filament`
+- `php artisan craft:setup multilanguage`
+
+Authentication remains an internal building block of the app and Filament scaffolds; the old public `auth`, `dashboard`, and `cms` setup entry points have been removed.
+
+### Compatibility
+
+- PHP 8.3–8.5
+- Laravel 12–13
+- React 19 starterkit
+
+**Full Changelog**: https://github.com/hardimpactdev/craft-laravel/compare/v0.3.3...v0.3.4
+
 ## v0.3.2 - 2026-05-12
 
 ### What's changed
