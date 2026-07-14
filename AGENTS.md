@@ -49,6 +49,6 @@ For scaffold changes, also run the affected public setup twice in a clean `craft
 
 ## Release workflow
 
-Pushing to `main` runs the test matrix. Once it passes, `.github/workflows/run-tests.yml` creates the next patch tag and GitHub release. `.github/workflows/update-changelog.yml` then updates `CHANGELOG.md`. Do not create a competing manual tag for a normal release.
+Pushing to `main` runs the test matrix. Once it passes, `.github/workflows/run-tests.yml` creates the next patch tag and GitHub release. After that workflow succeeds on `main`, `.github/workflows/update-changelog.yml` reads the published release notes and updates `CHANGELOG.md`; it can also be dispatched manually for recovery. Do not create a competing manual tag for a normal release.
 
 Integration tests require the `GH_PAT` repository secret to check out the private React starterkit.
