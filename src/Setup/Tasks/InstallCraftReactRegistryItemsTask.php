@@ -115,7 +115,15 @@ abstract class InstallCraftReactRegistryItemsTask extends Task
 
     private function formatterProcess(): Process
     {
-        return new Process(['vp', 'check', '--fix', 'resources/js'], base_path());
+        return new Process([
+            'npm',
+            'exec',
+            '--',
+            'vp',
+            'check',
+            '--fix',
+            'resources/js',
+        ], base_path());
     }
 
     private function formatGeneratedFiles(): bool
@@ -210,7 +218,7 @@ abstract class InstallCraftReactRegistryItemsTask extends Task
                 $contents
             );
 
-            if (str_ends_with($path, 'resources/js/pages/auth/two-factor-challenge.tsx')) {
+            if ($this->isTwoFactorChallengePath($path)) {
                 $normalized = str_replace('@/routes/login', '@/routes/two-factor/login', $normalized);
             }
 
@@ -218,5 +226,13 @@ abstract class InstallCraftReactRegistryItemsTask extends Task
                 $this->filesystem->put($path, $normalized);
             }
         }
+    }
+
+    private function isTwoFactorChallengePath(string $path): bool
+    {
+        return str_ends_with(
+            str_replace('\\', '/', $path),
+            'resources/js/pages/auth/two-factor-challenge.tsx',
+        );
     }
 }

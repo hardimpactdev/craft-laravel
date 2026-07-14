@@ -12,6 +12,20 @@ use HardImpact\Craft\Setup\Cms\RunSetupAuthTask;
 use HardImpact\Craft\Setup\SetupAuth;
 use HardImpact\Craft\Setup\SetupCms;
 use Illuminate\Filesystem\Filesystem;
+use Symfony\Component\Process\Process;
+
+/**
+ * @return list<string>
+ */
+function processCommandArguments(Process $process): array
+{
+    $property = new ReflectionProperty(Process::class, 'commandline');
+    $command = $property->getValue($process);
+
+    expect($command)->toBeArray();
+
+    return $command;
+}
 
 // Tests for stub file content and namespace placeholders
 
@@ -541,9 +555,12 @@ describe('Filament auth scaffold integration', function () {
 
         $process = $method->invoke($task, ['@tailwindcss/forms'], 'npm');
 
-        expect($process->getCommandLine())
-            ->toContain("'npm' 'install' '--save-dev' '@tailwindcss/forms'")
-            ->not->toContain("'bun' 'add' '-D'");
+        expect(processCommandArguments($process))->toBe([
+            'npm',
+            'install',
+            '--save-dev',
+            '@tailwindcss/forms',
+        ]);
     });
 
     it('respects the package manager configured by the host project', function () {
@@ -664,11 +681,14 @@ describe('React auth scaffold installation', function () {
 
         $process = $method->invoke($task);
 
-        expect($process->getCommandLine())
-            ->toContain("'laravel/fortify:^1.30'")
-            ->toContain("'laravel/passkeys:^0.2'")
-            ->toContain("'wnx/laravel-tfa-confirmation:^1.0'")
-            ->toContain("'-W'");
+        expect(processCommandArguments($process))->toBe([
+            'composer',
+            'require',
+            'laravel/fortify:^1.30',
+            'laravel/passkeys:^0.2',
+            'wnx/laravel-tfa-confirmation:^1.0',
+            '-W',
+        ]);
 
         $tasks = (new ReflectionProperty(SetupAuth::class, 'tasks'))
             ->getValue(new SetupAuth(new Filesystem));
@@ -825,7 +845,24 @@ describe('React auth scaffold installation', function () {
 
         $process = $method->invoke($task);
 
-        expect($process->getCommandLine())->toContain("'vp' 'check' '--fix' 'resources/js'");
+        expect(processCommandArguments($process))->toBe([
+            'npm',
+            'exec',
+            '--',
+            'vp',
+            'check',
+            '--fix',
+            'resources/js',
+        ]);
+    });
+
+    it('recognizes Windows paths while normalizing two-factor imports', function () {
+        $task = new InstallAuthReactScaffoldTask(new Filesystem);
+        $method = new ReflectionMethod($task, 'isTwoFactorChallengePath');
+        $method->setAccessible(true);
+
+        expect($method->invoke($task, 'C:\\app\\resources\\js\\pages\\auth\\two-factor-challenge.tsx'))
+            ->toBeTrue();
     });
 
     it('normalizes shadcn-rewritten route and page imports after installation', function () {

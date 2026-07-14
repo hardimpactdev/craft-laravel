@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Http;
 
 describe('package service provider', function () {
-    it('boots on Laravel 13 and registers its setup command', function () {
-        expect(str_starts_with(app()->version(), '13.'))->toBeTrue();
+    it('boots on supported Laravel versions and registers its setup command', function () {
+        expect(app()->version())->toMatch('/^(12|13)\./');
         expect(config('craft-laravel.defaults.strict_models'))->toBeTrue();
         expect(Artisan::all())
             ->toHaveKey('craft:setup')
